@@ -1,19 +1,24 @@
 <div class="tab-pane fade" id="printer" role="tabpanel" aria-labelledby="printer-tab">
-    <button type="button" class="btn btn-primary btn-sm my-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-       Tambah Data Printer
-    </button>
+    <?= $printer ?>
     <table class="table table-sm table-hover" id="printerTable">
         <thead>
             <th>No</th>
-            <th>Nama</th>
+            <th>ID</th>
             <th>Jenis</th>
+            <th>Merk</th>
+            <th>Model</th>
+            <th>MAC/SN</th>
+            <th>Plant</th>
+            <th>Lokasi</th>
         </thead>
+        <tbody>
+        </tbody>
     </table>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahPrinter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -31,3 +36,11 @@
     </div>
 </div>
 
+<script>
+    $('.tambahPrinter').click(function() {
+        $('#modalTambahPrinter').modal('show')
+    });
+    $('#printerTable').dataTable({
+        // responsive: true
+    });
+</script>

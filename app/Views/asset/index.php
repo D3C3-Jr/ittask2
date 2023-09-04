@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 
 <div class="card">
-    <h5 class="card-header">Asset</h5>
+    <h5 class="card-header"><?= $title ?></h5>
     <div class="card-body">
         <div class="card-title"></div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -20,7 +20,7 @@
         <div class="tab-content" id="myTabContent">
             <?= $this->include('asset/computer') ?>
             <?= $this->include('asset/printer') ?>
-            <?= $this->include('asset/proyektor') ?>            
+            <?= $this->include('asset/proyektor') ?>
         </div>
     </div>
 </div>
