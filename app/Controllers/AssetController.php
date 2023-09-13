@@ -17,7 +17,7 @@ class AssetController extends BaseController
     {
         $data = [
             'computers' => $this->computerModel->findAll(),
-            'title' => 'Data Asset IT',
+            'title' => 'Data Asset',
             'computer' => '<button class="btn btn-sm btn-primary tambahComputer my-3">Tambah Data Computer</button>',
             'printer' => '<button class="btn btn-sm btn-primary tambahPrinter my-3">Tambah Data Printer</button>',
             'proyektor' => '<button class="btn btn-sm btn-primary tambahProyektor my-3">Tambah Data Proyektor</button>'
