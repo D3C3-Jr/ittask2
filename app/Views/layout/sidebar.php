@@ -17,7 +17,7 @@
                     </a>
                 </li>
                 <li class="<?= ($title == 'Data Asset') ? 'active' : '' ?>">
-                    <a href="#" class="svg-icon">
+                    <a href="/asset" class="svg-icon">
                         <i class="fas fa-boxes-stacked ml-1 mr-3"></i> Asset
                     </a>
                 </li>

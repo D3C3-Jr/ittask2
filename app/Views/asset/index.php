@@ -37,5 +37,18 @@
 <?= $this->include('asset/printer/add'); ?>
 <?= $this->include('asset/proyektor/add'); ?>
 
+<script>
+    function reloadComputer() {
+        table.api().ajax.reload();
+    }
+
+    function addComputer() {
+        method = 'save';
+        $('#modalAddComputer').modal('show');
+        $('.modal-title').text('Form Tambah Data Computer');
+        $('#submit').text('Simpan');
+    }
+</script>
+
 
 <?= $this->endSection(); ?>

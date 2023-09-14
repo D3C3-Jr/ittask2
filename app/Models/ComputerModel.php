@@ -13,7 +13,7 @@ class ComputerModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['asset_number', 'device_id', 'login_user', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'status'];
+    protected $allowedFields    = ['asset_number', 'device_id', 'login_user','serial_number', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'status'];
 
     // Dates
     protected $useTimestamps = true;
@@ -71,9 +71,15 @@ class ComputerModel extends Model
         if ($method = 'save') {
             $asset_number = 'required|is_unique[computer.asset_number]';
             $device_id = 'required|is_unique[computer.device_id]';
+            $login_user = 'required|is_unique[computer.login_user]';
+            $serial_number = 'required|is_unique[computer.serial_number]';
+            $mac_address = 'required|is_unique[computer.mac_address]';
         } else {
             $asset_number = 'required';
             $device_id = 'required';
+            $login_user = 'required';
+            $serial_number = 'required';
+            $mac_address = 'required';
         }
 
         $rulesValidation = [
@@ -91,6 +97,77 @@ class ComputerModel extends Model
                 'errors' => [
                     'required' => '{field} Harus di isi',
                     'is_unique' => '{filed} sudah ada',
+                ],
+            ],
+            'login_user' => [
+                'rules' => $login_user,
+                'label' => 'Login User',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                    'is_unique' => '{filed} sudah ada',
+                ],
+            ],
+            'jenis' => [
+                'rules' => 'required',
+                'label' => 'Jenis',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'nama_produk' => [
+                'rules' => 'required',
+                'label' => 'Nama Produk',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'serial_number' => [
+                'rules' => $serial_number,
+                'label' => 'Serial Number',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'mac_address' => [
+                'rules' => $mac_address,
+                'label' => 'MAC Address',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'prosesor' => [
+                'rules' => 'required',
+                'label' => 'Prosesor',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'ram' => [
+                'rules' => 'required',
+                'label' => 'RAM',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'rom' => [
+                'rules' => 'required',
+                'label' => 'ROM',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'user' => [
+                'rules' => 'required',
+                'label' => 'User',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'status' => [
+                'rules' => 'required',
+                'label' => 'Status',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
                 ],
             ],
 

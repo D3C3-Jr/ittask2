@@ -101,6 +101,7 @@ class AssetController extends BaseController
             'ram' => $this->request->getVar('ram'),
             'rom' => $this->request->getVar('rom'),
             'user' => $this->request->getVar('user'),
+            'status' => $this->request->getVar('status'),
         ];
 
         if ($this->dbComputer->save($data)) {
@@ -118,6 +119,72 @@ class AssetController extends BaseController
             $data['error_string'] = [];
             $data['inputerror'] = [];
             $data['status'] = true;
+
+            if ($validation->hasError('asset_number')) {
+                $data['inputerror'][] = 'asset_number';
+                $data['error_string'][] = $validation->getError('asset_number');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('device_id')) {
+                $data['inputerror'][] = 'device_id';
+                $data['error_string'][] = $validation->getError('device_id');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('login_user')) {
+                $data['inputerror'][] = 'login_user';
+                $data['error_string'][] = $validation->getError('login_user');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('jenis')) {
+                $data['inputerror'][] = 'jenis';
+                $data['error_string'][] = $validation->getError('jenis');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('nama_produk')) {
+                $data['inputerror'][] = 'nama_produk';
+                $data['error_string'][] = $validation->getError('nama_produk');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('serial_number')) {
+                $data['inputerror'][] = 'serial_number';
+                $data['error_string'][] = $validation->getError('serial_number');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('mac_address')) {
+                $data['inputerror'][] = 'mac_address';
+                $data['error_string'][] = $validation->getError('mac_address');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('prosesor')) {
+                $data['inputerror'][] = 'prosesor';
+                $data['error_string'][] = $validation->getError('prosesor');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('ram')) {
+                $data['inputerror'][] = 'ram';
+                $data['error_string'][] = $validation->getError('ram');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('rom')) {
+                $data['inputerror'][] = 'rom';
+                $data['error_string'][] = $validation->getError('rom');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('user')) {
+                $data['inputerror'][] = 'user';
+                $data['error_string'][] = $validation->getError('user');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('status')) {
+                $data['inputerror'][] = 'status';
+                $data['error_string'][] = $validation->getError('status');
+                $data['status'] = false;
+            }
+
+            if($data['status']==false){
+                echo json_encode($data);
+                exit();
+            }
         }
     }
 }

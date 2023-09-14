@@ -45,16 +45,11 @@
             //     'print',
             // ]
         });
+        $('#close').click(function(){
+            $('.help-block').empty(); 
+            $('#form')[0].reset();
+        })
     });
 
-    function reloadComputer() {
-        table.api().ajax.reload();
-    }
-
-    function addComputer() {
-        method = 'save';
-        $('#modalAddComputer').modal('show');
-        $('.modal-title').text('Form Tambah Data Computer');
-        $('#submit').text('Simpan');
-    }
+    
 </script>
