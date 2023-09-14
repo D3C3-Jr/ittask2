@@ -11,8 +11,6 @@
                 </div>
             </div>
             <div class="card-body">
-                <p>Takes the basic nav from above and adds the <code>.nav-tabs</code> class to generate
-                    a tabbed interface.</p>
                 <ul class="nav nav-tabs" id="myTab-two" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="computer-tab-two" data-toggle="tab" href="#computer-two" role="tab" aria-controls="computer" aria-selected="true">computer</a>
@@ -25,6 +23,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent-1">
+
                     <?= $this->include('asset/computer/read') ?>
                     <?= $this->include('asset/printer/read') ?>
                     <?= $this->include('asset/proyektor/read') ?>
@@ -33,5 +32,10 @@
         </div>
     </div>
 </div>
+
+<?= $this->include('asset/computer/add'); ?>
+<?= $this->include('asset/printer/add'); ?>
+<?= $this->include('asset/proyektor/add'); ?>
+
 
 <?= $this->endSection(); ?>

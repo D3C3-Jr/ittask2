@@ -38,4 +38,64 @@ class ComputerModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function ajaxGetData($start, $length)
+    {
+        $result = $this->orderBy('device_id', 'ASC')->findAll($length, $start);
+        return $result;
+    }
+
+    public function ajaxGetDataSearch($search, $start, $length)
+    {
+        $result = $this->like('device_id', $search)->orLike('login_user', $search)->findAll($start, $length);
+        return $result;
+    }
+
+    public function ajaxGetTotal()
+    {
+        $result = $this->countAllResults();
+        if (isset($result)) {
+            return $result;
+        }
+        return 0;
+    }
+
+    public function ajaxGetTotalSearch($search)
+    {
+        $result = $this->like('device_id', $search)->countAllResults();
+        return $result;
+    }
+
+    public function getRulesValidation($method = null)
+    {
+        if ($method = 'save') {
+            $asset_number = 'required|is_unique[computer.asset_number]';
+            $device_id = 'required|is_unique[computer.device_id]';
+        } else {
+            $asset_number = 'required';
+            $device_id = 'required';
+        }
+
+        $rulesValidation = [
+            'asset_number' => [
+                'rules' => $asset_number,
+                'label' => 'Nomor Asset',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                    'is_unique' => '{filed} sudah ada',
+                ],
+            ],
+            'device_id' => [
+                'rules' => $device_id,
+                'label' => 'Device ID',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                    'is_unique' => '{filed} sudah ada',
+                ],
+            ],
+
+        ];
+
+        return $rulesValidation;
+    }
 }
