@@ -117,6 +117,7 @@ class AssetController extends BaseController
             $data = [];
             $data['error_string'] = [];
             $data['inputerror'] = [];
+            $data['status'] = true;
         }
     }
 }
