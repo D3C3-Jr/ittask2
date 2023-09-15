@@ -13,7 +13,7 @@ class ComputerModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['asset_number', 'device_id', 'login_user','serial_number', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'status'];
+    protected $allowedFields    = ['asset_number', 'device_id', 'login_user', 'serial_number', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'status'];
 
     // Dates
     protected $useTimestamps = true;
@@ -68,7 +68,7 @@ class ComputerModel extends Model
 
     public function getRulesValidation($method = null)
     {
-        if ($method = 'save') {
+        if ($method == 'save') {
             $asset_number = 'required|is_unique[computer.asset_number]';
             $device_id = 'required|is_unique[computer.device_id]';
             $login_user = 'required|is_unique[computer.login_user]';

@@ -24,7 +24,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent-1">
 
-                    <?= $this->include('asset/computer/read') ?>
+                    <?= $this->include('asset/computer') ?>
                     <?= $this->include('asset/printer/read') ?>
                     <?= $this->include('asset/proyektor/read') ?>
                 </div>
@@ -33,22 +33,8 @@
     </div>
 </div>
 
-<?= $this->include('asset/computer/add'); ?>
+
 <?= $this->include('asset/printer/add'); ?>
 <?= $this->include('asset/proyektor/add'); ?>
-
-<script>
-    function reloadComputer() {
-        table.api().ajax.reload();
-    }
-
-    function addComputer() {
-        method = 'save';
-        $('#modalAddComputer').modal('show');
-        $('.modal-title').text('Form Tambah Data Computer');
-        $('#submit').text('Simpan');
-    }
-</script>
-
 
 <?= $this->endSection(); ?>

@@ -63,12 +63,12 @@ class AssetController extends BaseController
 
         foreach ($list as $temp) {
             $aksi = '
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success " onclick="editData(' . $temp['id_computer'] . ')"><i class="fas fa-edit"> </i></a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-danger " onclick="hapusData(' . $temp['id_computer'] . ')"><i class="fas fa-trash"> </i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary " onclick="lihatData(' . $temp['id_computer'] . ')"><i class="fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success " onclick="editComputer(' . $temp['id_computer'] . ')"><i class="fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-danger " onclick="deleteComputer(' . $temp['id_computer'] . ')"><i class="fas fa-trash"> </i></a>
             ';
             $row = [];
             $row[] = $no;
-            $row[] = $temp['asset_number'];
             $row[] = $temp['device_id'];
             $row[] = $temp['jenis'];
             $row[] = $temp['login_user'];
@@ -97,7 +97,7 @@ class AssetController extends BaseController
             'nama_produk' => $this->request->getVar('nama_produk'),
             'serial_number' => $this->request->getVar('serial_number'),
             'mac_address' => $this->request->getVar('mac_address'),
-            'processor' => $this->request->getVar('processor'),
+            'prosesor' => $this->request->getVar('prosesor'),
             'ram' => $this->request->getVar('ram'),
             'rom' => $this->request->getVar('rom'),
             'user' => $this->request->getVar('user'),
@@ -105,6 +105,50 @@ class AssetController extends BaseController
         ];
 
         if ($this->dbComputer->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
+    public function editComputer($id_computer)
+    {
+        $data = $this->dbComputer->find($id_computer);
+        echo json_encode($data);
+    }
+
+    public function updateComputer()
+    {
+        $this->_validate('update');
+        $id_computer = $this->request->getVar('id_computer');
+        $computer = $this->dbComputer->find($id_computer);
+
+        $data = [
+            'id_computer' => $id_computer,
+            'asset_number' => $this->request->getVar('asset_number'),
+            'device_id' => $this->request->getVar('device_id'),
+            'login_user' => $this->request->getVar('login_user'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'serial_number' => $this->request->getVar('serial_number'),
+            'mac_address' => $this->request->getVar('mac_address'),
+            'prosesor' => $this->request->getVar('prosesor'),
+            'ram' => $this->request->getVar('ram'),
+            'rom' => $this->request->getVar('rom'),
+            'user' => $this->request->getVar('user'),
+            'status' => $this->request->getVar('status'),
+        ];
+
+        if ($this->dbComputer->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
+    public function deleteComputer($id_computer)
+    {
+        if ($this->dbComputer->delete($id_computer)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
@@ -181,7 +225,7 @@ class AssetController extends BaseController
                 $data['status'] = false;
             }
 
-            if($data['status']==false){
+            if ($data['status'] === false) {
                 echo json_encode($data);
                 exit();
             }

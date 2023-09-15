@@ -64,6 +64,7 @@
             </div>
         </div>
     </footer>
+
     <!-- Backend Bundle JavaScript -->
     <script src="<?= base_url() ?>/assets/js/backend-bundle.min.js"></script>
 
