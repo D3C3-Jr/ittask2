@@ -63,7 +63,7 @@ class AssetController extends BaseController
 
         foreach ($list as $temp) {
             $aksi = '
-                    <a href="javascript:void(0)" class="btn btn-sm btn-primary " onclick="lihatData(' . $temp['id_computer'] . ')"><i class="fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary " onclick="detailComputer(' . $temp['id_computer'] . ')"><i class="fas fa-eye"> </i></a>
                     <a href="javascript:void(0)" class="btn btn-sm btn-success " onclick="editComputer(' . $temp['id_computer'] . ')"><i class="fas fa-edit"> </i></a>
                     <a href="javascript:void(0)" class="btn btn-sm btn-danger " onclick="deleteComputer(' . $temp['id_computer'] . ')"><i class="fas fa-trash"> </i></a>
             ';
@@ -112,6 +112,12 @@ class AssetController extends BaseController
     }
 
     public function editComputer($id_computer)
+    {
+        $data = $this->dbComputer->find($id_computer);
+        echo json_encode($data);
+    }
+
+    public function detailComputer($id_computer)
     {
         $data = $this->dbComputer->find($id_computer);
         echo json_encode($data);

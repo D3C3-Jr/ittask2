@@ -32,93 +32,101 @@
             <form action="#" id="form" enctype="multipart/form-data">
                 <input type="hidden" name="id_computer" id="id_computer">
                 <div class="modal-body">
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="asset_number" class="col-sm-4 col-form-label">Nomor Asset</label>
                         <div class="col-sm-8">
                             <input type="text" name="asset_number" class="form-control form-control-sm" id="asset_number">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="device_id" class="col-sm-4 col-form-label">Device ID</label>
                         <div class="col-sm-8">
                             <input type="text" name="device_id" class="form-control form-control-sm" id="device_id">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="login_user" class="col-sm-4 col-form-label">Login User</label>
                         <div class="col-sm-8">
                             <input type="text" name="login_user" class="form-control form-control-sm" id="login_user">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="jenis" class="col-sm-4 col-form-label">Jenis</label>
                         <div class="col-sm-8">
-                            <input type="text" name="jenis" class="form-control form-control-sm" id="jenis">
+                            <select name="jenis" id="jenis" class="form-control form-control-sm">
+                                <option selected hidden disabled>Pilih Jenis</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="PC Desktop">PC Desktop</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="nama_produk" class="col-sm-4 col-form-label">Nama Produk</label>
                         <div class="col-sm-8">
                             <input type="text" name="nama_produk" class="form-control form-control-sm" id="nama_produk">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="serial_number" class="col-sm-4 col-form-label">Serial Number</label>
                         <div class="col-sm-8">
                             <input type="text" name="serial_number" class="form-control form-control-sm" id="serial_number">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="mac_address" class="col-sm-4 col-form-label">MAC Address</label>
                         <div class="col-sm-8">
                             <input type="text" name="mac_address" class="form-control form-control-sm" id="mac_address">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="prosesor" class="col-sm-4 col-form-label">Prosesor</label>
                         <div class="col-sm-8">
                             <input type="text" name="prosesor" class="form-control form-control-sm" id="prosesor">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="ram" class="col-sm-4 col-form-label">RAM</label>
                         <div class="col-sm-8">
                             <input type="text" name="ram" class="form-control form-control-sm" id="ram">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="rom" class="col-sm-4 col-form-label">ROM</label>
                         <div class="col-sm-8">
                             <input type="text" name="rom" class="form-control form-control-sm" id="rom">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="user" class="col-sm-4 col-form-label">User</label>
                         <div class="col-sm-8">
                             <input type="text" name="user" class="form-control form-control-sm" id="user">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <label for="status" class="col-sm-4 col-form-label">Status</label>
                         <div class="col-sm-8">
-                            <input type="text" name="status" class="form-control form-control-sm" id="status">
+                            <select name="status" id="status" class="form-control form-control-sm">
+                                <option disabled selected hidden>Pilih Status</option>
+                                <option value="0">Tidak Aktif</option>
+                                <option value="1">Aktif</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="close" class="btn btn-secondary" onclick="resetForm()" data-dismiss="modal">Close</button>
                     <button type="button" id="submit" class="btn btn-primary" onclick="saveComputer()">Save changes</button>
                 </div>
             </form>
@@ -150,11 +158,16 @@
             //     'print',
             // ]
         });
-        $('#close').click(function() {
-            $('.help-block').empty();
-            $('#form')[0].reset();
-        })
+        // $('#close').click(function() {
+        //     $('.help-block').empty();
+        //     $('#form')[0].reset();
+        // })
     });
+
+    function resetForm() {
+        $('.help-block').empty();
+        $('#form')[0].reset();
+    }
 
     function reloadComputer() {
         table.api().ajax.reload();
@@ -162,10 +175,43 @@
 
     function addComputer() {
         method = 'save';
+        $('.modal-footer').attr('hidden', false);
         $('#form')[0].reset();
         $('#modalComputer').modal('show');
+        $('input').attr('disabled', false);
+        $('select').attr('disabled', false);
         $('.modal-title').text('Form Tambah Data Computer');
         $('#submit').text('Simpan');
+    }
+
+    function detailComputer(id_computer) {
+        $.ajax({
+            url: '<?php site_url() ?>/asset/computer/detail/' + id_computer,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(data) {
+                $('[name="id_computer"]').val(data.id_computer).attr('disabled', true);
+                $('[name="asset_number"]').val(data.asset_number).attr('disabled', true);
+                $('[name="device_id"]').val(data.device_id).attr('disabled', true);
+                $('[name="login_user"]').val(data.login_user).attr('disabled', true);
+                $('[name="jenis"]').val(data.jenis).attr('disabled', true);
+                $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', true);
+                $('[name="serial_number"]').val(data.serial_number).attr('disabled', true);
+                $('[name="mac_address"]').val(data.mac_address).attr('disabled', true);
+                $('[name="prosesor"]').val(data.prosesor).attr('disabled', true);
+                $('[name="ram"]').val(data.ram).attr('disabled', true);
+                $('[name="rom"]').val(data.rom).attr('disabled', true);
+                $('[name="user"]').val(data.user).attr('disabled', true);
+                $('[name="status"]').val(data.status).attr('disabled', true);
+
+                $('#modalComputer').modal('show');
+                $('.modal-title').text('Detail Data Computer');
+                $('.modal-footer').attr('hidden', true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error');
+            }
+        })
     }
 
     function editComputer(id_computer) {
@@ -175,20 +221,21 @@
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
-                $('[name="id_computer"]').val(data.id_computer);
-                $('[name="asset_number"]').val(data.asset_number);
-                $('[name="device_id"]').val(data.device_id);
-                $('[name="login_user"]').val(data.login_user);
-                $('[name="jenis"]').val(data.jenis);
-                $('[name="nama_produk"]').val(data.nama_produk);
-                $('[name="serial_number"]').val(data.serial_number);
-                $('[name="mac_address"]').val(data.mac_address);
-                $('[name="prosesor"]').val(data.prosesor);
-                $('[name="ram"]').val(data.ram);
-                $('[name="rom"]').val(data.rom);
-                $('[name="user"]').val(data.user);
-                $('[name="status"]').val(data.status);
+                $('[name="id_computer"]').val(data.id_computer).attr('disabled', false);
+                $('[name="asset_number"]').val(data.asset_number).attr('disabled', false);
+                $('[name="device_id"]').val(data.device_id).attr('disabled', false);
+                $('[name="login_user"]').val(data.login_user).attr('disabled', false);
+                $('[name="jenis"]').val(data.jenis).attr('disabled', false);
+                $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', false);
+                $('[name="serial_number"]').val(data.serial_number).attr('disabled', false);
+                $('[name="mac_address"]').val(data.mac_address).attr('disabled', false);
+                $('[name="prosesor"]').val(data.prosesor).attr('disabled', false);
+                $('[name="ram"]').val(data.ram).attr('disabled', false);
+                $('[name="rom"]').val(data.rom).attr('disabled', false);
+                $('[name="user"]').val(data.user).attr('disabled', false);
+                $('[name="status"]').val(data.status).attr('disabled', false);
 
+                $('.modal-footer').attr('hidden', false);
                 $('#modalComputer').modal('show');
                 $('.modal-title').text('Form Edit Data Computer');
                 $('#submit').text('Update');
@@ -235,7 +282,7 @@
     function saveComputer() {
         if (method == 'save') {
             url = '<?= site_url() ?>/asset/computer/save';
-            $text = 'Data berhasil di Update';
+            $text = 'Data berhasil di Ditambah';
         } else {
             url = '<?= site_url() ?>/asset/computer/update';
             $text = 'Data berhasil di Update';
