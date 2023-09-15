@@ -47,7 +47,7 @@ class ComputerModel extends Model
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->like('device_id', $search)->orLike('login_user', $search)->findAll($start, $length);
+        $result = $this->like('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->findAll($start, $length);
         return $result;
     }
 
@@ -88,7 +88,7 @@ class ComputerModel extends Model
                 'label' => 'Nomor Asset',
                 'errors' => [
                     'required' => '{field} Harus di isi',
-                    'is_unique' => '{filed} sudah ada',
+                    'is_unique' => '{field} sudah ada',
                 ],
             ],
             'device_id' => [
@@ -96,7 +96,7 @@ class ComputerModel extends Model
                 'label' => 'Device ID',
                 'errors' => [
                     'required' => '{field} Harus di isi',
-                    'is_unique' => '{filed} sudah ada',
+                    'is_unique' => '{field} sudah ada',
                 ],
             ],
             'login_user' => [
@@ -104,7 +104,7 @@ class ComputerModel extends Model
                 'label' => 'Login User',
                 'errors' => [
                     'required' => '{field} Harus di isi',
-                    'is_unique' => '{filed} sudah ada',
+                    'is_unique' => '{field} sudah ada',
                 ],
             ],
             'jenis' => [
