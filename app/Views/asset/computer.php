@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="computer-two" role="tabpanel" aria-labelledby="computer-tab-two">
     <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadComputer()"><i class="fas fa-sync"></i></a>
     <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addComputer()"><i class="fas fa-plus"> </i> Tambah Data</a>
-    <table class="table table-sm" id="tableComputer">
+    <table class="table table-sm" id="tableComputer" width="100%">
         <thead>
             <tr class="ligth">
                 <th>No</th>
@@ -135,18 +135,18 @@
 </div>
 
 <script>
-    var table;
+    var tableComputer;
     var method;
     var url;
 
     $(document).ready(function() {
-        table = $('#tableComputer').dataTable({
+        tableComputer = $('#tableComputer').dataTable({
             "ajax": {
                 "url": '<?= site_url() ?>/asset/computer/read',
                 "type": 'GET'
             },
             "deferRender": true,
-            "responsive": true,
+            // "responsive": true,
             "serverSide": true,
             "processing": true,
             // "scrollY": 250,
@@ -170,7 +170,7 @@
     }
 
     function reloadComputer() {
-        table.api().ajax.reload();
+        tableComputer.api().ajax.reload();
     }
 
     function addComputer() {

@@ -25,7 +25,7 @@
                 <div class="tab-content" id="myTabContent-1">
 
                     <?= $this->include('asset/computer') ?>
-                    <?= $this->include('asset/printer/read') ?>
+                    <?= $this->include('asset/printer') ?>
                     <?= $this->include('asset/proyektor/read') ?>
                 </div>
             </div>
@@ -34,7 +34,6 @@
 </div>
 
 
-<?= $this->include('asset/printer/add'); ?>
 <?= $this->include('asset/proyektor/add'); ?>
 
 <?= $this->endSection(); ?>

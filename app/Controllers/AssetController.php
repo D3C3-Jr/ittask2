@@ -22,7 +22,6 @@ class AssetController extends BaseController
     public function index()
     {
         $data = [
-            'printers' => $this->dbPrinter->findAll(),
             'proyektors' => $this->dbProyektor->findAll(),
             'title' => 'Data Asset',
         ];
@@ -63,9 +62,9 @@ class AssetController extends BaseController
 
         foreach ($list as $temp) {
             $aksi = '
-                    <a href="javascript:void(0)" class="btn btn-sm btn-primary " onclick="detailComputer(' . $temp['id_computer'] . ')"><i class="fas fa-eye"> </i></a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success " onclick="editComputer(' . $temp['id_computer'] . ')"><i class="fas fa-edit"> </i></a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-danger " onclick="deleteComputer(' . $temp['id_computer'] . ')"><i class="fas fa-trash"> </i></a>
+                    <a href="javascript:void(0)" onclick="detailComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             ';
             $row = [];
             $row[] = $no;
@@ -84,6 +83,63 @@ class AssetController extends BaseController
 
         echo json_encode($output);
         exit();
+    }
+
+    public function readPrinter()
+    {
+        $draw = $_REQUEST['draw'];
+        $length = $_REQUEST['length'];
+        $start = $_REQUEST['start'];
+        $search = $_REQUEST['search']['value'];
+
+        $total = $this->dbPrinter->ajaxGetTotal();
+        $output = [
+            'length' => $length,
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+        ];
+
+        if ($search !== "") {
+            $list = $this->dbPrinter->ajaxGetDataSearch($search, $start, $length);
+        } else {
+            $list = $this->dbPrinter->ajaxGetData($start, $length);
+        }
+
+        if ($search !== "") {
+            $total_search = $this->dbPrinter->ajaxGetTotalSearch($search);
+            $output = [
+                'recordsTotal' => $total_search,
+                'recordsFiltered' => $total_search
+            ];
+        }
+
+        $data = [];
+        $no = $start + 1;
+
+        foreach ($list as $temp) {
+            $aksi = '
+                    <a href="javascript:void(0)" onclick="detailPrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editPrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deletePrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+            ';
+            $row = [];
+            $row[] = $no;
+            $row[] = $temp['device_id'];
+            $row[] = $temp['jenis'];
+            $row[] = $temp['merk'];
+            $row[] = $temp['model'];
+            $row[] = $temp['mac_sn'];
+            $row[] = $aksi;
+
+            $data[] = $row;
+            $no++;
+        }
+
+        $output['data'] = $data;
+
+        echo json_encode($output);
+        exit();  
     }
 
     public function saveComputer()
@@ -111,15 +167,47 @@ class AssetController extends BaseController
         }
     }
 
+    public function savePrinter()
+    {
+        $this->_validatePrinter('save');
+        $data = [
+            'device_id' => $this->request->getVar('device_id'),
+            'jenis' => $this->request->getVar('jenis'),
+            'merk' => $this->request->getVar('merk'),
+            'model' => $this->request->getVar('model'),
+            'mac_sn' => $this->request->getVar('mac_sn'),
+            'plant' => $this->request->getVar('plant'),
+            'lokasi' => $this->request->getVar('lokasi'),
+        ];
+
+        if ($this->dbPrinter->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
     public function editComputer($id_computer)
     {
         $data = $this->dbComputer->find($id_computer);
         echo json_encode($data);
     }
 
+    public function editPrinter($id_printer)
+    {
+        $data = $this->dbPrinter->find($id_printer);
+        echo json_encode($data);
+    }
+
     public function detailComputer($id_computer)
     {
         $data = $this->dbComputer->find($id_computer);
+        echo json_encode($data);
+    }
+
+    public function detailPrinter($id_printer)
+    {
+        $data = $this->dbComputer->find($id_printer);
         echo json_encode($data);
     }
 
@@ -152,6 +240,30 @@ class AssetController extends BaseController
         }
     }
 
+    public function updatePrinter()
+    {
+        $this->_validatePrinter('update');
+        $id_printer = $this->request->getVar('id_printer');
+        $printer = $this->dbPrinter->find($id_printer);
+
+        $data = [
+            'id_printer' => $id_printer,
+            'device_id' => $this->request->getVar('device_id'),
+            'jenis' => $this->request->getVar('jenis'),
+            'merk' => $this->request->getVar('merk'),
+            'model' => $this->request->getVar('model'),
+            'mac_sn' => $this->request->getVar('mac_sn'),
+            'plant' => $this->request->getVar('plant'),
+            'lokasi' => $this->request->getVar('lokasi'),
+        ];
+
+        if ($this->dbPrinter->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
     public function deleteComputer($id_computer)
     {
         if ($this->dbComputer->delete($id_computer)) {
@@ -159,6 +271,15 @@ class AssetController extends BaseController
         } else {
             echo json_encode(['status' => false]);
         }
+    }
+
+    public function deletePrinter($id_printer)
+    {
+        if ($this->dbPrinter->delete($id_printer)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        } 
     }
 
     public function _validate($method)
@@ -228,6 +349,58 @@ class AssetController extends BaseController
             if ($validation->hasError('status')) {
                 $data['inputerror'][] = 'status';
                 $data['error_string'][] = $validation->getError('status');
+                $data['status'] = false;
+            }
+
+            if ($data['status'] === false) {
+                echo json_encode($data);
+                exit();
+            }
+        }
+    }
+
+    public function _validatePrinter($method)
+    {
+        if (!$this->validate($this->dbPrinter->getRulesValidation($method))) {
+            $validation = \Config\Services::validation();
+            $data = [];
+            $data['error_string'] = [];
+            $data['inputerror'] = [];
+            $data['status'] = true;
+
+            if ($validation->hasError('device_id')) {
+                $data['inputerror'][] = 'device_id';
+                $data['error_string'][] = $validation->getError('device_id');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('jenis')) {
+                $data['inputerror'][] = 'jenis';
+                $data['error_string'][] = $validation->getError('jenis');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('merk')) {
+                $data['inputerror'][] = 'merk';
+                $data['error_string'][] = $validation->getError('merk');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('model')) {
+                $data['inputerror'][] = 'model';
+                $data['error_string'][] = $validation->getError('model');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('mac_sn')) {
+                $data['inputerror'][] = 'mac_sn';
+                $data['error_string'][] = $validation->getError('mac_sn');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('plant')) {
+                $data['inputerror'][] = 'plant';
+                $data['error_string'][] = $validation->getError('plant');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('lokasi')) {
+                $data['inputerror'][] = 'lokasi';
+                $data['error_string'][] = $validation->getError('lokasi');
                 $data['status'] = false;
             }
 
