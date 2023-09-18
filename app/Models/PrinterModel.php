@@ -13,7 +13,7 @@ class PrinterModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['device_id', 'jenis', 'merk', 'model', 'mac_sn', 'plant', 'lokasi'];
+    protected $allowedFields    = ['device_id', 'jenis', 'merk', 'model', 'mac_sn', 'plant', 'lokasi','ip_address'];
 
     // Dates
     protected $useTimestamps = true;
@@ -123,6 +123,13 @@ class PrinterModel extends Model
             'lokasi' => [
                 'rules' => 'required',
                 'label' => 'Lokasi',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'ip_address' => [
+                'rules' => 'required',
+                'label' => 'IP Address',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],

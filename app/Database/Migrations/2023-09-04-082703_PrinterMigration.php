@@ -41,6 +41,10 @@ class PrinterMigration extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
+            'ip_address' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+            ],
             'created_at' => [
                 'type'       => 'DATETIME',
             ],

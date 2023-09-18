@@ -83,6 +83,13 @@
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
+                    <div class="row mb-1">
+                        <label for="ip_address" class="col-sm-4 col-form-label">IP Address</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="ip_address" class="form-control form-control-sm" id="ip_address">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="close" class="btn btn-secondary" onclick="resetForm()" data-dismiss="modal">Close</button>
@@ -179,6 +186,7 @@
                 $('[name="mac_sn"]').val(data.mac_sn).attr('disabled', false);
                 $('[name="plant"]').val(data.plant).attr('disabled', false);
                 $('[name="lokasi"]').val(data.lokasi).attr('disabled', false);
+                $('[name="ip_address"]').val(data.ip_address).attr('disabled', false);
 
                 $('.modal-footer').attr('hidden', false);
                 $('#modalPrinter').modal('show');

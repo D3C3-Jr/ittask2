@@ -251,6 +251,7 @@ class AssetController extends BaseController
             'mac_sn' => $this->request->getVar('mac_sn'),
             'plant' => $this->request->getVar('plant'),
             'lokasi' => $this->request->getVar('lokasi'),
+            'ip_address' => $this->request->getVar('ip_address'),
         ];
 
         if ($this->dbPrinter->save($data)) {
@@ -547,6 +548,11 @@ class AssetController extends BaseController
             if ($validation->hasError('lokasi')) {
                 $data['inputerror'][] = 'lokasi';
                 $data['error_string'][] = $validation->getError('lokasi');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('ip_address')) {
+                $data['inputerror'][] = 'ip_address';
+                $data['error_string'][] = $validation->getError('ip_address');
                 $data['status'] = false;
             }
 
