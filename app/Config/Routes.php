@@ -20,3 +20,11 @@ $routes->post('/asset/printer/update', 'AssetController::updatePrinter');
 $routes->delete('/asset/printer/delete/(:num)', 'AssetController::deletePrinter/$1');
 $routes->get('/asset/printer/detail/(:num)', 'AssetController::detailPrinter/$1');
 
+$routes->get('/asset/proyektor/read', 'AssetController::readProyektor');
+$routes->post('/asset/proyektor/save', 'AssetController::saveProyektor');
+$routes->get('/asset/proyektor/edit/(:num)', 'AssetController::editProyektor/$1');
+$routes->post('/asset/proyektor/update', 'AssetController::updateProyektor');
+$routes->delete('/asset/proyektor/delete/(:num)', 'AssetController::deleteProyektor/$1');
+$routes->get('/asset/proyektor/detail/(:num)', 'AssetController::detailProyektor/$1');
+
+

@@ -26,14 +26,11 @@
 
                     <?= $this->include('asset/computer') ?>
                     <?= $this->include('asset/printer') ?>
-                    <?= $this->include('asset/proyektor/read') ?>
+                    <?= $this->include('asset/proyektor') ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<?= $this->include('asset/proyektor/add'); ?>
 
 <?= $this->endSection(); ?>

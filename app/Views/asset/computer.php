@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="computer-two" role="tabpanel" aria-labelledby="computer-tab-two">
     <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadComputer()"><i class="fas fa-sync"></i></a>
     <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addComputer()"><i class="fas fa-plus"> </i> Tambah Data</a>
-    <table class="table table-sm" id="tableComputer" width="100%">
+    <table class="table-sm table-striped" id="tableComputer" width="100%">
         <thead>
             <tr class="ligth">
                 <th>No</th>
@@ -10,7 +10,7 @@
                 <th>Serial Number</th>
                 <th>User</th>
                 <th>Status</th>
-                <th>Aksi</th>
+                <th class="text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -149,6 +149,7 @@
             // "responsive": true,
             "serverSide": true,
             "processing": true,
+            "bDestroy": true,
             // "scrollY": 250,
             // "scroller": true,
             // "dom": 'Bfrtip',

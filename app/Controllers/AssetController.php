@@ -22,12 +22,13 @@ class AssetController extends BaseController
     public function index()
     {
         $data = [
-            'proyektors' => $this->dbProyektor->findAll(),
             'title' => 'Data Asset',
         ];
         return view('asset/index', $data);
     }
 
+
+    // READ
     public function readComputer()
     {
         $draw = $_REQUEST['draw'];
@@ -62,10 +63,12 @@ class AssetController extends BaseController
 
         foreach ($list as $temp) {
             $aksi = '
+            <div class="text-center">
                     <a href="javascript:void(0)" onclick="detailComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
                     <a href="javascript:void(0)" onclick="editComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
                     <a href="javascript:void(0)" onclick="deleteComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
-            ';
+            </div>
+                    ';
             $status = $temp['status'];
             if ($status == 0) {
                 $status = '<badge class="badge badge-danger"> Spare </badge>';
@@ -125,17 +128,19 @@ class AssetController extends BaseController
 
         foreach ($list as $temp) {
             $aksi = '
+            <div class="text-center">
                     <a href="javascript:void(0)" onclick="detailPrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
                     <a href="javascript:void(0)" onclick="editPrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
                     <a href="javascript:void(0)" onclick="deletePrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
-            ';
+            </div>
+                    ';
             $row = [];
             $row[] = $no;
             $row[] = $temp['device_id'];
             $row[] = $temp['jenis'];
             $row[] = $temp['merk'];
             $row[] = $temp['model'];
-            $row[] = $temp['mac_sn'];
+            // $row[] = $temp['mac_sn'];
             $row[] = $aksi;
 
             $data[] = $row;
@@ -148,6 +153,68 @@ class AssetController extends BaseController
         exit();
     }
 
+    public function readProyektor()
+    {
+        $draw = $_REQUEST['draw'];
+        $length = $_REQUEST['length'];
+        $start = $_REQUEST['start'];
+        $search = $_REQUEST['search']['value'];
+
+        $total = $this->dbProyektor->ajaxGetTotal();
+        $output = [
+            'length' => $length,
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+        ];
+
+        if ($search !== "") {
+            $list = $this->dbProyektor->ajaxGetDataSearch($search, $start, $length);
+        } else {
+            $list = $this->dbProyektor->ajaxGetData($start, $length);
+        }
+
+        if ($search !== "") {
+            $total_search = $this->dbProyektor->ajaxGetTotalSearch($search);
+            $output = [
+                'recordsTotal' => $total_search,
+                'recordsFiltered' => $total_search
+            ];
+        }
+
+        $data = [];
+        $no = $start + 1;
+
+        foreach ($list as $temp) {
+            $aksi = '
+            <div class="text-center">
+                    <a href="javascript:void(0)" onclick="detailProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+            </div>
+                    ';
+            $row = [];
+            $row[] = $no;
+            $row[] = $temp['device_id'];
+            $row[] = $temp['jenis'];
+            $row[] = $temp['nama_produk'];
+            $row[] = $temp['serial_number'];
+            // $row[] = $temp['plant'];
+            // $row[] = $temp['lokasi'];
+            $row[] = $aksi;
+
+            $data[] = $row;
+            $no++;
+        }
+
+        $output['data'] = $data;
+
+        echo json_encode($output);
+        exit();  
+    }
+
+
+    // SAVE
     public function saveComputer()
     {
         $this->_validate('save');
@@ -193,6 +260,27 @@ class AssetController extends BaseController
         }
     }
 
+    public function saveProyektor()
+    {
+        $this->_validateProyektor('save');
+        $data = [
+            'device_id' => $this->request->getVar('device_id'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'serial_number' => $this->request->getVar('serial_number'),
+            'plant' => $this->request->getVar('plant'),
+            'lokasi' => $this->request->getVar('lokasi'),
+        ];
+
+        if ($this->dbProyektor->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        } 
+    }
+
+
+    // EDIT
     public function editComputer($id_computer)
     {
         $data = $this->dbComputer->find($id_computer);
@@ -205,6 +293,14 @@ class AssetController extends BaseController
         echo json_encode($data);
     }
 
+    public function editProyektor($id_proyektor)
+    {
+        $data = $this->dbProyektor->find($id_proyektor);
+        echo json_encode($data);
+    }
+
+
+    // DETAIL
     public function detailComputer($id_computer)
     {
         $data = $this->dbComputer->find($id_computer);
@@ -217,6 +313,14 @@ class AssetController extends BaseController
         echo json_encode($data);
     }
 
+    public function detailProyektor($id_proyektor)
+    {
+        $data = $this->dbProyektor->find($id_proyektor);
+        echo json_encode($data);
+    }
+
+
+    // UPDATE
     public function updateComputer()
     {
         $this->_validate('update');
@@ -270,6 +374,31 @@ class AssetController extends BaseController
         }
     }
 
+    public function updateProyektor()
+    {
+        $this->_validateProyektor('update');
+        $id_proyektor = $this->request->getVar('id_proyektor');
+        $proyektor = $this->dbProyektor->find($id_proyektor);
+
+        $data = [
+            'id_proyektor' => $id_proyektor,
+            'device_id' => $this->request->getVar('device_id'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'serial_number' => $this->request->getVar('serial_number'),
+            'plant' => $this->request->getVar('plant'),
+            'lokasi' => $this->request->getVar('lokasi'),
+        ];
+
+        if ($this->dbProyektor->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
+
+    // DELETE
     public function deleteComputer($id_computer)
     {
         if ($this->dbComputer->delete($id_computer)) {
@@ -288,6 +417,17 @@ class AssetController extends BaseController
         }
     }
 
+    public function deleteProyektor($id_proyektor)
+    {
+        if ($this->dbProyektor->delete($id_proyektor)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }  
+    }
+
+
+    // VALIDATION
     public function _validate($method)
     {
         if (!$this->validate($this->dbComputer->getRulesValidation($method))) {
@@ -397,6 +537,53 @@ class AssetController extends BaseController
             if ($validation->hasError('mac_sn')) {
                 $data['inputerror'][] = 'mac_sn';
                 $data['error_string'][] = $validation->getError('mac_sn');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('plant')) {
+                $data['inputerror'][] = 'plant';
+                $data['error_string'][] = $validation->getError('plant');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('lokasi')) {
+                $data['inputerror'][] = 'lokasi';
+                $data['error_string'][] = $validation->getError('lokasi');
+                $data['status'] = false;
+            }
+
+            if ($data['status'] === false) {
+                echo json_encode($data);
+                exit();
+            }
+        }
+    }
+
+    public function _validateProyektor($method)
+    {
+        if (!$this->validate($this->dbProyektor->getRulesValidation($method))) {
+            $validation = \Config\Services::validation();
+            $data = [];
+            $data['error_string'] = [];
+            $data['inputerror'] = [];
+            $data['status'] = true;
+
+            if ($validation->hasError('device_id')) {
+                $data['inputerror'][] = 'device_id';
+                $data['error_string'][] = $validation->getError('device_id');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('jenis')) {
+                $data['inputerror'][] = 'jenis';
+                $data['error_string'][] = $validation->getError('jenis');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('nama_produk')) {
+                $data['inputerror'][] = 'nama_produk';
+                $data['error_string'][] = $validation->getError('nama_produk');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('serial_number')) {
+                $data['inputerror'][] = 'serial_number';
+                $data['error_string'][] = $validation->getError('serial_number');
                 $data['status'] = false;
             }
             if ($validation->hasError('plant')) {
