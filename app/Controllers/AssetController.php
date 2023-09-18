@@ -66,13 +66,19 @@ class AssetController extends BaseController
                     <a href="javascript:void(0)" onclick="editComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
                     <a href="javascript:void(0)" onclick="deleteComputer(' . $temp['id_computer'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             ';
+            $status = $temp['status'];
+            if ($status == 0) {
+                $status = '<badge class="badge badge-danger"> Spare </badge>';
+            } else {
+                $status = '<badge class="badge badge-info"> Aktif </badge>';
+            }
             $row = [];
             $row[] = $no;
             $row[] = $temp['device_id'];
-            $row[] = $temp['jenis'];
             $row[] = $temp['login_user'];
             $row[] = $temp['serial_number'];
             $row[] = $temp['user'];
+            $row[] = $status;
             $row[] = $aksi;
 
             $data[] = $row;
@@ -139,7 +145,7 @@ class AssetController extends BaseController
         $output['data'] = $data;
 
         echo json_encode($output);
-        exit();  
+        exit();
     }
 
     public function saveComputer()
@@ -279,7 +285,7 @@ class AssetController extends BaseController
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
-        } 
+        }
     }
 
     public function _validate($method)

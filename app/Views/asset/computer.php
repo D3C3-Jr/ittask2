@@ -6,10 +6,10 @@
             <tr class="ligth">
                 <th>No</th>
                 <th>Device ID</th>
-                <th>Jenis</th>
                 <th>User ID</th>
                 <th>Serial Number</th>
                 <th>User</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
