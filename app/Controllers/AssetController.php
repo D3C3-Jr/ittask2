@@ -213,7 +213,7 @@ class AssetController extends BaseController
 
     public function detailPrinter($id_printer)
     {
-        $data = $this->dbComputer->find($id_printer);
+        $data = $this->dbPrinter->find($id_printer);
         echo json_encode($data);
     }
 

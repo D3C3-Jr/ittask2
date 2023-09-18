@@ -62,7 +62,7 @@ class ComputerModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->like('device_id', $search)->countAllResults();
+        $result = $this->like('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->countAllResults();
         return $result;
     }
 
