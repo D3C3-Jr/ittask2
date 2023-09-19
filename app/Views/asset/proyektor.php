@@ -95,12 +95,12 @@
                 "type": 'GET'
             },
             "deferRender": true,
-            // "responsive": true,
             "serverSide": true,
             "processing": true,
             "bDestroy": true,
-            // "scrollY": 250,
-            // "scroller": true,
+            "scrollY": 250,
+            "scroller": true,
+            // "responsive": true,
             // dom: 'Bfrtip',
             // buttons: [
             //     'pageLength',
