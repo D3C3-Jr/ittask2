@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/asset', 'AssetController::index');
+$routes->get('/asset/computer/pdf', 'AssetController::pdfComputer');
 $routes->get('/asset/computer/read', 'AssetController::readComputer');
 $routes->post('/asset/computer/save', 'AssetController::saveComputer');
 $routes->get('/asset/computer/edit/(:num)', 'AssetController::editComputer/$1');
@@ -26,5 +27,3 @@ $routes->get('/asset/proyektor/edit/(:num)', 'AssetController::editProyektor/$1'
 $routes->post('/asset/proyektor/update', 'AssetController::updateProyektor');
 $routes->delete('/asset/proyektor/delete/(:num)', 'AssetController::deleteProyektor/$1');
 $routes->get('/asset/proyektor/detail/(:num)', 'AssetController::detailProyektor/$1');
-
-

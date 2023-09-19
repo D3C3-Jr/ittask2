@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ComputerModel;
 use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
+use Dompdf\Dompdf;
 
 class AssetController extends BaseController
 {
@@ -608,5 +609,17 @@ class AssetController extends BaseController
                 exit();
             }
         }
+    }
+
+
+    public function pdfComputer()
+    {
+        $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('asset/computer'));
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $dompdf->stream($filename);
     }
 }
