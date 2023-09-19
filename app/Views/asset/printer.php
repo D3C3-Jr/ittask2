@@ -9,6 +9,7 @@
                 <th>Jenis</th>
                 <th>Merk</th>
                 <th>Model</th>
+                <th>MAC / SN</th>
                 <th class="text-center">Aksi</th>
             </tr>
         </thead>
@@ -160,6 +161,7 @@
                 $('[name="mac_sn"]').val(data.mac_sn).attr('disabled', true);
                 $('[name="plant"]').val(data.plant).attr('disabled', true);
                 $('[name="lokasi"]').val(data.lokasi).attr('disabled', true);
+                $('[name="ip_address"]').val(data.ip_address).attr('disabled', true);
 
                 $('#modalPrinter').modal('show');
                 $('.modal-title').text('Detail Data Printer');

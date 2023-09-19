@@ -140,7 +140,7 @@ class AssetController extends BaseController
             $row[] = $temp['jenis'];
             $row[] = $temp['merk'];
             $row[] = $temp['model'];
-            // $row[] = $temp['mac_sn'];
+            $row[] = $temp['mac_sn'];
             $row[] = $aksi;
 
             $data[] = $row;
@@ -210,7 +210,7 @@ class AssetController extends BaseController
         $output['data'] = $data;
 
         echo json_encode($output);
-        exit();  
+        exit();
     }
 
 
@@ -277,7 +277,7 @@ class AssetController extends BaseController
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
-        } 
+        }
     }
 
 
@@ -424,7 +424,7 @@ class AssetController extends BaseController
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
-        }  
+        }
     }
 
 
