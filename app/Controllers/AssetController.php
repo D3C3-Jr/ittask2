@@ -612,11 +612,21 @@ class AssetController extends BaseController
     }
 
 
+    public function generateComputer()
+    {
+        $data = [
+            "computers" =>  $this->dbComputer->findAll()
+        ];
+        return view('asset/pdf/computer', $data);
+    }
     public function pdfComputer()
     {
+        $data = [
+            "computers" =>  $this->dbComputer->findAll()
+        ];
         $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
         $dompdf = new Dompdf();
-        $dompdf->loadHtml(view('asset/computer'));
+        $dompdf->loadHtml(view('asset/pdf/computer', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
