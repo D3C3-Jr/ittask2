@@ -98,7 +98,7 @@
             "serverSide": true,
             "processing": true,
             "bDestroy": true,
-            "scrollY": 250,
+            "scrollY": 300,
             "scroller": true,
             // "responsive": true,
             // dom: 'Bfrtip',

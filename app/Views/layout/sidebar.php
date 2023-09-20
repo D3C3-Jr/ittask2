@@ -11,9 +11,9 @@
     <div class="data-scrollbar" data-scroll="1">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="iq-menu">
-                <li class="<?= ($title == 'Dashboard') ? 'active' : '' ?>">
-                    <a href="#" class="svg-icon">
-                        <i class="fas fa-house ml-1 mr-3"></i> Dashboard
+                <li class="<?= ($title == 'Home') ? 'active' : '' ?>">
+                    <a href="/" class="svg-icon">
+                        <i class="fas fa-house ml-1 mr-3"></i> Home
                     </a>
                 </li>
                 <li class="<?= ($title == 'Data Asset') ? 'active' : '' ?>">

@@ -5,6 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+$routes->get('/', 'HomeController::index');
+
 $routes->get('/asset', 'AssetController::index');
 $routes->get('/asset/computer/pdf', 'AssetController::pdfComputer');
 $routes->get('/asset/computer/read', 'AssetController::readComputer');
