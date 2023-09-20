@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
                     <h5>Computer</h5>
-                    <i class="fas fa-laptop fa-2xl"></i>
+                    <i class="fas fa-laptop fa-2xl text-primary"></i>
                 </div>
                 <h3 class="counter"><?= $computerTotal ?></h3>
                 <div class="d-flex align-items-center justify-content-between mt-1">
@@ -34,7 +34,7 @@
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
                     <h5>Printer</h5>
-                    <i class="fas fa-print fa-2xl"></i>
+                    <i class="fas fa-print fa-2xl text-success"></i>
                 </div>
                 <h3><span class="counter"><?= $printer ?></span></h3>
                 <!-- <div class="d-flex align-items-center justify-content-between mt-1">
@@ -52,7 +52,7 @@
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
                     <h5>Proyektor</h5>
-                    <i class="fas fa-video fa-2xl"></i>
+                    <i class="fas fa-video fa-2xl text-info"></i>
                 </div>
                 <h3><span class="counter"><?= $proyektor ?></span></h3>
                 <!-- <div class="d-flex align-items-center justify-content-between mt-1">

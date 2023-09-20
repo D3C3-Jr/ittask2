@@ -42,7 +42,7 @@
                             <a href="#" class="search-toggle dropdown-toggle  d-flex align-items-center" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle" alt="user">
                                 <div class="caption ml-3">
-                                    <h6 class="mb-0 line-height">Savannah Nguyen<i class="las la-angle-down ml-2"></i></h6>
+                                    <h6 class="mb-0 line-height">Administrator<i class="las la-angle-down ml-2"></i></h6>
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton">
