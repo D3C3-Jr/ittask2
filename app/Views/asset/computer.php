@@ -141,7 +141,7 @@
     var url;
 
     $(document).ready(function() {
-        tableComputer = $('#tableComputer').dataTable({
+        tableComputer = $('#tableComputer').DataTable({
             "ajax": {
                 "url": '<?= site_url() ?>/asset/computer/read',
                 "type": 'GET'

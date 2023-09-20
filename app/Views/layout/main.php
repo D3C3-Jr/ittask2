@@ -79,6 +79,7 @@
     <script src="<?= base_url() ?>/assets/js/app.js"></script>
 
     <script src="<?= base_url() ?>/assets/vendor/moment.min.js"></script>
+
 </body>
 
 </html>
