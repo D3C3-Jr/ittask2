@@ -21,12 +21,16 @@
                     <li class="nav-item">
                         <a class="nav-link" id="proyektor-tab-two" data-toggle="tab" href="#proyektor-two" role="tab" aria-controls="proyektor" aria-selected="false" onclick="reloadProyektor()">proyektor</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="other-tab-two" data-toggle="tab" href="#other-two" role="tab" aria-controls="other" aria-selected="false" onclick="reloadOther()">other</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent-1">
 
                     <?= $this->include('asset/computer') ?>
                     <?= $this->include('asset/printer') ?>
                     <?= $this->include('asset/proyektor') ?>
+                    <?= $this->include('asset/other') ?>
                 </div>
             </div>
         </div>

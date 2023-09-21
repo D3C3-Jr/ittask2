@@ -1,7 +1,6 @@
 <div class="tab-pane fade show active" id="computer-two" role="tabpanel" aria-labelledby="computer-tab-two">
     <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadComputer()"><i class="fas fa-sync"></i></a>
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addComputer()"><i class="fas fa-plus"> </i> Tambah Data</a>
-    <a href="<?= site_url('') ?>/asset/computer/pdf" class="btn btn-sm btn-primary my-2"><i class="fas fa-pdf"> </i> PDF</a>
+    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addCOmputer()"><i class="fas fa-plus"> </i> Tambah Data</a>
     <table class="table-sm table-striped" id="tableComputer" width="100%">
         <thead>
             <tr class="ligth">
@@ -173,7 +172,7 @@
     }
 
     function reloadComputer() {
-        tableComputer.api().ajax.reload();
+        tableComputer.ajax.reload();
     }
 
     function addComputer() {

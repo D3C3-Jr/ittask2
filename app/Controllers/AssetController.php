@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ComputerModel;
 use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
+use App\Models\OtherModel;
 use Dompdf\Dompdf;
 
 class AssetController extends BaseController
@@ -13,11 +14,13 @@ class AssetController extends BaseController
     protected $dbComputer;
     protected $dbPrinter;
     protected $dbProyektor;
+    protected $dbOther;
     public function __construct()
     {
         $this->dbComputer = new ComputerModel();
         $this->dbPrinter = new PrinterModel();
         $this->dbProyektor = new ProyektorModel();
+        $this->dbOther = new OtherModel();
     }
 
     public function index()
@@ -192,6 +195,66 @@ class AssetController extends BaseController
                     <a href="javascript:void(0)" onclick="detailProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
                     <a href="javascript:void(0)" onclick="editProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
                     <a href="javascript:void(0)" onclick="deleteProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+            </div>
+                    ';
+            $row = [];
+            $row[] = $no;
+            $row[] = $temp['device_id'];
+            $row[] = $temp['jenis'];
+            $row[] = $temp['nama_produk'];
+            $row[] = $temp['serial_number'];
+            // $row[] = $temp['plant'];
+            // $row[] = $temp['lokasi'];
+            $row[] = $aksi;
+
+            $data[] = $row;
+            $no++;
+        }
+
+        $output['data'] = $data;
+
+        echo json_encode($output);
+        exit();
+    }
+
+    public function readOther()
+    {
+        $draw = $_REQUEST['draw'];
+        $length = $_REQUEST['length'];
+        $start = $_REQUEST['start'];
+        $search = $_REQUEST['search']['value'];
+
+        $total = $this->dbOther->ajaxGetTotal();
+        $output = [
+            'length' => $length,
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+        ];
+
+        if ($search !== "") {
+            $list = $this->dbOther->ajaxGetDataSearch($search, $start, $length);
+        } else {
+            $list = $this->dbOther->ajaxGetData($start, $length);
+        }
+
+        if ($search !== "") {
+            $total_search = $this->dbOther->ajaxGetTotalSearch($search);
+            $output = [
+                'recordsTotal' => $total_search,
+                'recordsFiltered' => $total_search
+            ];
+        }
+
+        $data = [];
+        $no = $start + 1;
+
+        foreach ($list as $temp) {
+            $aksi = '
+            <div class="text-center">
+                    <a href="javascript:void(0)" onclick="detailOther(' . $temp['id_other'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editOther(' . $temp['id_other'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteOther(' . $temp['id_other'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
             $row = [];

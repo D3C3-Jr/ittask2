@@ -29,3 +29,5 @@ $routes->get('/asset/proyektor/edit/(:num)', 'AssetController::editProyektor/$1'
 $routes->post('/asset/proyektor/update', 'AssetController::updateProyektor');
 $routes->delete('/asset/proyektor/delete/(:num)', 'AssetController::deleteProyektor/$1');
 $routes->get('/asset/proyektor/detail/(:num)', 'AssetController::detailProyektor/$1');
+
+$routes->get('/asset/other/read', 'AssetController::readOther');
