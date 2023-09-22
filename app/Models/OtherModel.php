@@ -13,7 +13,7 @@ class OtherModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['device_id', 'jenis', 'nama_produk', 'serial_number', 'plant', 'lokasi', 'ip', 'keterangan'];
 
     // Dates
     protected $useTimestamps = true;
@@ -66,14 +66,78 @@ class OtherModel extends Model
         return $result;
     }
 
+
     public function getRulesValidation($method = null)
     {
         if ($method == 'save') {
-            $device_id = 'required|is_unique[proyektor.device_id]';
-            $serial_number = 'required|is_unique[proyektor.serial_number]';
+            $device_id = 'required|is_unique[other.device_id]';
+            $serial_number = 'required|is_unique[other.serial_number]';
         } else {
             $device_id = 'required';
             $serial_number = 'required';
         }
+
+        $rulesValidation = [
+            'device_id' => [
+                'rules' => $device_id,
+                'label' => 'Device ID',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                    'is_unique' => '{field} sudah ada',
+                ],
+            ],
+            'jenis' => [
+                'rules' => 'required',
+                'label' => 'Jenis',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'nama_produk' => [
+                'rules' => 'required',
+                'label' => 'Nama Produk',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'serial_number' => [
+                'rules' => $serial_number,
+                'label' => 'Serial Number',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                    'is_unique' => '{field} sudah ada',
+                ],
+            ],
+            'plant' => [
+                'rules' => 'required',
+                'label' => 'Plant',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'lokasi' => [
+                'rules' => 'required',
+                'label' => 'Lokasi',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'ip' => [
+                'rules' => 'required',
+                'label' => 'IP Address',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'keterangan' => [
+                'rules' => 'required',
+                'label' => 'Keterangan',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+        ];
+
+        return $rulesValidation;
     }
 }

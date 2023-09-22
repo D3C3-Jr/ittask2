@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'HomeController::index');
 
 $routes->get('/asset', 'AssetController::index');
+
 $routes->get('/asset/computer/pdf', 'AssetController::pdfComputer');
 $routes->get('/asset/computer/read', 'AssetController::readComputer');
 $routes->post('/asset/computer/save', 'AssetController::saveComputer');
@@ -31,3 +32,8 @@ $routes->delete('/asset/proyektor/delete/(:num)', 'AssetController::deleteProyek
 $routes->get('/asset/proyektor/detail/(:num)', 'AssetController::detailProyektor/$1');
 
 $routes->get('/asset/other/read', 'AssetController::readOther');
+$routes->post('/asset/other/save', 'AssetController::saveOther');
+$routes->get('/asset/other/detail/(:num)', 'AssetController::detailOther/$1');
+$routes->get('/asset/other/edit/(:num)', 'AssetController::editOther/$1');
+$routes->post('/asset/other/update', 'AssetController::updateOther');
+$routes->delete('/asset/other/delete/(:num)', 'AssetController::deleteOther/$1');

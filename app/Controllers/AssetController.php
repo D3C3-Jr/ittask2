@@ -344,6 +344,27 @@ class AssetController extends BaseController
         }
     }
 
+    public function saveOther()
+    {
+        $this->_validateOther('save');
+        $data = [
+            'device_id' => $this->request->getVar('device_id'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'serial_number' => $this->request->getVar('serial_number'),
+            'plant' => $this->request->getVar('plant'),
+            'lokasi' => $this->request->getVar('lokasi'),
+            'ip' => $this->request->getVar('ip'),
+            'keterangan' => $this->request->getVar('keterangan'),
+        ];
+
+        if ($this->dbOther->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
 
     // EDIT
     public function editComputer($id_computer)
@@ -364,6 +385,12 @@ class AssetController extends BaseController
         echo json_encode($data);
     }
 
+    public function editOther($id_other)
+    {
+        $data = $this->dbOther->find($id_other);
+        echo json_encode($data);
+    }
+
 
     // DETAIL
     public function detailComputer($id_computer)
@@ -381,6 +408,12 @@ class AssetController extends BaseController
     public function detailProyektor($id_proyektor)
     {
         $data = $this->dbProyektor->find($id_proyektor);
+        echo json_encode($data);
+    }
+
+    public function detailOther($id_other)
+    {
+        $data = $this->dbOther->find($id_other);
         echo json_encode($data);
     }
 
@@ -462,6 +495,31 @@ class AssetController extends BaseController
         }
     }
 
+    public function updateOther()
+    {
+        $this->_validateOther('update');
+        $id_other = $this->request->getVar('id_other');
+        $other = $this->dbOther->find($id_other);
+
+        $data = [
+            'id_other' => $id_other,
+            'device_id' => $this->request->getVar('device_id'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'serial_number' => $this->request->getVar('serial_number'),
+            'plant' => $this->request->getVar('plant'),
+            'lokasi' => $this->request->getVar('lokasi'),
+            'ip' => $this->request->getVar('ip'),
+            'keterangan' => $this->request->getVar('keterangan'),
+        ];
+
+        if ($this->dbOther->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
 
     // DELETE
     public function deleteComputer($id_computer)
@@ -485,6 +543,15 @@ class AssetController extends BaseController
     public function deleteProyektor($id_proyektor)
     {
         if ($this->dbProyektor->delete($id_proyektor)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
+    public function deleteOther($id_other)
+    {
+        if ($this->dbOther->delete($id_other)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
@@ -664,6 +731,63 @@ class AssetController extends BaseController
             if ($validation->hasError('lokasi')) {
                 $data['inputerror'][] = 'lokasi';
                 $data['error_string'][] = $validation->getError('lokasi');
+                $data['status'] = false;
+            }
+
+            if ($data['status'] === false) {
+                echo json_encode($data);
+                exit();
+            }
+        }
+    }
+
+    public function _validateOther($method)
+    {
+        if (!$this->validate($this->dbOther->getRulesValidation($method))) {
+            $validation = \Config\Services::validation();
+            $data = [];
+            $data['error_string'] = [];
+            $data['inputerror'] = [];
+            $data['status'] = true;
+
+            if ($validation->hasError('device_id')) {
+                $data['inputerror'][] = 'device_id';
+                $data['error_string'][] = $validation->getError('device_id');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('jenis')) {
+                $data['inputerror'][] = 'jenis';
+                $data['error_string'][] = $validation->getError('jenis');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('nama_produk')) {
+                $data['inputerror'][] = 'nama_produk';
+                $data['error_string'][] = $validation->getError('nama_produk');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('serial_number')) {
+                $data['inputerror'][] = 'serial_number';
+                $data['error_string'][] = $validation->getError('serial_number');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('plant')) {
+                $data['inputerror'][] = 'plant';
+                $data['error_string'][] = $validation->getError('plant');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('lokasi')) {
+                $data['inputerror'][] = 'lokasi';
+                $data['error_string'][] = $validation->getError('lokasi');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('ip')) {
+                $data['inputerror'][] = 'ip';
+                $data['error_string'][] = $validation->getError('ip');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('keterangan')) {
+                $data['inputerror'][] = 'keterangan';
+                $data['error_string'][] = $validation->getError('keterangan');
                 $data['status'] = false;
             }
 
