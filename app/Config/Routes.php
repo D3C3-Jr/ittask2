@@ -9,7 +9,7 @@ $routes->get('/', 'HomeController::index');
 
 $routes->get('/asset', 'AssetController::index');
 
-$routes->get('/asset/computer/pdf', 'AssetController::pdfComputer');
+$routes->get('/pdfComputer', 'AssetController::pdfComputer');
 $routes->get('/asset/computer/read', 'AssetController::readComputer');
 $routes->post('/asset/computer/save', 'AssetController::saveComputer');
 $routes->get('/asset/computer/edit/(:num)', 'AssetController::editComputer/$1');

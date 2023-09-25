@@ -809,9 +809,9 @@ class AssetController extends BaseController
     public function pdfComputer()
     {
         $data = [
-            "computers" =>  $this->dbComputer->findAll()
+            "computers" =>  $this->dbComputer->orderBy('device_id', 'ASC')->find()
         ];
-        $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
+        $filename = date('ymdHis');
         $dompdf = new Dompdf();
         $dompdf->loadHtml(view('asset/pdf/computer', $data));
         $dompdf->setPaper('A4', 'landscape');
