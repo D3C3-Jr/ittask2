@@ -8,7 +8,7 @@
                 <th>Device ID</th>
                 <th>Jenis</th>
                 <th>Nama Produk</th>
-                <th>Serial Number</th>
+                <th>Keterangan</th>
                 <th class="text-center">Aksi</th>
             </tr>
         </thead>

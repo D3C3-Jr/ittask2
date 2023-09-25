@@ -262,7 +262,7 @@ class AssetController extends BaseController
             $row[] = $temp['device_id'];
             $row[] = $temp['jenis'];
             $row[] = $temp['nama_produk'];
-            $row[] = $temp['serial_number'];
+            $row[] = $temp['keterangan'];
             // $row[] = $temp['plant'];
             // $row[] = $temp['lokasi'];
             $row[] = $aksi;

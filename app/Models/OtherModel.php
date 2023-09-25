@@ -47,7 +47,7 @@ class OtherModel extends Model
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->like('device_id', $search)->orLike('nama_produk', $search)->orLike('serial_number', $search)->findAll($start, $length);
+        $result = $this->like('device_id', $search)->orLike('nama_produk', $search)->orLike('jenis', $search)->findAll($start, $length);
         return $result;
     }
 
