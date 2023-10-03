@@ -35,13 +35,16 @@ class Task extends Migration
                 'constraint' => '100',
             ],
             'start' => [
-                'type'       => 'TIME',
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
             ],
             'end' => [
-                'type'       => 'TIME',
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
             ],
             'total' => [
-                'type'       => 'TIME',
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
             ],
             'created_at' => [
                 'type'       => 'DATETIME',

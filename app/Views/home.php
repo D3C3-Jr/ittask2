@@ -66,7 +66,35 @@
         </div>
     </div>
 
-
+    <div class="col-md-6 col-lg-12">
+        <div class="card card-block card-stretch card-height">
+            <div class="card-body">
+                <div class="top-block d-flex align-items-center justify-content-between">
+                    <h4 class="mb-2">Ticket Open</h4>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Tanggal</th>
+                        <th>Departemen</th>
+                        <th>Keterangan</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($taskClose as $task) : ?>
+                            <tr>
+                                <td><?= $task['tanggal'] ?></td>
+                                <td><?= $task['id_departemen'] ?></td>
+                                <td><?= $task['keterangan'] ?></td>
+                                <?php if ($task['status'] == '0') : ?>
+                                    <td><span class="badge badge-danger">Open</span></td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 </div>
 

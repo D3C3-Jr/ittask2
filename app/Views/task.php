@@ -19,7 +19,7 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Departemen</th>
-                            <th>Plant</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -97,15 +97,15 @@
                     <div class="row mb-1">
                         <label for="start" class="col-sm-4 col-form-label">Start</label>
                         <div class="col-sm-8">
-                            <input type="text" name="start" class="form-control form-control-sm" id="start" onchange="total()">
-                            <small class="help-block text-danger"></small>
+                            <input type="number" name="start" class="form-control form-control-sm" id="start" onchange="total()">
+                            <small class="help-block text-danger">Gunakan Titik untuk Menit</small>
                         </div>
                     </div>
                     <div class="row mb-1">
                         <label for="end" class="col-sm-4 col-form-label">End</label>
                         <div class="col-sm-8">
-                            <input type="text" name="end" class="form-control form-control-sm" id="end">
-                            <small class="help-block text-danger"></small>
+                            <input type="number" name="end" class="form-control form-control-sm" id="end">
+                            <small class="help-block text-danger">Gunakan Titik untuk Menit</small>
                         </div>
                     </div>
                     <div class="row mb-1">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="close" class="btn btn-secondary" onclick="resetForm()" data-dismiss="modal">Close</button>
-                    <button type="button" id="submit" class="btn btn-primary" onclick="saveComputer()">Save changes</button>
+                    <button type="button" id="submit" class="btn btn-primary" onclick="saveTask()"></button>
                 </div>
             </form>
         </div>
@@ -126,7 +126,21 @@
 </div>
 
 <script>
+    var tableTask;
     $(document).ready(function() {
+        tableTask = $('#tableTask').DataTable({
+            "ajax": {
+                "url": '<?= site_url() ?>/task/read',
+                "type": 'GET'
+            },
+            "deferRender": true,
+            "serverSide": true,
+            "processing": true,
+            "bDestroy": true,
+            "scrollY": 300,
+            "scroller": true,
+        });
+
         $('#start, #end').keyup(function() {
             var start = $('#start').val()
             var end = $('#end').val()
@@ -134,7 +148,11 @@
             var total = parseFloat(end).toFixed(2) - parseFloat(start).toFixed(2);
             $('#total').val(total.toFixed(2))
         });
-    })
+    });
+
+    function reloadTask() {
+        tableTask.ajax.reload();
+    }
 
     function addTask() {
         method = 'save';
@@ -145,6 +163,84 @@
         $('select').attr('disabled', false);
         $('.modal-title').text('Form Tambah Data Task');
         $('#submit').text('Simpan');
+    }
+
+    function deleteTask(id_task) {
+        Swal.fire({
+            title: 'Hapus Data?',
+            text: "Anda yakin ingin menghapus Data ini",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?php site_url() ?>/task/delete/' + id_task,
+                    type: "DELETE",
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.status) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            );
+                            reloadTask();
+                        };
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('Error');
+                    }
+                });
+            };
+        });
+    }
+
+    function saveTask() {
+        if (method == 'save') {
+            url = '<?= site_url() ?>/task/save';
+            $text = 'Data berhasil di Ditambah';
+        } else {
+            url = '<?= site_url() ?>/task/update';
+            $text = 'Data berhasil di Update';
+        }
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: new FormData($('#formTask')[0]),
+            dataType: 'JSON',
+            contentType: false,
+            processData: false,
+            beforeSend: function(data) {
+                $('#submit').html('<i class="fas fa-spinner fa-spin"></i>');
+            },
+            success: function(data) {
+                if (data.status) {
+                    Swal.fire(
+                        'Berhasil',
+                        $text,
+                        'success'
+                    );
+                    reloadTask();
+
+                    $('.help-block').empty();
+                    $('#modalTask').modal('hide');
+                    $('#formTask')[0].reset();
+                } else {
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');
+                        $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]);
+                        $('#submit').text('Simpan');
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error');
+            }
+        });
     }
 </script>
 
