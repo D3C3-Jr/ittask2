@@ -40,3 +40,4 @@ $routes->delete('/asset/other/delete/(:num)', 'AssetController::deleteOther/$1')
 
 
 $routes->get('/task', 'TaskController::index');
+$routes->get('/task/read', 'TaskController::readTask');

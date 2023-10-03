@@ -19,7 +19,7 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Departemen</th>
-                            <th>Plant</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -126,7 +126,21 @@
 </div>
 
 <script>
+    var tableTask;
     $(document).ready(function() {
+        tableTask = $('#tableTask').DataTable({
+            "ajax": {
+                "url": '<?= site_url() ?>/task/read',
+                "type": 'GET'
+            },
+            "deferRender": true,
+            "serverSide": true,
+            "processing": true,
+            "bDestroy": true,
+            "scrollY": 300,
+            "scroller": true,
+        });
+
         $('#start, #end').keyup(function() {
             var start = $('#start').val()
             var end = $('#end').val()
@@ -134,7 +148,11 @@
             var total = parseFloat(end).toFixed(2) - parseFloat(start).toFixed(2);
             $('#total').val(total.toFixed(2))
         });
-    })
+    });
+
+    function reloadTask() {
+        tableTask.ajax.reload();
+    }
 
     function addTask() {
         method = 'save';
