@@ -139,6 +139,12 @@
             "bDestroy": true,
             "scrollY": 300,
             "scroller": true,
+            // "dom": 'Bfrtip',
+            // "buttons": [
+            //     'pageLength',
+            //     'excel',
+            //     'print',
+            // ]
         });
 
         $('#start, #end').keyup(function() {
