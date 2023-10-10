@@ -4,18 +4,22 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\TaskModel;
+use App\Models\DepartemenModel;
 
 class TaskController extends BaseController
 {
     protected $dbTask;
+    protected $dbDepartemen;
     public function __construct()
     {
         $this->dbTask = new TaskModel();
+        $this->dbDepartemen = new DepartemenModel();
     }
     public function index()
     {
         $data = [
-            'title' => 'Task'
+            'title' => 'Task',
+            'departemen' => $this->dbDepartemen->findAll(),
         ];
         return view('task', $data);
     }
@@ -68,10 +72,17 @@ class TaskController extends BaseController
             } else {
                 $status = '<badge class="badge badge-success"> Close </badge>';
             }
+
+            $departemens = $this->dbTask->getDepartemen();
+            foreach ($departemens as $departemen) {
+                $dataDepartemen = $departemen['nama_departemen'];
+            }
+
+
             $row = [];
             $row[] = $no;
             $row[] = $temp['tanggal'];
-            $row[] = $temp['id_departemen'];
+            $row[] = $dataDepartemen;
             $row[] = $temp['keterangan'];
             $row[] = $status;
             $row[] = $aksi;
@@ -84,6 +95,44 @@ class TaskController extends BaseController
 
         echo json_encode($output);
         exit();
+    }
+
+    public function detailTask($id_task)
+    {
+        $data = $this->dbTask->find($id_task);
+        echo json_encode($data);
+    }
+
+    public function editTask($id_task)
+    {
+        $data = $this->dbTask->find($id_task);
+        echo json_encode($data);
+    }
+
+    public function updateTask()
+    {
+        $this->_validateTask('update');
+        $id_task = $this->request->getVar('id_task');
+        $task = $this->dbTask->find($id_task);
+
+        $data = [
+            'id_task' => $id_task,
+            'tanggal' => $this->request->getVar('tanggal'),
+            'id_departemen' => $this->request->getVar('id_departemen'),
+            'plant' => $this->request->getVar('plant'),
+            'keterangan' => $this->request->getVar('keterangan'),
+            'status' => $this->request->getVar('status'),
+            'frekuensi' => $this->request->getVar('frekuensi'),
+            'start' => $this->request->getVar('start'),
+            'end' => $this->request->getVar('end'),
+            'total' => $this->request->getVar('total'),
+        ];
+
+        if ($this->dbTask->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
     }
 
     public function deleteTask($id_task)
@@ -103,7 +152,7 @@ class TaskController extends BaseController
             'id_departemen' => $this->request->getVar('id_departemen'),
             'plant' => $this->request->getVar('plant'),
             'keterangan' => htmlspecialchars($this->request->getVar('keterangan')),
-            'status' => 0,
+            'status' => $this->request->getVar('status'),
             'frekuensi' => $this->request->getVar('frekuensi'),
             'start' => $this->request->getVar('start'),
             'end' => $this->request->getVar('end'),

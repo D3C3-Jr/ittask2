@@ -39,6 +39,11 @@ class TaskModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function getDepartemen()
+    {
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen')->findAll();
+        return $result;
+    }
 
     public function ajaxGetData($start, $length)
     {

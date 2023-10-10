@@ -75,8 +75,9 @@
                         <div class="col-sm-8">
                             <select name="id_departemen" id="id_departemen" class="form-control form-control-sm">
                                 <option selected hidden disabled>Pilih Departemen</option>
-                                <option value="1">IT</option>
-                                <option value="2">PPIC</option>
+                                <?php foreach ($departemen as $data) : ?>
+                                    <option value="<?= $data['id_departemen'] ?>"><?= $data['nama_departemen'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                             <small class="help-block text-danger"></small>
                         </div>
@@ -98,20 +99,32 @@
                         <label for="start" class="col-sm-4 col-form-label">Start</label>
                         <div class="col-sm-8">
                             <input type="number" name="start" class="form-control form-control-sm" id="start" onchange="total()">
-                            <small class="help-block text-danger">Gunakan Titik untuk Menit</small>
+                            <small class="help-block text-danger start"></small>
                         </div>
                     </div>
                     <div class="row mb-1">
                         <label for="end" class="col-sm-4 col-form-label">End</label>
                         <div class="col-sm-8">
                             <input type="number" name="end" class="form-control form-control-sm" id="end">
-                            <small class="help-block text-danger">Gunakan Titik untuk Menit</small>
+                            <small class="help-block text-danger end"></small>
                         </div>
                     </div>
                     <div class="row mb-1">
                         <label for="total" class="col-sm-4 col-form-label">Total</label>
                         <div class="col-sm-8">
                             <input type="text" name="total" class="form-control form-control-sm" id="total" readonly>
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <label for="status" class="col-sm-4 col-form-label">Status</label>
+                        <div class="col-sm-8">
+                            <select name="status" id="status" class="form-control form-control-sm">
+                                <option selected hidden disabled>Pilih Status</option>
+                                <option value="0">Open</option>
+                                <option value="1">On Proccess</option>
+                                <option value="2">Done</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
@@ -167,8 +180,69 @@
         $('#modalTask').modal('show');
         $('input').attr('disabled', false);
         $('select').attr('disabled', false);
+        $('.start').text('Gunakan Titik untuk Menit');
+        $('.end').text('Gunakan Titik untuk Menit');
         $('.modal-title').text('Form Tambah Data Task');
         $('#submit').text('Simpan');
+    }
+
+    function detailTask(id_task) {
+        $.ajax({
+            url: '<?php site_url() ?>/task/detail/' + id_task,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(data) {
+                $('[name="id_task"]').val(data.id_task).attr('disabled', true);
+                $('[name="tanggal"]').val(data.tanggal).attr('disabled', true);
+                $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', true);
+                $('[name="plant"]').val(data.plant).attr('disabled', true);
+                $('[name="keterangan"]').val(data.keterangan).attr('disabled', true);
+                $('[name="status"]').val(data.status).attr('disabled', true);
+                $('[name="frekuensi"]').val(data.frekuensi).attr('disabled', true);
+                $('[name="start"]').val(data.start).attr('disabled', true);
+                $('[name="end"]').val(data.end).attr('disabled', true);
+                $('[name="total"]').val(data.total).attr('disabled', true);
+                $('.help-block').text('');
+
+                $('#modalTask').modal('show');
+                $('.modal-title').text('Detail Data Task');
+                $('.modal-footer').attr('hidden', true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error');
+            }
+        })
+    }
+
+    function editTask(id_task) {
+        method = 'update';
+        $.ajax({
+            url: '<?php site_url() ?>/task/edit/' + id_task,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(data) {
+                $('[name="id_task"]').val(data.id_task).attr('disabled', false);
+                $('[name="tanggal"]').val(data.tanggal).attr('disabled', false);
+                $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', false);
+                $('[name="plant"]').val(data.plant).attr('disabled', false);
+                $('[name="keterangan"]').val(data.keterangan).attr('disabled', false);
+                $('[name="status"]').val(data.status).attr('disabled', false);
+                $('[name="frekuensi"]').val(data.frekuensi).attr('disabled', false);
+                $('[name="start"]').val(data.start).attr('disabled', false);
+                $('[name="end"]').val(data.end).attr('disabled', false);
+                $('[name="total"]').val(data.total).attr('disabled', false);
+                $('.start').text('Gunakan Titik untuk Menit');
+                $('.end').text('Gunakan Titik untuk Menit');
+
+                $('.modal-footer').attr('hidden', false);
+                $('#modalTask').modal('show');
+                $('.modal-title').text('Form Edit Data Task');
+                $('#submit').text('Update');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error');
+            }
+        })
     }
 
     function deleteTask(id_task) {

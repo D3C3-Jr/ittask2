@@ -27,7 +27,7 @@
                     </a>
                 </li>
 
-                <li class=" ">
+                <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
                     <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fas fa-key ml-1 mr-3"></i>
                         Master
@@ -35,8 +35,8 @@
                         <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
                     </a>
                     <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="">
-                            <a href="#" class="svg-icon">
+                        <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
+                            <a href="/departemen" class="svg-icon">
                                 <i class="fas fa-circle fa-sm"></i>
                                 <span class="ml-4">Departemen</span>
                             </a>

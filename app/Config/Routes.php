@@ -38,8 +38,18 @@ $routes->get('/asset/other/edit/(:num)', 'AssetController::editOther/$1');
 $routes->post('/asset/other/update', 'AssetController::updateOther');
 $routes->delete('/asset/other/delete/(:num)', 'AssetController::deleteOther/$1');
 
-
 $routes->get('/task', 'TaskController::index');
 $routes->get('/task/read', 'TaskController::readTask');
 $routes->post('/task/save', 'TaskController::saveTask');
+$routes->get('/task/detail/(:num)', 'TaskController::detailTask/$1');
+$routes->get('/task/edit/(:num)', 'TaskController::editTask/$1');
+$routes->post('/task/update', 'TaskController::updateTask');
 $routes->delete('/task/delete/(:num)', 'TaskController::deleteTask/$1');
+
+$routes->get('/departemen', 'DepartemenController::index');
+$routes->get('/departemen/read', 'DepartemenController::readDepartemen');
+$routes->post('/departemen/save', 'DepartemenController::saveDepartemen');
+$routes->get('/departemen/detail/(:num)', 'DepartemenController::detailDepartemen/$1');
+$routes->get('/departemen/edit/(:num)', 'DepartemenController::editDepartemen/$1');
+$routes->post('/departemen/update', 'DepartemenController::updateDepartemen');
+$routes->delete('/departemen/delete/(:num)', 'DepartemenController::deleteDepartemen/$1');
