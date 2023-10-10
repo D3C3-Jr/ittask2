@@ -26,8 +26,6 @@ class HomeController extends BaseController
         $jumlahTotalComputer = $this->dbComputer->countAllResults();
         $persentaseComputerAktif = $jumlahBagianComputerAktif / $jumlahTotalComputer * 100;
 
-        $taskClose = $this->dbTask->like('status', '0')->find();
-
         $jumlahBagianComputerSpare = $this->dbComputer->like('status', '0')->countAllResults();
         $jumlahTotalComputer = $this->dbComputer->countAllResults();
         $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
@@ -40,7 +38,7 @@ class HomeController extends BaseController
             'computerTotal' => $this->dbComputer->countAllResults(),
             'printer' => $this->dbPrinter->countAllResults(),
             'proyektor' => $this->dbProyektor->countAllResults(),
-            'taskClose' => $taskClose,
+            'taskClose' => $this->dbTask->getDepartemenHome(),
         ];
         return view('home', $data);
     }

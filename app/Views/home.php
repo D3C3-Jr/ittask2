@@ -83,7 +83,7 @@
                         <?php foreach ($taskClose as $task) : ?>
                             <tr>
                                 <td><?= $task['tanggal'] ?></td>
-                                <td><?= $task['id_departemen'] ?></td>
+                                <td><?= $task['nama_departemen'] ?></td>
                                 <td><?= $task['keterangan'] ?></td>
                                 <?php if ($task['status'] == '0') : ?>
                                     <td><span class="badge badge-danger">Open</span></td>

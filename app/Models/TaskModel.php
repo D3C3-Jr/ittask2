@@ -41,13 +41,18 @@ class TaskModel extends Model
 
     public function getDepartemen()
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen')->findAll();
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->find();
+        return $result;
+    }
+    public function getDepartemenHome()
+    {
+        $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->findAll();
         return $result;
     }
 
     public function ajaxGetData($start, $length)
     {
-        $result = $this->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('id_task', 'DESC')->findAll($length, $start);
         return $result;
     }
 

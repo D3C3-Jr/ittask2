@@ -73,16 +73,10 @@ class TaskController extends BaseController
                 $status = '<badge class="badge badge-success"> Close </badge>';
             }
 
-            $departemens = $this->dbTask->getDepartemen();
-            foreach ($departemens as $departemen) {
-                $dataDepartemen = $departemen['nama_departemen'];
-            }
-
-
             $row = [];
             $row[] = $no;
             $row[] = $temp['tanggal'];
-            $row[] = $dataDepartemen;
+            $row[] = $temp['nama_departemen'];
             $row[] = $temp['keterangan'];
             $row[] = $status;
             $row[] = $aksi;
