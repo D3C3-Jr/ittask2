@@ -53,3 +53,11 @@ $routes->get('/departemen/detail/(:num)', 'DepartemenController::detailDeparteme
 $routes->get('/departemen/edit/(:num)', 'DepartemenController::editDepartemen/$1');
 $routes->post('/departemen/update', 'DepartemenController::updateDepartemen');
 $routes->delete('/departemen/delete/(:num)', 'DepartemenController::deleteDepartemen/$1');
+
+$routes->get('/stok', 'StokController::index');
+$routes->get('/stok/read', 'StokController::readStok');
+$routes->post('/stok/save', 'StokController::saveStok');
+$routes->get('/stok/detail/(:num)', 'StokController::detailStok/$1');
+$routes->get('/stok/edit/(:num)', 'StokController::editStok/$1');
+$routes->post('/stok/update', 'StokController::updateStok');
+$routes->delete('/stok/delete/(:num)', 'StokController::deleteStok/$1');

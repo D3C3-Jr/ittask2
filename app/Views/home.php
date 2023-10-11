@@ -65,8 +65,10 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-md-6 col-lg-12">
+<div class="row">
+    <div class="col-md-6 col-lg-6">
         <div class="card card-block card-stretch card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
@@ -96,6 +98,32 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-lg-6">
+        <div class="card card-block card-stretch card-height">
+            <div class="card-body">
+                <div class="top-block d-flex align-items-center justify-content-between">
+                    <h4 class="mb-2">Stok Minim</h4>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Stok</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($stockMinim as $stok) : ?>
+                            <tr>
+                                <td><?= $stok['kode_barang'] ?></td>
+                                <td><?= $stok['nama_barang'] ?></td>
+                                <td><?= $stok['stok'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <?= $this->endSection(); ?>

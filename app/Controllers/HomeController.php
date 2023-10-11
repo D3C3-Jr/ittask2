@@ -6,6 +6,7 @@ use App\Models\ComputerModel;
 use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
 use App\Models\TaskModel;
+use App\Models\StokModel;
 
 class HomeController extends BaseController
 {
@@ -13,12 +14,14 @@ class HomeController extends BaseController
     protected $dbPrinter;
     protected $dbProyektor;
     protected $dbTask;
+    protected $dbStok;
     public function __construct()
     {
         $this->dbComputer = new ComputerModel();
         $this->dbPrinter = new PrinterModel();
         $this->dbProyektor = new ProyektorModel();
         $this->dbTask = new TaskModel();
+        $this->dbStok = new StokModel();
     }
     public function index(): string
     {
@@ -39,6 +42,7 @@ class HomeController extends BaseController
             'printer' => $this->dbPrinter->countAllResults(),
             'proyektor' => $this->dbProyektor->countAllResults(),
             'taskClose' => $this->dbTask->getDepartemenHome(),
+            'stockMinim' => $this->dbStok->where('stok <', 5)->find(),
         ];
         return view('home', $data);
     }

@@ -26,6 +26,11 @@
                         <i class="fas fa-edit ml-1 mr-3"></i> Task
                     </a>
                 </li>
+                <li class="<?= ($title == 'Stok') ? 'active' : '' ?>">
+                    <a href="/stok" class="svg-icon">
+                        <i class="fas fa-cart-shopping ml-1 mr-3"></i> Stok
+                    </a>
+                </li>
 
                 <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
                     <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">

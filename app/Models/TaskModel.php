@@ -123,13 +123,13 @@ class TaskModel extends Model
                     'required' => '{field} Harus di isi',
                 ],
             ],
-            // 'status' => [
-            //     'rules' => 'required',
-            //     'label' => 'Status',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ],
-            // ],
+            'status' => [
+                'rules' => 'required',
+                'label' => 'Status',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
             'frekuensi' => [
                 'rules' => 'required',
                 'label' => 'Frekuensi',
