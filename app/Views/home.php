@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 
 <div class="row">
-    <div class="col-md-6 col-lg-6">
+    <div class="col-md-4 col-lg-6">
         <div class="card card-block card-stretch card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-4 col-lg-3">
         <div class="card card-block card-stretch card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-4 col-lg-3">
         <div class="card card-block card-stretch card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
@@ -65,18 +65,16 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
+
     <div class="col-md-6 col-lg-6">
-        <div class="card card-block card-stretch card-height">
+        <div class="card  card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
                     <h4 class="mb-2">Ticket Open</h4>
                 </div>
                 <table class="table table-striped">
                     <thead>
-                        <th>Tanggal</th>
                         <th>Departemen</th>
                         <th>Keterangan</th>
                         <th>Status</th>
@@ -84,7 +82,6 @@
                     <tbody>
                         <?php foreach ($taskClose as $task) : ?>
                             <tr>
-                                <td><?= $task['tanggal'] ?></td>
                                 <td><?= $task['nama_departemen'] ?></td>
                                 <td><?= $task['keterangan'] ?></td>
                                 <?php if ($task['status'] == '0') : ?>
@@ -99,12 +96,12 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        <div class="card card-block card-stretch card-height">
+        <div class="card  card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
                     <h4 class="mb-2">Stok Minim</h4>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped" style="width: 100%;">
                     <thead>
                         <th>Kode Barang</th>
                         <th>Nama Barang</th>
@@ -115,7 +112,7 @@
                             <tr>
                                 <td><?= $stok['kode_barang'] ?></td>
                                 <td><?= $stok['nama_barang'] ?></td>
-                                <td><?= $stok['stok'] ?></td>
+                                <td><span class="badge badge-danger counter"><?= $stok['stok'] ?></span></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -123,6 +120,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 
