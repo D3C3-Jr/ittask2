@@ -1,7 +1,7 @@
 <div class="iq-sidebar  sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center">
         <a href="<?= base_url() ?>/backend/index.html" class="header-logo">
-            <img src="<?= base_url() ?>/assets/images/logo-it.png" alt="logo">
+            <img src="<?= base_url() ?>/assets/images/logo-it.svg" alt="logo">
             <h3 class="logo-title light-logo">itventory</h3>
         </a>
         <div class="iq-menu-bt-sidebar ml-0">
