@@ -16,38 +16,39 @@
                         <i class="fas fa-house ml-1 mr-3"></i> Home
                     </a>
                 </li>
-                <li class="<?= ($title == 'Data Asset') ? 'active' : '' ?>">
-                    <a href="/asset" class="svg-icon">
-                        <i class="fas fa-boxes-stacked ml-1 mr-3"></i> Asset
-                    </a>
-                </li>
-                <li class="<?= ($title == 'Task') ? 'active' : '' ?>">
-                    <a href="/task" class="svg-icon">
-                        <i class="fas fa-edit ml-1 mr-3"></i> Task
-                    </a>
-                </li>
-                <li class="<?= ($title == 'Stok') ? 'active' : '' ?>">
-                    <a href="/stok" class="svg-icon">
-                        <i class="fas fa-cart-shopping ml-1 mr-3"></i> Stok
-                    </a>
-                </li>
-
-                <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
-                    <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fas fa-key ml-1 mr-3"></i>
-                        Master
-                        <i class="las la-angle-right iq-arrow-right arrow-active"></i>
-                        <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
-                    </a>
-                    <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
-                            <a href="/departemen" class="svg-icon">
-                                <i class="fas fa-circle fa-sm"></i>
-                                <span class="ml-4">Departemen</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if (in_groups('Administrator')) : ?>
+                    <li class="<?= ($title == 'Data Asset') ? 'active' : '' ?>">
+                        <a href="/asset" class="svg-icon">
+                            <i class="fas fa-boxes-stacked ml-1 mr-3"></i> Asset
+                        </a>
+                    </li>
+                    <li class="<?= ($title == 'Task') ? 'active' : '' ?>">
+                        <a href="/task" class="svg-icon">
+                            <i class="fas fa-edit ml-1 mr-3"></i> Task
+                        </a>
+                    </li>
+                    <li class="<?= ($title == 'Stok') ? 'active' : '' ?>">
+                        <a href="/stok" class="svg-icon">
+                            <i class="fas fa-cart-shopping ml-1 mr-3"></i> Stok
+                        </a>
+                    </li>
+                    <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
+                        <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                            <i class="fas fa-key ml-1 mr-3"></i>
+                            Master
+                            <i class="las la-angle-right iq-arrow-right arrow-active"></i>
+                            <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
+                        </a>
+                        <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                            <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
+                                <a href="/departemen" class="svg-icon">
+                                    <i class="fas fa-circle fa-sm"></i>
+                                    <span class="ml-4">Departemen</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
             </ul>
         </nav>
 
