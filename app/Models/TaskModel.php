@@ -13,7 +13,7 @@ class TaskModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['tanggal', 'id_departemen', 'plant', 'keterangan', 'status', 'frekuensi', 'start', 'end', 'total'];
+    protected $allowedFields    = ['tanggal', 'id_departemen', 'plant', 'masalah', 'penyelesaian', 'status', 'frekuensi'];
 
     // Dates
     protected $useTimestamps = true;
@@ -52,7 +52,7 @@ class TaskModel extends Model
 
     public function ajaxGetData($start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('id_task', 'DESC')->findAll($length, $start);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'DESC')->findAll($length, $start);
         return $result;
     }
 
@@ -109,9 +109,16 @@ class TaskModel extends Model
                     'required' => '{field} Harus di isi',
                 ],
             ],
-            'keterangan' => [
+            'masalah' => [
                 'rules' => 'required',
-                'label' => 'Keterangan',
+                'label' => 'Masalah',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'penyelesaian' => [
+                'rules' => 'required',
+                'label' => 'Penyelesaian',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],
@@ -133,27 +140,6 @@ class TaskModel extends Model
             'frekuensi' => [
                 'rules' => 'required',
                 'label' => 'Frekuensi',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
-            'start' => [
-                'rules' => 'required',
-                'label' => 'Start',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
-            'end' => [
-                'rules' => 'required',
-                'label' => 'End',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
-            'total' => [
-                'rules' => 'required',
-                'label' => 'Total',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],

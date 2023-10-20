@@ -243,11 +243,15 @@
             },
             success: function(data) {
                 if (data.status) {
-                    Swal.fire(
-                        'Berhasil',
-                        $text,
-                        'success'
-                    );
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: $text,
+                        icon: 'success',
+                        toast: true,
+                        position: 'bottom-start',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
                     reloadStok();
 
                     $('.help-block').empty();

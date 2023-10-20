@@ -19,7 +19,7 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Departemen</th>
-                            <th>Keterangan</th>
+                            <th>Masalah</th>
                             <th>Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -53,9 +53,16 @@
                         </div>
                     </div>
                     <div class="row mb-1">
-                        <label for="keterangan" class="col-sm-4 col-form-label">Keterangan</label>
+                        <label for="masalah" class="col-sm-4 col-form-label">Masalah</label>
                         <div class="col-sm-8">
-                            <input type="text" name="keterangan" class="form-control form-control-sm" id="keterangan">
+                            <input type="text" name="masalah" class="form-control form-control-sm" id="masalah">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <label for="penyelesaian" class="col-sm-4 col-form-label">Penyelesaian</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="penyelesaian" class="form-control form-control-sm" id="penyelesaian">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
@@ -95,27 +102,7 @@
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <label for="start" class="col-sm-4 col-form-label">Start</label>
-                        <div class="col-sm-8">
-                            <input type="number" name="start" class="form-control form-control-sm" id="start" onchange="total()">
-                            <small class="help-block text-danger start"></small>
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <label for="end" class="col-sm-4 col-form-label">End</label>
-                        <div class="col-sm-8">
-                            <input type="number" name="end" class="form-control form-control-sm" id="end">
-                            <small class="help-block text-danger end"></small>
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <label for="total" class="col-sm-4 col-form-label">Total</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="total" class="form-control form-control-sm" id="total" readonly>
-                            <small class="help-block text-danger"></small>
-                        </div>
-                    </div>
+
                     <div class="row mb-1">
                         <label for="status" class="col-sm-4 col-form-label">Status</label>
                         <div class="col-sm-8">
@@ -180,8 +167,6 @@
         $('#modalTask').modal('show');
         $('input').attr('disabled', false);
         $('select').attr('disabled', false);
-        $('.start').text('Gunakan Titik untuk Menit');
-        $('.end').text('Gunakan Titik untuk Menit');
         $('.modal-title').text('Form Tambah Data Task');
         $('#submit').text('Simpan');
     }
@@ -196,12 +181,10 @@
                 $('[name="tanggal"]').val(data.tanggal).attr('disabled', true);
                 $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', true);
                 $('[name="plant"]').val(data.plant).attr('disabled', true);
-                $('[name="keterangan"]').val(data.keterangan).attr('disabled', true);
+                $('[name="masalah"]').val(data.masalah).attr('disabled', true);
+                $('[name="penyelesaian"]').val(data.penyelesaian).attr('disabled', true);
                 $('[name="status"]').val(data.status).attr('disabled', true);
                 $('[name="frekuensi"]').val(data.frekuensi).attr('disabled', true);
-                $('[name="start"]').val(data.start).attr('disabled', true);
-                $('[name="end"]').val(data.end).attr('disabled', true);
-                $('[name="total"]').val(data.total).attr('disabled', true);
                 $('.help-block').text('');
 
                 $('#modalTask').modal('show');
@@ -225,12 +208,10 @@
                 $('[name="tanggal"]').val(data.tanggal).attr('disabled', false);
                 $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', false);
                 $('[name="plant"]').val(data.plant).attr('disabled', false);
-                $('[name="keterangan"]').val(data.keterangan).attr('disabled', false);
+                $('[name="masalah"]').val(data.masalah).attr('disabled', false);
+                $('[name="penyelesaian"]').val(data.penyelesaian).attr('disabled', false);
                 $('[name="status"]').val(data.status).attr('disabled', false);
                 $('[name="frekuensi"]').val(data.frekuensi).attr('disabled', false);
-                $('[name="start"]').val(data.start).attr('disabled', false);
-                $('[name="end"]').val(data.end).attr('disabled', false);
-                $('[name="total"]').val(data.total).attr('disabled', false);
                 $('.start').text('Gunakan Titik untuk Menit');
                 $('.end').text('Gunakan Titik untuk Menit');
 
@@ -299,11 +280,15 @@
             },
             success: function(data) {
                 if (data.status) {
-                    Swal.fire(
-                        'Berhasil',
-                        $text,
-                        'success'
-                    );
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: $text,
+                        icon: 'success',
+                        toast: true,
+                        position: 'bottom-start',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
                     reloadTask();
 
                     $('.help-block').empty();

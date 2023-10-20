@@ -23,7 +23,11 @@ class Task extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '20',
             ],
-            'keterangan' => [
+            'masalah' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
+            'penyelesaian' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
@@ -31,18 +35,6 @@ class Task extends Migration
                 'type'       => 'INT',
             ],
             'frekuensi' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
-            'start' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
-            'end' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
-            'total' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],

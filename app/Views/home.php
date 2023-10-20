@@ -76,14 +76,14 @@
                 <table class="table table-striped">
                     <thead>
                         <th>Departemen</th>
-                        <th>Keterangan</th>
+                        <th>Masalah</th>
                         <th>Status</th>
                     </thead>
                     <tbody>
                         <?php foreach ($taskClose as $task) : ?>
                             <tr>
                                 <td><?= $task['nama_departemen'] ?></td>
-                                <td><?= $task['keterangan'] ?></td>
+                                <td><?= $task['masalah'] ?></td>
                                 <?php if ($task['status'] == '0') : ?>
                                     <td><span class="badge badge-danger">Open</span></td>
                                 <?php endif; ?>

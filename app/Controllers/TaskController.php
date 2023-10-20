@@ -77,7 +77,7 @@ class TaskController extends BaseController
             $row[] = $no;
             $row[] = $temp['tanggal'];
             $row[] = $temp['nama_departemen'];
-            $row[] = $temp['keterangan'];
+            $row[] = $temp['masalah'];
             $row[] = $status;
             $row[] = $aksi;
 
@@ -114,12 +114,10 @@ class TaskController extends BaseController
             'tanggal' => $this->request->getVar('tanggal'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'plant' => $this->request->getVar('plant'),
-            'keterangan' => $this->request->getVar('keterangan'),
+            'masalah' => $this->request->getVar('masalah'),
+            'penyelesaian' => $this->request->getVar('penyelesaian'),
             'status' => $this->request->getVar('status'),
             'frekuensi' => $this->request->getVar('frekuensi'),
-            'start' => $this->request->getVar('start'),
-            'end' => $this->request->getVar('end'),
-            'total' => $this->request->getVar('total'),
         ];
 
         if ($this->dbTask->save($data)) {
@@ -145,12 +143,10 @@ class TaskController extends BaseController
             'tanggal' => $this->request->getVar('tanggal'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'plant' => $this->request->getVar('plant'),
-            'keterangan' => htmlspecialchars($this->request->getVar('keterangan')),
+            'masalah' => htmlspecialchars($this->request->getVar('masalah')),
+            'penyelesaian' => htmlspecialchars($this->request->getVar('penyelesaian')),
             'status' => $this->request->getVar('status'),
             'frekuensi' => $this->request->getVar('frekuensi'),
-            'start' => $this->request->getVar('start'),
-            'end' => $this->request->getVar('end'),
-            'total' => $this->request->getVar('total'),
         ];
 
         if ($this->dbTask->save($data)) {
@@ -184,9 +180,14 @@ class TaskController extends BaseController
                 $data['error_string'][] = $validation->getError('plant');
                 $data['status'] = false;
             }
-            if ($validation->hasError('keterangan')) {
-                $data['inputerror'][] = 'keterangan';
-                $data['error_string'][] = $validation->getError('keterangan');
+            if ($validation->hasError('masalah')) {
+                $data['inputerror'][] = 'masalah';
+                $data['error_string'][] = $validation->getError('masalah');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('penyelesaian')) {
+                $data['inputerror'][] = 'penyelesaian';
+                $data['error_string'][] = $validation->getError('penyelesaian');
                 $data['status'] = false;
             }
             if ($validation->hasError('status')) {
@@ -197,21 +198,6 @@ class TaskController extends BaseController
             if ($validation->hasError('frekuensi')) {
                 $data['inputerror'][] = 'frekuensi';
                 $data['error_string'][] = $validation->getError('frekuensi');
-                $data['status'] = false;
-            }
-            if ($validation->hasError('start')) {
-                $data['inputerror'][] = 'start';
-                $data['error_string'][] = $validation->getError('start');
-                $data['status'] = false;
-            }
-            if ($validation->hasError('end')) {
-                $data['inputerror'][] = 'end';
-                $data['error_string'][] = $validation->getError('end');
-                $data['status'] = false;
-            }
-            if ($validation->hasError('total')) {
-                $data['inputerror'][] = 'total';
-                $data['error_string'][] = $validation->getError('total');
                 $data['status'] = false;
             }
 
