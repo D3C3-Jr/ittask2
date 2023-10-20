@@ -79,7 +79,9 @@ class TaskController extends BaseController
             $row[] = $temp['nama_departemen'];
             $row[] = $temp['masalah'];
             $row[] = $status;
-            $row[] = $aksi;
+            if (in_groups('Administrator')) :
+                $row[] = $aksi;
+            endif;
 
             $data[] = $row;
             $no++;

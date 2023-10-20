@@ -21,7 +21,9 @@
                             <th>Departemen</th>
                             <th>Masalah</th>
                             <th>Status</th>
-                            <th class="text-center">Aksi</th>
+                            <?php if (in_groups('Administrator')) : ?>
+                                <th class="text-center">Aksi</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>

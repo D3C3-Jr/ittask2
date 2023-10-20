@@ -46,4 +46,9 @@ class HomeController extends BaseController
         ];
         return view('home', $data);
     }
+
+    public function pageError()
+    {
+        return view('errors/html/page_error');
+    }
 }

@@ -75,7 +75,8 @@ class Auth extends BaseConfig
      */
     public $views = [
         'login'           => 'App\Views\auth\login',
-        'register'        => 'App\Views\auth\register',
+        // 'register'        => 'App\Views\auth\register',
+        'register'        => 'Myth\Auth\Views\register',
         // 'forgot'          => 'App\Views\auth\forgot',
         'forgot'          => 'Myth\Auth\Views\forgot',
         'reset'           => 'App\Views\auth\reset',
@@ -182,7 +183,7 @@ class Auth extends BaseConfig
      *
      * @var bool
      */
-    public $allowRegistration = false;
+    public $allowRegistration = true;
 
     /**
      * --------------------------------------------------------------------

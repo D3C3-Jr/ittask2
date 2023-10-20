@@ -5,6 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+$routes->get('/page_error' . random_bytes(10), 'HomeController::pageError');
 $routes->get('/', 'HomeController::index', ['filter' => 'login']);
 
 $routes->get('/asset', 'AssetController::index', ['filter' => 'role:Administrator']);
