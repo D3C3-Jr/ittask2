@@ -60,3 +60,4 @@ $routes->get('/stok/detail/(:num)', 'StokController::detailStok/$1', ['filter' =
 $routes->get('/stok/edit/(:num)', 'StokController::editStok/$1', ['filter' => 'role:Administrator']);
 $routes->post('/stok/update', 'StokController::updateStok', ['filter' => 'role:Administrator']);
 $routes->delete('/stok/delete/(:num)', 'StokController::deleteStok/$1', ['filter' => 'role:Administrator']);
+$routes->post('/exportExcelStok', 'StokController::exportExcel', ['filter' => 'role:Administrator']);

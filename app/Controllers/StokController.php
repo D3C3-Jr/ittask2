@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\StokModel;
+use FontLib\Table\Type\head;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class StokController extends BaseController
 {
@@ -140,6 +143,46 @@ class StokController extends BaseController
         } else {
             echo json_encode(['status' => false]);
         }
+    }
+
+    public function exportExcel()
+    {
+        $dataStok = $this->dbStok->findAll();
+        $filename = 'DataStok.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Tanggal');
+        $sheet->setCellValue('B1', 'Kode Barang');
+        $sheet->setCellValue('C1', 'Nama Barang');
+        $sheet->setCellValue('D1', 'Stok');
+        $sheet->setCellValue('E1', 'Satuan');
+
+        $column = 2;
+
+        foreach ($dataStok as $data) {
+            $sheet->setCellValue('A' . $column, $data['tanggal']);
+            $sheet->setCellValue('B' . $column, $data['kode_barang']);
+            $sheet->setCellValue('C' . $column, $data['nama_barang']);
+            $sheet->setCellValue('D' . $column, $data['stok']);
+            $sheet->setCellValue('E' . $column, $data['satuan']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length:' . filesize($filename));
+        flush();
+        readfile($filename);
+        exit();
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        // header('Cache-Control: max-age=0');
+
+        // $writer->save('php://output');
     }
 
     public function _validateStok($method)
