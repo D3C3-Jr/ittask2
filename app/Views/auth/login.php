@@ -79,7 +79,7 @@
                                                 <button type="submit" class="btn btn-white">Sign In</button>
                                                 <?php if ($config->allowRegistration) : ?>
                                                     <p class="mt-3">
-                                                        Create an Account <a href="auth-sign-up.html" class="text-white text-underline">Sign Up</a>
+                                                        Create an Account <a href="register" class="text-white text-underline">Sign Up</a>
                                                     </p>
                                                 <?php endif; ?>
                                             </form>

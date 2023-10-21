@@ -41,9 +41,9 @@ class RoleFilter extends BaseFilter implements FilterInterface
 
             return redirect()->to($redirectURL)->with('error', lang('Auth.notEnoughPrivilege'));
         }
-        // $redirectURL = session('redirect_url') ?? '/';
-        // return redirect()->to($redirectURL);
-        throw new PermissionException(lang('Auth.notEnoughPrivilege'));
+        $redirectURL = session('redirect_url') ?? '/';
+        return redirect()->to($redirectURL);
+        // throw new PermissionException(lang('Auth.notEnoughPrivilege'));
     }
 
     /**
