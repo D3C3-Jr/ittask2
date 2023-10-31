@@ -66,11 +66,11 @@ class TaskController extends BaseController
                     ';
             $status = $temp['status'];
             if ($status == 0) {
-                $status = '<badge class="badge badge-danger"> Open </badge>';
+                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
             } else if ($status == 1) {
-                $status = '<badge class="badge badge-info"> Proses </badge>';
+                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-info"> Proses </badge>';
             } else {
-                $status = '<badge class="badge badge-success"> Close </badge>';
+                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
             }
 
             $row = [];

@@ -47,29 +47,29 @@
             <form action="#" id="formTask" enctype="multipart/form-data">
                 <input type="hidden" name="id_task" id="id_task">
                 <div class="modal-body">
-                    <div class="row mb-1">
-                        <label for="tanggal" class="col-sm-4 col-form-label">Tanggal</label>
+                    <div class="row mb-1" id="tanggal">
+                        <label class="col-sm-4 col-form-label">Tanggal</label>
                         <div class="col-sm-8">
                             <input type="date" name="tanggal" class="form-control form-control-sm" id="tanggal">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <label for="masalah" class="col-sm-4 col-form-label">Masalah</label>
+                    <div class="row mb-1" id="masalah">
+                        <label class="col-sm-4 col-form-label">Masalah</label>
                         <div class="col-sm-8">
                             <input type="text" name="masalah" class="form-control form-control-sm" id="masalah">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <label for="penyelesaian" class="col-sm-4 col-form-label">Penyelesaian</label>
+                    <div class="row mb-1" id="penyelesaian">
+                        <label class="col-sm-4 col-form-label">Penyelesaian</label>
                         <div class="col-sm-8">
                             <input type="text" name="penyelesaian" class="form-control form-control-sm" id="penyelesaian">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <label for="plant" class="col-sm-4 col-form-label">Plant</label>
+                    <div class="row mb-1" id="plant">
+                        <label class="col-sm-4 col-form-label">Plant</label>
                         <div class="col-sm-8">
                             <select name="plant" id="plant" class="form-control form-control-sm">
                                 <option selected hidden disabled>Pilih Plant</option>
@@ -79,8 +79,8 @@
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <label for="id_departemen" class="col-sm-4 col-form-label">Departemen</label>
+                    <div class="row mb-1" id="id_departemen">
+                        <label class="col-sm-4 col-form-label">Departemen</label>
                         <div class="col-sm-8">
                             <select name="id_departemen" id="id_departemen" class="form-control form-control-sm">
                                 <option selected hidden disabled>Pilih Departemen</option>
@@ -91,8 +91,8 @@
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <label for="frekuensi" class="col-sm-4 col-form-label">Frekuensi</label>
+                    <div class="row mb-1" id="frekuensi">
+                        <label class="col-sm-4 col-form-label">Frekuensi</label>
                         <div class="col-sm-8">
                             <select name="frekuensi" id="frekuensi" class="form-control form-control-sm">
                                 <option selected hidden disabled>Pilih Frekuensi</option>
@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="row mb-1">
-                        <label for="status" class="col-sm-4 col-form-label">Status</label>
+                        <label class="col-sm-4 col-form-label">Status</label>
                         <div class="col-sm-8">
                             <select name="status" id="status" class="form-control form-control-sm">
                                 <option selected hidden disabled>Pilih Status</option>
@@ -126,6 +126,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     var tableTask;
@@ -149,13 +150,6 @@
             // ]
         });
 
-        $('#start, #end').keyup(function() {
-            var start = $('#start').val()
-            var end = $('#end').val()
-
-            var total = parseFloat(end).toFixed(2) - parseFloat(start).toFixed(2);
-            $('#total').val(total.toFixed(2))
-        });
     });
 
     function reloadTask() {
@@ -167,6 +161,12 @@
         $('.modal-footer').attr('hidden', false);
         $('#formTask')[0].reset();
         $('#modalTask').modal('show');
+        $('#tanggal').attr('hidden', false);
+        $('#masalah').attr('hidden', false);
+        $('#penyelesaian').attr('hidden', false);
+        $('#plant').attr('hidden', false);
+        $('#id_departemen').attr('hidden', false);
+        $('#frekuensi').attr('hidden', false);
         $('input').attr('disabled', false);
         $('select').attr('disabled', false);
         $('.modal-title').text('Form Tambah Data Task');
@@ -190,8 +190,49 @@
                 $('.help-block').text('');
 
                 $('#modalTask').modal('show');
+                $('#tanggal').attr('hidden', false);
+                $('#masalah').attr('hidden', false);
+                $('#penyelesaian').attr('hidden', false);
+                $('#plant').attr('hidden', false);
+                $('#id_departemen').attr('hidden', false);
+                $('#frekuensi').attr('hidden', false);
                 $('.modal-title').text('Detail Data Task');
                 $('.modal-footer').attr('hidden', true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error');
+            }
+        })
+    }
+
+    function editStatus(id_task) {
+        method = 'update';
+        $.ajax({
+            url: '<?php site_url() ?>/task/edit/' + id_task,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(data) {
+                $('[name="id_task"]').val(data.id_task).attr('disabled', false);
+                $('[name="tanggal"]').val(data.tanggal).attr('disabled', false);
+                $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', false);
+                $('[name="plant"]').val(data.plant).attr('disabled', false);
+                $('[name="masalah"]').val(data.masalah).attr('disabled', false);
+                $('[name="penyelesaian"]').val(data.penyelesaian).attr('disabled', false);
+                $('[name="status"]').val(data.status).attr('disabled', false);
+                $('[name="frekuensi"]').val(data.frekuensi).attr('disabled', false);
+                $('.start').text('Gunakan Titik untuk Menit');
+                $('.end').text('Gunakan Titik untuk Menit');
+
+                $('.modal-footer').attr('hidden', false);
+                $('#modalTask').modal('show');
+                $('#tanggal').attr('hidden', true);
+                $('#masalah').attr('hidden', true);
+                $('#penyelesaian').attr('hidden', true);
+                $('#plant').attr('hidden', true);
+                $('#id_departemen').attr('hidden', true);
+                $('#frekuensi').attr('hidden', true);
+                $('.modal-title').text('Form Edit Data Task');
+                $('#submit').text('Update');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert('Error');
@@ -214,11 +255,15 @@
                 $('[name="penyelesaian"]').val(data.penyelesaian).attr('disabled', false);
                 $('[name="status"]').val(data.status).attr('disabled', false);
                 $('[name="frekuensi"]').val(data.frekuensi).attr('disabled', false);
-                $('.start').text('Gunakan Titik untuk Menit');
-                $('.end').text('Gunakan Titik untuk Menit');
 
                 $('.modal-footer').attr('hidden', false);
                 $('#modalTask').modal('show');
+                $('#tanggal').attr('hidden', false);
+                $('#masalah').attr('hidden', false);
+                $('#penyelesaian').attr('hidden', false);
+                $('#plant').attr('hidden', false);
+                $('#id_departemen').attr('hidden', false);
+                $('#frekuensi').attr('hidden', false);
                 $('.modal-title').text('Form Edit Data Task');
                 $('#submit').text('Update');
             },
