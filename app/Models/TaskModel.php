@@ -58,7 +58,7 @@ class TaskModel extends Model
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->like('keterangan', $search)->orLike('status', $search)->orLike('frekuensi', $search)->findAll($start, $length);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('masalah', $search)->orLike('status', $search)->orLike('frekuensi', $search)->findAll($start, $length);
         return $result;
     }
 

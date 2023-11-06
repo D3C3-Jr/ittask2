@@ -73,9 +73,11 @@ class TaskController extends BaseController
                 $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
             }
 
+            $tanggal = date('l, d-M-y', strtotime($temp['tanggal']));
+
             $row = [];
             $row[] = $no;
-            $row[] = $temp['tanggal'];
+            $row[] = $tanggal;
             $row[] = $temp['nama_departemen'];
             $row[] = $temp['masalah'];
             $row[] = $status;
