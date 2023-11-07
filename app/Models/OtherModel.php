@@ -62,7 +62,7 @@ class OtherModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->like('device_id', $search)->countAllResults();
+        $result = $this->like('device_id', $search)->orLike('nama_produk', $search)->orLike('jenis', $search)->countAllResults();
         return $result;
     }
 

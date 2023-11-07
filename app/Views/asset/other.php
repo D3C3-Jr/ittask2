@@ -1,6 +1,9 @@
 <div class="tab-pane" id="other-two" role="tabpanel" aria-labelledby="other-tab-two">
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadOther()"><i class="fas fa-sync"></i></a>
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addOther()"><i class="fas fa-plus"> </i> Tambah Data</a>
+    <form action="<?= base_url() ?>exportExcelOther" method="post">
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadOther()"><i class="fas fa-sync"></i></a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addOther()"><i class="fas fa-plus"> </i> Tambah Data</a>
+        <button class="btn btn-sm btn-primary my-2"><i class="fas fa-file-excel"> </i> Export Excel</button>
+    </form>
     <table class="table-striped table-sm" id="tableOther" width="100%">
         <thead>
             <tr class="ligth">
@@ -40,7 +43,16 @@
                     <div class="row mb-1">
                         <label for="jenis" class="col-sm-4 col-form-label">Jenis</label>
                         <div class="col-sm-8">
-                            <input type="text" name="jenis" class="form-control form-control-sm" id="jenis">
+                            <select name="jenis" id="jenis" class="form-control form-control-sm">
+                                <option hidden selected disabled>Pilih Jenis</option>
+                                <option value="Server">Server</option>
+                                <option value="Pocker Wifi">Pocker Wifi</option>
+                                <option value="Flashdisk">Flashdisk</option>
+                                <option value="Router">Router</option>
+                                <option value="Switch">Switch</option>
+                                <option value="IPScan">IPScan</option>
+                                <option value="Access Point">Access Point</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>

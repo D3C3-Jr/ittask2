@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\TaskModel;
 use App\Models\DepartemenModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class TaskController extends BaseController
 {
@@ -208,5 +210,56 @@ class TaskController extends BaseController
                 exit();
             }
         }
+    }
+
+    public function exportExcelTask()
+    {
+        $dataTask = $this->dbTask->getDepartemen();
+        $filename = 'DataTask' . date('ymd') . '.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Tanggal');
+        $sheet->setCellValue('B1', 'Departement');
+        $sheet->setCellValue('C1', 'Plant');
+        $sheet->setCellValue('D1', 'Masalah');
+        $sheet->setCellValue('E1', 'Penyelesaian');
+        $sheet->setCellValue('F1', 'Status');
+        $sheet->setCellValue('G1', 'Frekuensi');
+
+        $column = 2;
+
+        foreach ($dataTask as $data) {
+            if ($data['status'] == "0") {
+                $status = "Open";
+            } elseif ($data['status'] == "1") {
+                $status = "On Proccess";
+            } else {
+                $status = "Done";
+            }
+            $sheet->setCellValue('A' . $column, $data['tanggal']);
+            $sheet->setCellValue('B' . $column, $data['nama_departemen']);
+            $sheet->setCellValue('C' . $column, $data['plant']);
+            $sheet->setCellValue('D' . $column, $data['masalah']);
+            $sheet->setCellValue('E' . $column, $data['penyelesaian']);
+            $sheet->setCellValue('F' . $column, $status);
+            $sheet->setCellValue('G' . $column, $data['frekuensi']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length:' . filesize($filename));
+        flush();
+        readfile($filename);
+        exit();
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        // header('Cache-Control: max-age=0');
+
+        // $writer->save('php://output');
     }
 }

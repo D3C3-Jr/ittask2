@@ -1,6 +1,9 @@
 <div class="tab-pane" id="printer-two" role="tabpanel" aria-labelledby="printer-tab-two">
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadPrinter()"><i class="fas fa-sync"></i></a>
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addPrinter()"><i class="fas fa-plus"> </i> Tambah Data</a>
+    <form action="<?= base_url() ?>exportExcelPrinter" method="post">
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadPrinter()"><i class="fas fa-sync"></i></a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addPrinter()"><i class="fas fa-plus"> </i> Tambah Data</a>
+        <button class="btn btn-sm btn-primary my-2"><i class="fas fa-file-excel"> </i> Export Excel</button>
+    </form>
     <table class="table-striped table-sm" id="tablePrinter" width="100%">
         <thead>
             <tr class="ligth">

@@ -11,8 +11,11 @@
                 </div>
             </div>
             <div class="card-body">
-                <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadTask()"><i class="fas fa-sync"></i></a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addTask()"><i class="fas fa-plus"> </i> Tambah Data</a>
+                <form action="<?= base_url() ?>exportExcelTask" method="post">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadTask()"><i class="fas fa-sync"></i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addTask()"><i class="fas fa-plus"> </i> Tambah Data</a>
+                    <button class="btn btn-sm btn-primary my-2"><i class="fas fa-file-excel"> </i> Export Excel</button>
+                </form>
                 <table class="table-sm table-striped" id="tableTask" width="100%">
                     <thead>
                         <tr class="ligth">

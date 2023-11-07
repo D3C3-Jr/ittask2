@@ -1,6 +1,9 @@
 <div class="tab-pane fade show " id="proyektor-two" role="tabpanel" aria-labelledby="proyektor-tab-two">
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadProyektor()"><i class="fas fa-sync"></i></a>
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addProyektor()"><i class="fas fa-plus"> </i> Tambah Data</a>
+    <form action="<?= base_url() ?>exportExcelProyektor" method="post">
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="reloadProyektor()"><i class="fas fa-sync"></i></a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary my-2" onclick="addProyektor()"><i class="fas fa-plus"> </i> Tambah Data</a>
+        <button class="btn btn-sm btn-primary my-2"><i class="fas fa-file-excel"> </i> Export Excel</button>
+    </form>
     <table id="tableProyektor" class=" table-sm table-striped" width="100%">
         <thead>
             <tr class="ligth">

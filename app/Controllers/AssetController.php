@@ -8,6 +8,8 @@ use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
 use App\Models\OtherModel;
 use Dompdf\Dompdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AssetController extends BaseController
 {
@@ -806,6 +808,207 @@ class AssetController extends BaseController
         ];
         return view('asset/pdf/computer', $data);
     }
+
+
+    // Export Excel
+
+    public function exportExcelComputer()
+    {
+        $dataComputer = $this->dbComputer->findAll();
+        $filename = 'DataComputer' . date('ymd') . '.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Asset Number');
+        $sheet->setCellValue('B1', 'Device ID');
+        $sheet->setCellValue('C1', 'Login User');
+        $sheet->setCellValue('D1', 'Jenis');
+        $sheet->setCellValue('E1', 'Nama Produk');
+        $sheet->setCellValue('F1', 'Serial Number');
+        $sheet->setCellValue('G1', 'MAC Address');
+        $sheet->setCellValue('H1', 'Processor');
+        $sheet->setCellValue('I1', 'RAM');
+        $sheet->setCellValue('J1', 'ROM');
+        $sheet->setCellValue('K1', 'User');
+        $sheet->setCellValue('L1', 'Status');
+
+        $column = 2;
+
+        foreach ($dataComputer as $data) {
+            if ($data['status'] == "1") {
+                $status = "Active";
+            } else {
+                $status = "Spare";
+            };
+            $sheet->setCellValue('A' . $column, $data['asset_number']);
+            $sheet->setCellValue('B' . $column, $data['device_id']);
+            $sheet->setCellValue('C' . $column, $data['login_user']);
+            $sheet->setCellValue('D' . $column, $data['jenis']);
+            $sheet->setCellValue('E' . $column, $data['nama_produk']);
+            $sheet->setCellValue('F' . $column, $data['serial_number']);
+            $sheet->setCellValue('G' . $column, $data['mac_address']);
+            $sheet->setCellValue('H' . $column, $data['prosesor']);
+            $sheet->setCellValue('I' . $column, $data['ram']);
+            $sheet->setCellValue('J' . $column, $data['rom']);
+            $sheet->setCellValue('K' . $column, $data['user']);
+            $sheet->setCellValue('L' . $column, $status);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length:' . filesize($filename));
+        flush();
+        readfile($filename);
+        exit();
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        // header('Cache-Control: max-age=0');
+
+        // $writer->save('php://output');
+    }
+
+    public function exportExcelPrinter()
+    {
+        $dataPrinter = $this->dbPrinter->findAll();
+        $filename = 'DataPrinter' . date('ymd') . '.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Device ID');
+        $sheet->setCellValue('B1', 'Jenis');
+        $sheet->setCellValue('C1', 'Merk');
+        $sheet->setCellValue('D1', 'Model');
+        $sheet->setCellValue('E1', 'MAC / SN');
+        $sheet->setCellValue('F1', 'Plant');
+        $sheet->setCellValue('G1', 'Lokasi');
+        $sheet->setCellValue('H1', 'IP Address');
+
+        $column = 2;
+
+        foreach ($dataPrinter as $data) {
+            $sheet->setCellValue('A' . $column, $data['device_id']);
+            $sheet->setCellValue('B' . $column, $data['jenis']);
+            $sheet->setCellValue('C' . $column, $data['merk']);
+            $sheet->setCellValue('D' . $column, $data['model']);
+            $sheet->setCellValue('E' . $column, $data['mac_sn']);
+            $sheet->setCellValue('F' . $column, $data['plant']);
+            $sheet->setCellValue('G' . $column, $data['lokasi']);
+            $sheet->setCellValue('H' . $column, $data['ip_address']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length:' . filesize($filename));
+        flush();
+        readfile($filename);
+        exit();
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        // header('Cache-Control: max-age=0');
+
+        // $writer->save('php://output');
+    }
+
+    public function exportExcelProyektor()
+    {
+        $dataProyektor = $this->dbProyektor->findAll();
+        $filename = 'DataProyektor' . date('ymd') . '.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Device ID');
+        $sheet->setCellValue('B1', 'Jenis');
+        $sheet->setCellValue('C1', 'Nama Produk');
+        $sheet->setCellValue('D1', 'Serial Number');
+        $sheet->setCellValue('E1', 'Plant');
+        $sheet->setCellValue('F1', 'Lokasi');
+
+        $column = 2;
+
+        foreach ($dataProyektor as $data) {
+            $sheet->setCellValue('A' . $column, $data['device_id']);
+            $sheet->setCellValue('B' . $column, $data['jenis']);
+            $sheet->setCellValue('C' . $column, $data['nama_produk']);
+            $sheet->setCellValue('D' . $column, $data['serial_number']);
+            $sheet->setCellValue('E' . $column, $data['plant']);
+            $sheet->setCellValue('F' . $column, $data['lokasi']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length:' . filesize($filename));
+        flush();
+        readfile($filename);
+        exit();
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        // header('Cache-Control: max-age=0');
+
+        // $writer->save('php://output');
+    }
+
+    public function exportExcelOther()
+    {
+        $dataOther = $this->dbOther->findAll();
+        $filename = 'DataOther' . date('ymd') . '.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Device ID');
+        $sheet->setCellValue('B1', 'Jenis');
+        $sheet->setCellValue('C1', 'Nama Produk');
+        $sheet->setCellValue('D1', 'Serial Number');
+        $sheet->setCellValue('E1', 'Plant');
+        $sheet->setCellValue('F1', 'Lokasi');
+        $sheet->setCellValue('G1', 'IP Address');
+        $sheet->setCellValue('H1', 'Keterangan');
+
+        $column = 2;
+
+        foreach ($dataOther as $data) {
+            $sheet->setCellValue('A' . $column, $data['device_id']);
+            $sheet->setCellValue('B' . $column, $data['jenis']);
+            $sheet->setCellValue('C' . $column, $data['nama_produk']);
+            $sheet->setCellValue('D' . $column, $data['serial_number']);
+            $sheet->setCellValue('E' . $column, $data['plant']);
+            $sheet->setCellValue('F' . $column, $data['lokasi']);
+            $sheet->setCellValue('G' . $column, $data['ip']);
+            $sheet->setCellValue('H' . $column, $data['keterangan']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filename);
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length:' . filesize($filename));
+        flush();
+        readfile($filename);
+        exit();
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        // header('Cache-Control: max-age=0');
+
+        // $writer->save('php://output');
+    }
+
+
+
+
+    // Export PDF
     public function pdfComputer()
     {
         $data = [
