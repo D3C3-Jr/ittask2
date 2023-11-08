@@ -58,7 +58,7 @@ class TaskModel extends Model
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('masalah', $search)->orLike('status', $search)->orLike('frekuensi', $search)->findAll($start, $length);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('tanggal', $search)->orLike('nama_departemen', $search)->orLike('masalah', $search)->findAll($start, $length);
         return $result;
     }
 
@@ -73,7 +73,7 @@ class TaskModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->like('id_task', $search)->countAllResults();
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('tanggal', $search)->orLike('nama_departemen', $search)->orLike('masalah', $search)->countAllResults();
         return $result;
     }
 

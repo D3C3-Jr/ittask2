@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+
 </head>
 
 <body>
@@ -61,6 +62,14 @@
             </div>
         </div>
     </footer>
+
+    <!-- MyJs -->
+    <script src="<?= base_url() ?>/assets/js/myjs/computer.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/printer.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/proyektor.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/other.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/task.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/stok.js"></script>
 
     <!-- Backend Bundle JavaScript -->
     <script src="<?= base_url() ?>/assets/js/backend-bundle.min.js"></script>
