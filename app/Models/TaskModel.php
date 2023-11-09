@@ -46,7 +46,7 @@ class TaskModel extends Model
     }
     public function getDepartemenHome()
     {
-        $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->findAll();
+        $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
         return $result;
     }
 

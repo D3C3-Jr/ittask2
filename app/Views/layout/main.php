@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
-    <title>Webkit | Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <title>ITVENTORY</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/favicon.ico" />
@@ -70,6 +70,7 @@
     <script src="<?= base_url() ?>/assets/js/myjs/other.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/task.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/stok.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/departemen.js"></script>
 
     <!-- Backend Bundle JavaScript -->
     <script src="<?= base_url() ?>/assets/js/backend-bundle.min.js"></script>
