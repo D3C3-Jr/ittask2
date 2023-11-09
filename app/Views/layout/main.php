@@ -8,7 +8,7 @@
     <title>ITVENTORY</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/logo-it.svg" />
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/backend-plugin.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/backend.css?v=1.0.0">
     <link rel="stylesheet" href="<?= base_url() ?>/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
@@ -71,6 +71,7 @@
     <script src="<?= base_url() ?>/assets/js/myjs/task.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/stok.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/departemen.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/lisensi.js"></script>
 
     <!-- Backend Bundle JavaScript -->
     <script src="<?= base_url() ?>/assets/js/backend-bundle.min.js"></script>

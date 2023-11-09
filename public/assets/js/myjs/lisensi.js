@@ -1,8 +1,8 @@
-var tableDepartemen;
+var tableLisensi;
 $(document).ready(function () {
-    tableDepartemen = $('#tableDepartemen').DataTable({
+    tableLisensi = $('#tableLisensi').DataTable({
         "ajax": {
-            "url": '/departemen/read',
+            "url": '/lisensi/read',
             "type": 'GET'
         },
         "deferRender": true,
@@ -21,36 +21,37 @@ $(document).ready(function () {
 
 });
 
-function reloadDepartemen() {
-    tableDepartemen.ajax.reload();
+function reloadLisensi() {
+    tableLisensi.ajax.reload();
 }
 
-function addDepartemen() {
+function addLisensi() {
     method = 'save';
     $('.modal-footer').attr('hidden', false);
-    $('#formDepartemen')[0].reset();
-    $('#modalDepartemen').modal('show');
+    $('#formLisensi')[0].reset();
+    $('#modalLisensi').modal('show');
     $('input').attr('disabled', false);
     $('select').attr('disabled', false);
-    $('.start').text('Gunakan Titik untuk Menit');
-    $('.end').text('Gunakan Titik untuk Menit');
-    $('.modal-title').text('Form Tambah Data Departemen');
+    $('.modal-title').text('Form Tambah Data Lisensi');
     $('#submit').text('Simpan');
 }
 
-function detailDepartemen(id_departemen) {
+function detailLisensi(id_lisensi) {
     $.ajax({
-        url: '/departemen/detail/' + id_departemen,
+        url: '/lisensi/detail/' + id_lisensi,
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
-            $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', true);
-            $('[name="kode_departemen"]').val(data.kode_departemen).attr('disabled', true);
-            $('[name="nama_departemen"]').val(data.nama_departemen).attr('disabled', true);
+            $('[name="id_lisensi"]').val(data.id_lisensi).attr('disabled', true);
+            $('[name="kode_lisensi"]').val(data.kode_lisensi).attr('disabled', true);
+            $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', true);
+            $('[name="product_key"]').val(data.product_key).attr('disabled', true);
+            $('[name="jenis"]').val(data.jenis).attr('disabled', true);
+            $('[name="status"]').val(data.status).attr('disabled', true);
             $('.help-block').text('');
 
-            $('#modalDepartemen').modal('show');
-            $('.modal-title').text('Detail Data Departemen');
+            $('#modalLisensi').modal('show');
+            $('.modal-title').text('Detail Data Lisensi');
             $('.modal-footer').attr('hidden', true);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -59,20 +60,23 @@ function detailDepartemen(id_departemen) {
     })
 }
 
-function editDepartemen(id_departemen) {
+function editLisensi(id_lisensi) {
     method = 'update';
     $.ajax({
-        url: '/departemen/edit/' + id_departemen,
+        url: '/lisensi/edit/' + id_lisensi,
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
-            $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', false);
-            $('[name="kode_departemen"]').val(data.kode_departemen).attr('disabled', false);
-            $('[name="nama_departemen"]').val(data.nama_departemen).attr('disabled', false);
+            $('[name="id_lisensi"]').val(data.id_lisensi).attr('disabled', false);
+            $('[name="kode_lisensi"]').val(data.kode_lisensi).attr('disabled', false);
+            $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', false);
+            $('[name="product_key"]').val(data.product_key).attr('disabled', false);
+            $('[name="jenis"]').val(data.jenis).attr('disabled', false);
+            $('[name="status"]').val(data.status).attr('disabled', false);
 
             $('.modal-footer').attr('hidden', false);
-            $('#modalDepartemen').modal('show');
-            $('.modal-title').text('Form Edit Data Departemen');
+            $('#modalLisensi').modal('show');
+            $('.modal-title').text('Form Edit Data Lisensi');
             $('#submit').text('Update');
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -81,7 +85,7 @@ function editDepartemen(id_departemen) {
     })
 }
 
-function deleteDepartemen(id_departemen) {
+function deleteLisensi(id_lisensi) {
     Swal.fire({
         title: 'Hapus Data?',
         text: "Anda yakin ingin menghapus Data ini",
@@ -93,7 +97,7 @@ function deleteDepartemen(id_departemen) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '/departemen/delete/' + id_departemen,
+                url: '/lisensi/delete/' + id_lisensi,
                 type: "DELETE",
                 dataType: "json",
                 success: function (data) {
@@ -107,7 +111,7 @@ function deleteDepartemen(id_departemen) {
                             showConfirmButton: false,
                             timer: 3000
                         });
-                        reloadDepartemen();
+                        reloadLisensi();
                     };
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -118,19 +122,19 @@ function deleteDepartemen(id_departemen) {
     });
 }
 
-function saveDepartemen() {
+function saveLisensi() {
     if (method == 'save') {
-        url = '/departemen/save';
+        url = '/lisensi/save';
         $text = 'Data berhasil di Ditambah';
     } else {
-        url = '/departemen/update';
+        url = '/lisensi/update';
         $text = 'Data berhasil di Update';
     }
 
     $.ajax({
         url: url,
         type: 'POST',
-        data: new FormData($('#formDepartemen')[0]),
+        data: new FormData($('#formLisensi')[0]),
         dataType: 'JSON',
         contentType: false,
         processData: false,
@@ -148,11 +152,11 @@ function saveDepartemen() {
                     showConfirmButton: false,
                     timer: 3000
                 });
-                reloadDepartemen();
+                reloadLisensi();
 
                 $('.help-block').empty();
-                $('#modalDepartemen').modal('hide');
-                $('#formDepartemen')[0].reset();
+                $('#modalLisensi').modal('hide');
+                $('#formLisensi')[0].reset();
             } else {
                 for (var i = 0; i < data.inputerror.length; i++) {
                     $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');

@@ -65,3 +65,12 @@ $routes->get('/stok/edit/(:num)', 'StokController::editStok/$1', ['filter' => 'r
 $routes->post('/stok/update', 'StokController::updateStok', ['filter' => 'role:Administrator']);
 $routes->delete('/stok/delete/(:num)', 'StokController::deleteStok/$1', ['filter' => 'role:Administrator']);
 $routes->post('/exportExcelStok', 'StokController::exportExcel', ['filter' => 'role:Administrator']);
+
+$routes->get('/lisensi', 'LisensiController::index', ['filter' => 'role:Administrator']);
+$routes->get('/lisensi/read', 'LisensiController::readLisensi', ['filter' => 'role:Administrator']);
+$routes->post('/lisensi/save', 'LisensiController::saveLisensi', ['filter' => 'role:Administrator']);
+$routes->get('/lisensi/detail/(:num)', 'LisensiController::detailLisensi/$1', ['filter' => 'role:Administrator']);
+$routes->get('/lisensi/edit/(:num)', 'LisensiController::editLisensi/$1', ['filter' => 'role:Administrator']);
+$routes->post('/lisensi/update', 'LisensiController::updateLisensi', ['filter' => 'role:Administrator']);
+$routes->delete('/lisensi/delete/(:num)', 'LisensiController::deleteLisensi/$1', ['filter' => 'role:Administrator']);
+$routes->post('/exportExcelLisensi', 'LisensiController::exportExcel', ['filter' => 'role:Administrator']);

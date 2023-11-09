@@ -32,9 +32,14 @@
                             <i class="fas fa-cart-shopping ml-1 mr-3"></i> Stok
                         </a>
                     </li>
+                    <li class="<?= ($title == 'Lisensi') ? 'active' : '' ?>">
+                        <a href="/lisensi" class="svg-icon">
+                            <i class="fas fa-key ml-1 mr-3"></i> Lisensi
+                        </a>
+                    </li>
                     <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
                         <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                            <i class="fas fa-key ml-1 mr-3"></i>
+                            <i class="fas fa-cogs ml-1 mr-3"></i>
                             Master
                             <i class="las la-angle-right iq-arrow-right arrow-active"></i>
                             <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
