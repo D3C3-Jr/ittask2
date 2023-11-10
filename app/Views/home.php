@@ -99,9 +99,37 @@
         <div class="card  card-height">
             <div class="card-body">
                 <div class="top-block d-flex align-items-center justify-content-between">
+                    <h4 class="mb-2">Process</h4>
+                </div>
+                <table class="table table-striped ">
+                    <thead>
+                        <th>Departemen</th>
+                        <th>Masalah</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($taskProses as $task) : ?>
+                            <tr>
+                                <td><?= $task['nama_departemen'] ?></td>
+                                <td><?= $task['masalah'] ?></td>
+                                <?php if ($task['status'] == '1') : ?>
+                                    <td><span class="badge badge-warning">Process</span></td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-6">
+        <div class="card  card-height">
+            <div class="card-body">
+                <div class="top-block d-flex align-items-center justify-content-between">
                     <h4 class="mb-2">Stok Minim</h4>
                 </div>
-                <table class="table table-striped" style="width: 100%;">
+                <table class="table table-striped " style="width: 100%;">
                     <thead>
                         <th>Kode Barang</th>
                         <th>Nama Barang</th>
@@ -120,7 +148,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 

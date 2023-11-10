@@ -70,7 +70,7 @@ class TaskController extends BaseController
             if ($status == 0) {
                 $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
             } else if ($status == 1) {
-                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-info"> Proses </badge>';
+                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
             } else {
                 $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
             }
