@@ -157,6 +157,14 @@ class TaskController extends BaseController
     public function saveTask()
     {
         $this->_validateTask('save');
+        if (in_groups('Administrator')) {
+            $status = $this->request->getVar('status');
+            $frekuensi = $this->request->getVar('frekuensi');
+        } else {
+            $status = 0;
+            $frekuensi = "Event";
+        };
+
         $data = [
             'id_user' => $this->request->getVar('id_user'),
             'tanggal' => $this->request->getVar('tanggal'),
@@ -164,8 +172,8 @@ class TaskController extends BaseController
             'plant' => $this->request->getVar('plant'),
             'masalah' => htmlspecialchars($this->request->getVar('masalah')),
             'penyelesaian' => htmlspecialchars($this->request->getVar('penyelesaian')),
-            'status' => $this->request->getVar('status'),
-            'frekuensi' => $this->request->getVar('frekuensi'),
+            'frekuensi' => $frekuensi,
+            'status' => $status,
         ];
 
         if ($this->dbTask->save($data)) {
@@ -204,21 +212,21 @@ class TaskController extends BaseController
                 $data['error_string'][] = $validation->getError('masalah');
                 $data['status'] = false;
             }
-            if ($validation->hasError('penyelesaian')) {
-                $data['inputerror'][] = 'penyelesaian';
-                $data['error_string'][] = $validation->getError('penyelesaian');
-                $data['status'] = false;
-            }
-            if ($validation->hasError('status')) {
-                $data['inputerror'][] = 'status';
-                $data['error_string'][] = $validation->getError('status');
-                $data['status'] = false;
-            }
-            if ($validation->hasError('frekuensi')) {
-                $data['inputerror'][] = 'frekuensi';
-                $data['error_string'][] = $validation->getError('frekuensi');
-                $data['status'] = false;
-            }
+            // if ($validation->hasError('penyelesaian')) {
+            //     $data['inputerror'][] = 'penyelesaian';
+            //     $data['error_string'][] = $validation->getError('penyelesaian');
+            //     $data['status'] = false;
+            // }
+            // if ($validation->hasError('status')) {
+            //     $data['inputerror'][] = 'status';
+            //     $data['error_string'][] = $validation->getError('status');
+            //     $data['status'] = false;
+            // }
+            // if ($validation->hasError('frekuensi')) {
+            //     $data['inputerror'][] = 'frekuensi';
+            //     $data['error_string'][] = $validation->getError('frekuensi');
+            //     $data['status'] = false;
+            // }
 
             if ($data['status'] === false) {
                 echo json_encode($data);

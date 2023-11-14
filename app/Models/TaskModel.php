@@ -145,13 +145,13 @@ class TaskModel extends Model
                     'required' => '{field} Harus di isi',
                 ],
             ],
-            'penyelesaian' => [
-                'rules' => 'required',
-                'label' => 'Penyelesaian',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
+            // 'penyelesaian' => [
+            //     'rules' => 'required',
+            //     'label' => 'Penyelesaian',
+            //     'errors' => [
+            //         'required' => '{field} Harus di isi',
+            //     ],
+            // ],
             'plant' => [
                 'rules' => 'required',
                 'label' => 'Plant',
@@ -159,20 +159,20 @@ class TaskModel extends Model
                     'required' => '{field} Harus di isi',
                 ],
             ],
-            'status' => [
-                'rules' => 'required',
-                'label' => 'Status',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
-            'frekuensi' => [
-                'rules' => 'required',
-                'label' => 'Frekuensi',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
+            // 'status' => [
+            //     'rules' => 'required',
+            //     'label' => 'Status',
+            //     'errors' => [
+            //         'required' => '{field} Harus di isi',
+            //     ],
+            // ],
+            // 'frekuensi' => [
+            //     'rules' => 'required',
+            //     'label' => 'Frekuensi',
+            //     'errors' => [
+            //         'required' => '{field} Harus di isi',
+            //     ],
+            // ],
         ];
 
         return $rulesValidation;

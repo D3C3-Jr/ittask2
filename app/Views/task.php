@@ -65,13 +65,15 @@
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1" id="penyelesaian">
-                        <label class="col-sm-4 col-form-label">Penyelesaian</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="penyelesaian" class="form-control form-control-sm" id="penyelesaian">
-                            <small class="help-block text-danger"></small>
+                    <?php if (in_groups('Administrator')) : ?>
+                        <div class="row mb-1" id="penyelesaian">
+                            <label class="col-sm-4 col-form-label">Penyelesaian</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="penyelesaian" class="form-control form-control-sm" id="penyelesaian">
+                                <small class="help-block text-danger"></small>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                     <div class="row mb-1" id="plant">
                         <label class="col-sm-4 col-form-label">Plant</label>
                         <div class="col-sm-8">
@@ -95,32 +97,34 @@
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
-                    <div class="row mb-1" id="frekuensi">
-                        <label class="col-sm-4 col-form-label">Frekuensi</label>
-                        <div class="col-sm-8">
-                            <select name="frekuensi" id="frekuensi" class="form-control form-control-sm">
-                                <option selected hidden disabled>Pilih Frekuensi</option>
-                                <option value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Event">Event</option>
-                            </select>
-                            <small class="help-block text-danger"></small>
-                        </div>
-                    </div>
 
-                    <div class="row mb-1">
-                        <label class="col-sm-4 col-form-label">Status</label>
-                        <div class="col-sm-8">
-                            <select name="status" id="status" class="form-control form-control-sm">
-                                <option selected hidden disabled>Pilih Status</option>
-                                <option value="0">Open</option>
-                                <option value="1">On Proccess</option>
-                                <option value="2">Done</option>
-                            </select>
-                            <small class="help-block text-danger"></small>
+                    <?php if (in_groups('Administrator')) : ?>
+                        <div class="row mb-1" id="frekuensi">
+                            <label class="col-sm-4 col-form-label">Frekuensi</label>
+                            <div class="col-sm-8">
+                                <select name="frekuensi" id="frekuensi" class="form-control form-control-sm">
+                                    <option selected hidden disabled>Pilih Frekuensi</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Event">Event</option>
+                                </select>
+                                <small class="help-block text-danger"></small>
+                            </div>
                         </div>
-                    </div>
+                        <div class="row mb-1">
+                            <label class="col-sm-4 col-form-label">Status</label>
+                            <div class="col-sm-8">
+                                <select name="status" id="status" class="form-control form-control-sm">
+                                    <option selected hidden disabled>Pilih Status</option>
+                                    <option value="0">Open</option>
+                                    <option value="1">On Proccess</option>
+                                    <option value="2">Done</option>
+                                </select>
+                                <small class="help-block text-danger"></small>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="close" class="btn btn-secondary" onclick="resetForm()" data-dismiss="modal">Close</button>
