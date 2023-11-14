@@ -68,11 +68,23 @@ class TaskController extends BaseController
                     ';
             $status = $temp['status'];
             if ($status == 0) {
-                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                } else {
+                    $status = '<badge class="badge badge-danger"> Open </badge>';
+                }
             } else if ($status == 1) {
-                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                } else {
+                    $status = '<badge class="badge badge-warning"> Proses </badge>';
+                }
             } else {
-                $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                } else {
+                    $status = '<badge class="badge badge-success"> Close </badge>';
+                }
             }
 
             $tanggal = date('l, d-M-y', strtotime($temp['tanggal']));
@@ -111,10 +123,12 @@ class TaskController extends BaseController
     {
         $this->_validateTask('update');
         $id_task = $this->request->getVar('id_task');
+        $id_user = user_id();
         $task = $this->dbTask->find($id_task);
 
         $data = [
             'id_task' => $id_task,
+            'id_user' => $id_user,
             'tanggal' => $this->request->getVar('tanggal'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'plant' => $this->request->getVar('plant'),
@@ -144,6 +158,7 @@ class TaskController extends BaseController
     {
         $this->_validateTask('save');
         $data = [
+            'id_user' => $this->request->getVar('id_user'),
             'tanggal' => $this->request->getVar('tanggal'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'plant' => $this->request->getVar('plant'),

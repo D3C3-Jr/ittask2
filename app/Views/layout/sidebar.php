@@ -16,15 +16,15 @@
                         <i class="fas fa-house ml-1 mr-3"></i> Home
                     </a>
                 </li>
+                <li class="<?= ($title == 'Task') ? 'active' : '' ?>">
+                    <a href="/task" class="svg-icon">
+                        <i class="fas fa-edit ml-1 mr-3"></i> <?= (in_groups('Administrator')) ? 'Task' : 'Ticket' ?>
+                    </a>
+                </li>
                 <?php if (in_groups('Administrator')) : ?>
                     <li class="<?= ($title == 'Data Asset') ? 'active' : '' ?>">
                         <a href="/asset" class="svg-icon">
                             <i class="fas fa-boxes-stacked ml-1 mr-3"></i> Asset
-                        </a>
-                    </li>
-                    <li class="<?= ($title == 'Task') ? 'active' : '' ?>">
-                        <a href="/task" class="svg-icon">
-                            <i class="fas fa-edit ml-1 mr-3"></i> Task
                         </a>
                     </li>
                     <li class="<?= ($title == 'Stok') ? 'active' : '' ?>">

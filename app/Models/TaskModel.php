@@ -13,7 +13,7 @@ class TaskModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['tanggal', 'id_departemen', 'plant', 'masalah', 'penyelesaian', 'status', 'frekuensi'];
+    protected $allowedFields    = ['id_user', 'tanggal', 'id_departemen', 'plant', 'masalah', 'penyelesaian', 'status', 'frekuensi'];
 
     // Dates
     protected $useTimestamps = true;
@@ -46,30 +46,50 @@ class TaskModel extends Model
     }
     public function getDepartemenHome()
     {
-        $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
+        if (in_groups('Administrator')) {
+            $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
+        } else {
+            $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'ASC')->findAll();
+        }
         return $result;
     }
     public function getDepartemenHomeProses()
     {
-        $result = $this->where('status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
+        if (in_groups('Administrator')) {
+            $result = $this->where('status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
+        } else {
+            $result = $this->where('status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'ASC')->findAll();
+        }
         return $result;
     }
 
     public function ajaxGetData($start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        if (in_groups('Administrator')) {
+            $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        } else {
+            $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        }
         return $result;
     }
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('tanggal', $search)->orLike('nama_departemen', $search)->orLike('masalah', $search)->findAll($start, $length);
+        if (in_groups('Administrator')) {
+            $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('tanggal', $search)->orLike('nama_departemen', $search)->orLike('masalah', $search)->findAll($start, $length);
+        } else {
+            $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        }
         return $result;
     }
 
     public function ajaxGetTotal()
     {
-        $result = $this->countAllResults();
+        if (in_groups('Administrator')) {
+            $result = $this->countAllResults();
+        } else {
+            $result = $this->where('id_user', user_id())->countAllResults();
+        }
         if (isset($result)) {
             return $result;
         }
@@ -78,7 +98,11 @@ class TaskModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('tanggal', $search)->orLike('nama_departemen', $search)->orLike('masalah', $search)->countAllResults();
+        if (in_groups('Administrator')) {
+            $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->like('tanggal', $search)->orLike('nama_departemen', $search)->orLike('masalah', $search)->countAllResults();
+        } else {
+            $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'DESC')->countAllResults();
+        }
         return $result;
     }
 

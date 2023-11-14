@@ -40,14 +40,14 @@ $routes->post('/asset/other/update', 'AssetController::updateOther', ['filter' =
 $routes->delete('/asset/other/delete/(:num)', 'AssetController::deleteOther/$1', ['filter' => 'role:Administrator']);
 $routes->post('/exportExcelOther', 'AssetController::exportExcelOther', ['filter' => 'role:Administrator']);
 
-$routes->get('/task', 'TaskController::index', ['filter' => 'role:Administrator']);
-$routes->get('/task/read', 'TaskController::readTask', ['filter' => 'role:Administrator']);
-$routes->post('/task/save', 'TaskController::saveTask', ['filter' => 'role:Administrator']);
-$routes->get('/task/detail/(:num)', 'TaskController::detailTask/$1', ['filter' => 'role:Administrator']);
-$routes->get('/task/edit/(:num)', 'TaskController::editTask/$1', ['filter' => 'role:Administrator']);
-$routes->post('/task/update', 'TaskController::updateTask', ['filter' => 'role:Administrator']);
-$routes->delete('/task/delete/(:num)', 'TaskController::deleteTask/$1', ['filter' => 'role:Administrator']);
-$routes->post('/exportExcelTask', 'TaskController::exportExcelTask', ['filter' => 'role:Administrator']);
+$routes->get('/task', 'TaskController::index', ['filter' => 'role:Administrator, Guest']);
+$routes->get('/task/read', 'TaskController::readTask', ['filter' => 'role:Administrator, Guest']);
+$routes->post('/task/save', 'TaskController::saveTask', ['filter' => 'role:Administrator, Guest']);
+$routes->get('/task/detail/(:num)', 'TaskController::detailTask/$1', ['filter' => 'role:Administrator, Guest']);
+$routes->get('/task/edit/(:num)', 'TaskController::editTask/$1', ['filter' => 'role:Administrator, Guest']);
+$routes->post('/task/update', 'TaskController::updateTask', ['filter' => 'role:Administrator, Guest']);
+$routes->delete('/task/delete/(:num)', 'TaskController::deleteTask/$1', ['filter' => 'role:Administrator, Guest']);
+$routes->post('/exportExcelTask', 'TaskController::exportExcelTask', ['filter' => 'role:Administrator, Guest']);
 
 $routes->get('/departemen', 'DepartemenController::index', ['filter' => 'role:Administrator']);
 $routes->get('/departemen/read', 'DepartemenController::readDepartemen', ['filter' => 'role:Administrator']);

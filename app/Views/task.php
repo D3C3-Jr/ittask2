@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
-                    <h4 class="card-title">Job Activity IT</h4>
+                    <h4 class="card-title"><?= (in_groups('Administrator')) ? 'IT Job Activity' : 'Ticket' ?></h4>
                 </div>
             </div>
             <div class="card-body">
@@ -49,6 +49,7 @@
             </div>
             <form action="#" id="formTask" enctype="multipart/form-data">
                 <input type="hidden" name="id_task" id="id_task">
+                <input type="hidden" name="id_user" id="id_user" value="<?= user_id() ?>">
                 <div class="modal-body">
                     <div class="row mb-1" id="tanggal">
                         <label class="col-sm-4 col-form-label">Tanggal</label>

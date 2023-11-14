@@ -75,7 +75,10 @@
                     <div class="row mb-1">
                         <label for="status" class="col-sm-4 col-form-label">Status</label>
                         <div class="col-sm-8">
-                            <input type="text" name="status" class="form-control form-control-sm" id="status">
+                            <select class="form-control form-control-sm" name="status" id="status">
+                                <option value="0">Not Ready</option>
+                                <option value="1">Ready</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>

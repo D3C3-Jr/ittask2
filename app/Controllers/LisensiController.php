@@ -60,7 +60,11 @@ class LisensiController extends BaseController
                     <a href="javascript:void(0)" onclick="deleteLisensi(' . $temp['id_lisensi'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
-
+            if ($temp['status'] == 1) {
+                $temp['status'] = '<badge class="badge badge-success"> Ready </badge>';
+            } else {
+                $temp['status'] = '<badge class="badge badge-danger"> Not Ready </badge>';
+            };
             $row = [];
             $row[] = $no;
             $row[] = $temp['kode_lisensi'];
