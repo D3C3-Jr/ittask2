@@ -68,6 +68,7 @@
     <script src="<?= base_url() ?>/assets/js/myjs/task.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/stok.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/departemen.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/user.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/lisensi.js"></script>
 
     <!-- Backend Bundle JavaScript -->

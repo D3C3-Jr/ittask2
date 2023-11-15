@@ -52,6 +52,14 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                            <li class="<?= ($title == 'User') ? 'active' : '' ?>">
+                                <a href="/user" class="svg-icon">
+                                    <i class="fas fa-circle fa-sm"></i>
+                                    <span class="ml-4">User</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 <?php endif ?>
             </ul>

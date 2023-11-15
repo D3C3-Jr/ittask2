@@ -128,7 +128,7 @@ class TaskController extends BaseController
 
         $data = [
             'id_task' => $id_task,
-            'id_user' => $id_user,
+            // 'id_user' => $id_user,
             'tanggal' => $this->request->getVar('tanggal'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'plant' => $this->request->getVar('plant'),

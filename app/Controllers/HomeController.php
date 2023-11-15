@@ -43,7 +43,7 @@ class HomeController extends BaseController
             'proyektor' => $this->dbProyektor->countAllResults(),
             'taskClose' => $this->dbTask->getDepartemenHome(),
             'taskProses' => $this->dbTask->getDepartemenHomeProses(),
-            'stockMinim' => $this->dbStok->orderBy('stok', 'ASC')->where('stok <', 3)->find(),
+            'stockMinim' => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang','Cair')->where('stok <', 3)->find(),
         ];
         return view('home', $data);
     }
