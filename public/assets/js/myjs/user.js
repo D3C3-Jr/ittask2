@@ -1,6 +1,13 @@
 var tableUser;
 var tableGroupUsers;
 $(document).ready(function () {
+    $.ajax({
+        url: "user/listUser",
+        method: "GET",
+        success: function (data) {
+            $('#user_id').html(data)
+        }
+    });
     tableUser = $('#tableUser').DataTable({
         "ajax": {
             "url": '/user/read',
@@ -39,12 +46,12 @@ $(document).ready(function () {
         // ]
     });
 });
-
 function reloadUser() {
     tableUser.ajax.reload();
 }
 function reloadGroupUsers() {
-    tableGroupUsers.ajax.reload();
+    // tableGroupUsers.ajax.reload();
+    location.reload();
 }
 
 function addUser() {
@@ -78,7 +85,7 @@ function detailUser(id) {
             $('[name="id"]').val(data.id).attr('disabled', true);
             $('[name="email"]').val(data.email).attr('disabled', true);
             $('[name="username"]').val(data.username).attr('disabled', true);
-            $('[name="password_hash"]').val(data.password_hash).attr('disabled', false);
+            $('[name="password_hash"]').val(data.password_hash).attr('disabled', true);
 
             $('#modalUser').modal('show');
             $('.modal-title').text('Detail Data User');
@@ -112,6 +119,27 @@ function editUser(id) {
         }
     })
 }
+function editGroupUsers(id) {
+    method = 'update';
+    $.ajax({
+        url: '/groupUsers/edit/' + id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            $('[name="id_group_users"]').val(data.id_group_users).attr('disabled', false);
+            $('[name="group_id"]').val(data.group_id).attr('disabled', false);
+            $('[name="user_id"]').val(data.user_id).attr('disabled', true);
+
+            $('.modal-footer').attr('hidden', false);
+            $('#modalGroupUsers').modal('show');
+            $('.modal-title').text('Form Edit Akses');
+            $('#submitGroupUsers').text('Update');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error');
+        }
+    })
+}
 
 function deleteUser(id) {
     Swal.fire({
@@ -136,6 +164,7 @@ function deleteUser(id) {
                             'success'
                         );
                         reloadUser();
+                        reloadGroupUsers();
                     };
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -146,6 +175,8 @@ function deleteUser(id) {
     });
 }
 
+
+// SAVE
 function saveUser() {
     if (method == 'save') {
         url = '/user/save';

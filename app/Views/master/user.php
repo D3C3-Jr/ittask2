@@ -17,7 +17,7 @@
                     <thead>
                         <tr class="ligth">
                             <th>No</th>
-                            <th>Kode User</th>
+                            <th>Email</th>
                             <th>Nama User</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -86,13 +86,13 @@
                     <div class="row mb-1">
                         <label for="password_hash" class="col-sm-4 col-form-label">Password</label>
                         <div class="col-sm-8">
-                            <input type="text" name="password_hash" class="form-control form-control-sm" id="password_hash">
+                            <input type="password" name="password_hash" class="form-control form-control-sm" id="password_hash">
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="close" class="btn btn-secondary" onclick="resetForm()" data-dismiss="modal">Close</button>
+                    <button type="button" id="closeUser" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" id="submit" class="btn btn-primary" onclick="saveUser()"></button>
                 </div>
             </form>
@@ -110,25 +110,31 @@
                 </button>
             </div>
             <form action="#" id="formGroupUsers" enctype="multipart/form-data">
+                <?php csrf_field(); ?>
                 <input type="hidden" name="id_group_users" id="id_group_users">
                 <div class="modal-body">
                     <div class="row mb-1">
                         <label for="group_id" class="col-sm-4 col-form-label">Hak Akses</label>
                         <div class="col-sm-8">
-                            <input type="text" name="group_id" class="form-control form-control-sm" id="group_id">
+                            <select class="form-control form-control-sm" name="group_id" id="group_id">
+                                <option selected hidden disabled>Pilih Hak Akses</option>
+                                <option value="1">Administator</option>
+                                <option value="2">Guest</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
                     <div class="row mb-1">
                         <label for="user_id" class="col-sm-4 col-form-label">Username</label>
                         <div class="col-sm-8">
-                            <input type="text" name="user_id" class="form-control form-control-sm" id="user_id">
+                            <select class="form-control form-control-sm" name="user_id" id="user_id">
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="closeGroupUsers" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" id="submitGroupUsers" class="btn btn-primary" onclick="saveGroupUsers()"></button>
                 </div>
             </form>

@@ -71,6 +71,7 @@ $routes->get('/groupUsers/detail/(:num)', 'UserController::detailGroupUsers/$1',
 $routes->get('/groupUsers/edit/(:num)', 'UserController::editGroupUsers/$1', ['filter' => 'role:Administrator']);
 $routes->post('/groupUsers/update', 'UserController::updateGroupUsers', ['filter' => 'role:Administrator']);
 $routes->delete('/groupUsers/delete/(:num)', 'UserController::deleteGroupUsers/$1', ['filter' => 'role:Administrator']);
+$routes->get('/user/listUser', 'UserController::listUser', ['filter' => 'role:Administrator']);
 
 $routes->get('/stok', 'StokController::index', ['filter' => 'role:Administrator']);
 $routes->get('/stok/read', 'StokController::readStok', ['filter' => 'role:Administrator']);

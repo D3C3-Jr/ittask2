@@ -77,7 +77,7 @@ class GroupUsersModel extends Model
         $rulesValidation = [
             'group_id' => [
                 'rules' => 'required',
-                'label' => 'Email',
+                'label' => 'Akses',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                     'is_unique' => '{field} Sudah ada',

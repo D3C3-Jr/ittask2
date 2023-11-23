@@ -23,8 +23,18 @@ class UserController extends BaseController
     {
         $data = [
             'title' => 'User',
+            'users' => $this->dbUser->findAll(),
         ];
         return view('master/user', $data);
+    }
+    public function listUser()
+    {
+        $query = $this->dbUser->findAll();
+        $output = '<option selected disabled hidden>Pilih User</option>';
+        foreach ($query as $data) {
+            $output .= '<option value="' . $data["id"] . '">' . $data["username"] . '</option>';
+        };
+        echo $output;
     }
 
     public function readUser()
@@ -83,7 +93,6 @@ class UserController extends BaseController
         echo json_encode($output);
         exit();
     }
-
     public function readGroupUsers()
     {
         $draw = $_REQUEST['draw'];
@@ -119,9 +128,7 @@ class UserController extends BaseController
         foreach ($list as $temp) {
             $aksi = '
             <div class="text-center">
-                    <a href="javascript:void(0)" onclick="detailGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
                     <a href="javascript:void(0)" onclick="editGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
-                    <a href="javascript:void(0)" onclick="deleteGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
 
@@ -147,12 +154,19 @@ class UserController extends BaseController
         echo json_encode($data);
     }
 
+    // EDIT
     public function editUser($id)
     {
         $data = $this->dbUser->find($id);
         echo json_encode($data);
     }
+    public function editGroupUsers($id)
+    {
+        $data = $this->dbGroupUsers->find($id);
+        echo json_encode($data);
+    }
 
+    // UPDATE
     public function updateUser()
     {
         $this->_validateUser('update');
@@ -168,6 +182,23 @@ class UserController extends BaseController
         ];
 
         if ($this->dbUser->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+    public function updateGroupUsers()
+    {
+        $this->_validateGroupUsers('update');
+        $id = $this->request->getVar('id_group_users');
+        $user = $this->dbGroupUsers->find($id);
+
+        $data = [
+            'id_group_users' => $id,
+            'group_id' => $this->request->getVar('group_id'),
+        ];
+
+        if ($this->dbGroupUsers->save($data)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
@@ -280,7 +311,7 @@ class UserController extends BaseController
 
     public function _validateGroupUsers($method)
     {
-        if (!$this->validate($this->dbUser->getRulesValidation($method))) {
+        if (!$this->validate($this->dbGroupUsers->getRulesValidation($method))) {
             $validation = \Config\Services::validation();
             $data = [];
             $data['error_string'] = [];
