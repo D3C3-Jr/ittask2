@@ -69,7 +69,7 @@
                         <div class="row mb-1" id="penyelesaian">
                             <label class="col-sm-4 col-form-label">Penyelesaian</label>
                             <div class="col-sm-8">
-                                <input type="text" name="penyelesaian" class="form-control form-control-sm" id="penyelesaian">
+                                <textarea class="form-control form-control-sm" name="penyelesaian" id="penyelesaian"></textarea>
                                 <small class="help-block text-danger"></small>
                             </div>
                         </div>

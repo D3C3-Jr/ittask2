@@ -37,14 +37,14 @@
                             <i class="fas fa-key ml-1 mr-3"></i> Lisensi
                         </a>
                     </li>
-                    <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
+                    <li class="<?= ($title == 'Departemen' || $title == 'User') ? 'active' : '' ?>">
                         <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
                             <i class="fas fa-cogs ml-1 mr-3"></i>
                             Master
                             <i class="las la-angle-right iq-arrow-right arrow-active"></i>
                             <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
                         </a>
-                        <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User') ? '' : 'collapse' ?> " data-parent="#iq-sidebar-toggle">
                             <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
                                 <a href="/departemen" class="svg-icon">
                                     <i class="fas fa-circle fa-sm"></i>
@@ -52,7 +52,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul id="otherpage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User') ? '' : 'collapse' ?>" data-parent="#iq-sidebar-toggle">
                             <li class="<?= ($title == 'User') ? 'active' : '' ?>">
                                 <a href="/user" class="svg-icon">
                                     <i class="fas fa-circle fa-sm"></i>

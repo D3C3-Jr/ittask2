@@ -1,8 +1,28 @@
 var tableUser;
+var tableGroupUsers;
 $(document).ready(function () {
     tableUser = $('#tableUser').DataTable({
         "ajax": {
             "url": '/user/read',
+            "type": 'GET'
+        },
+        "deferRender": true,
+        "serverSide": true,
+        "processing": true,
+        "bDestroy": true,
+        "scrollY": 300,
+        "scroller": true,
+        // "dom": 'Bfrtip',
+        // "buttons": [
+        //     'pageLength',
+        //     'excel',
+        //     'print',
+        // ]
+    });
+
+    tableGroupUsers = $('#tableGroupUsers').DataTable({
+        "ajax": {
+            "url": '/groupUsers/read',
             "type": 'GET'
         },
         "deferRender": true,
@@ -23,6 +43,9 @@ $(document).ready(function () {
 function reloadUser() {
     tableUser.ajax.reload();
 }
+function reloadGroupUsers() {
+    tableGroupUsers.ajax.reload();
+}
 
 function addUser() {
     method = 'save';
@@ -33,6 +56,17 @@ function addUser() {
     $('select').attr('disabled', false);
     $('.modal-title').text('Form Tambah Data User');
     $('#submit').text('Simpan');
+}
+
+function addGroupUsers() {
+    method = 'save';
+    $('.modal-footer').attr('hidden', false);
+    $('#formGroupUsers')[0].reset();
+    $('#modalGroupUsers').modal('show');
+    $('input').attr('disabled', false);
+    $('select').attr('disabled', false);
+    $('.modal-title-group-users').text('Form Tambah Akses');
+    $('#submitGroupUsers').text('Simpan');
 }
 
 function detailUser(id) {
@@ -147,6 +181,55 @@ function saveUser() {
                 $('.help-block').empty();
                 $('#modalUser').modal('hide');
                 $('#formUser')[0].reset();
+            } else {
+                for (var i = 0; i < data.inputerror.length; i++) {
+                    $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');
+                    $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]);
+                    $('#submit').text('Simpan');
+                }
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error');
+        }
+    });
+}
+
+function saveGroupUsers() {
+    if (method == 'save') {
+        url = '/groupUsers/save';
+        $text = 'Data berhasil di Ditambah';
+    } else {
+        url = '/groupUsers/update';
+        $text = 'Data berhasil di Update';
+    }
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: new FormData($('#formGroupUsers')[0]),
+        dataType: 'JSON',
+        contentType: false,
+        processData: false,
+        beforeSend: function (data) {
+            $('#submit').html('<i class="fas fa-spinner fa-spin"></i>');
+        },
+        success: function (data) {
+            if (data.status) {
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: $text,
+                    icon: 'success',
+                    toast: true,
+                    position: 'bottom-start',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                reloadGroupUsers();
+
+                $('.help-block').empty();
+                $('#modalGroupUsers').modal('hide');
+                $('#formGroupUsers')[0].reset();
             } else {
                 for (var i = 0; i < data.inputerror.length; i++) {
                     $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');

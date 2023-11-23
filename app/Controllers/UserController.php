@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\GroupUsersModel;
 
 use App\Controllers\BaseController;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -12,9 +13,11 @@ use Myth\Auth\Password;
 class UserController extends BaseController
 {
     protected $dbUser;
+    protected $dbGroupUsers;
     public function __construct()
     {
         $this->dbUser = new UserModel();
+        $this->dbGroupUsers = new GroupUsersModel();
     }
     public function index()
     {
@@ -81,6 +84,63 @@ class UserController extends BaseController
         exit();
     }
 
+    public function readGroupUsers()
+    {
+        $draw = $_REQUEST['draw'];
+        $length = $_REQUEST['length'];
+        $start = $_REQUEST['start'];
+        $search = $_REQUEST['search']['value'];
+
+        $total = $this->dbGroupUsers->ajaxGetTotal();
+        $output = [
+            'length' => $length,
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+        ];
+
+        if ($search !== "") {
+            $list = $this->dbGroupUsers->ajaxGetDataSearch($search, $start, $length);
+        } else {
+            $list = $this->dbGroupUsers->ajaxGetData($start, $length);
+        }
+
+        if ($search !== "") {
+            $total_search = $this->dbGroupUsers->ajaxGetTotalSearch($search);
+            $output = [
+                'recordsTotal' => $total_search,
+                'recordsFiltered' => $total_search
+            ];
+        }
+
+        $data = [];
+        $no = $start + 1;
+
+        foreach ($list as $temp) {
+            $aksi = '
+            <div class="text-center">
+                    <a href="javascript:void(0)" onclick="detailGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+            </div>
+                    ';
+
+            $row = [];
+            $row[] = $no;
+            $row[] = $temp['name'];
+            $row[] = $temp['username'];
+            $row[] = $aksi;
+
+            $data[] = $row;
+            $no++;
+        }
+
+        $output['data'] = $data;
+
+        echo json_encode($output);
+        exit();
+    }
+
     public function detailUser($id)
     {
         $data = $this->dbUser->find($id);
@@ -129,11 +189,26 @@ class UserController extends BaseController
         $data = [
             'email' => $this->request->getVar('email'),
             'username' => $this->request->getVar('username'),
-            'password_hash' => $this->request->getVar('password_hash'),
+            'password_hash' => Password::hash($this->request->getVar('password_hash')),
             'active' => 1,
         ];
 
         if ($this->dbUser->save($data)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }
+    }
+
+    public function saveGroupUsers()
+    {
+        $this->_validateGroupUsers('save');
+        $data = [
+            'group_id' => $this->request->getVar('group_id'),
+            'user_id' => $this->request->getVar('user_id'),
+        ];
+
+        if ($this->dbGroupUsers->save($data)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
@@ -193,6 +268,33 @@ class UserController extends BaseController
             if ($validation->hasError('username')) {
                 $data['inputerror'][] = 'username';
                 $data['error_string'][] = $validation->getError('username');
+                $data['status'] = false;
+            }
+
+            if ($data['status'] === false) {
+                echo json_encode($data);
+                exit();
+            }
+        }
+    }
+
+    public function _validateGroupUsers($method)
+    {
+        if (!$this->validate($this->dbUser->getRulesValidation($method))) {
+            $validation = \Config\Services::validation();
+            $data = [];
+            $data['error_string'] = [];
+            $data['inputerror'] = [];
+            $data['status'] = true;
+
+            if ($validation->hasError('group_id')) {
+                $data['inputerror'][] = 'group_id';
+                $data['error_string'][] = $validation->getError('group_id');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('user_id')) {
+                $data['inputerror'][] = 'user_id';
+                $data['error_string'][] = $validation->getError('user_id');
                 $data['status'] = false;
             }
 

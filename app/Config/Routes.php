@@ -65,6 +65,13 @@ $routes->get('/user/edit/(:num)', 'UserController::editUser/$1', ['filter' => 'r
 $routes->post('/user/update', 'UserController::updateUser', ['filter' => 'role:Administrator']);
 $routes->delete('/user/delete/(:num)', 'UserController::deleteUser/$1', ['filter' => 'role:Administrator']);
 
+$routes->get('/groupUsers/read', 'UserController::readGroupUsers', ['filter' => 'role:Administrator']);
+$routes->post('/groupUsers/save', 'UserController::saveGroupUsers', ['filter' => 'role:Administrator']);
+$routes->get('/groupUsers/detail/(:num)', 'UserController::detailGroupUsers/$1', ['filter' => 'role:Administrator']);
+$routes->get('/groupUsers/edit/(:num)', 'UserController::editGroupUsers/$1', ['filter' => 'role:Administrator']);
+$routes->post('/groupUsers/update', 'UserController::updateGroupUsers', ['filter' => 'role:Administrator']);
+$routes->delete('/groupUsers/delete/(:num)', 'UserController::deleteGroupUsers/$1', ['filter' => 'role:Administrator']);
+
 $routes->get('/stok', 'StokController::index', ['filter' => 'role:Administrator']);
 $routes->get('/stok/read', 'StokController::readStok', ['filter' => 'role:Administrator']);
 $routes->post('/stok/save', 'StokController::saveStok', ['filter' => 'role:Administrator']);
