@@ -128,7 +128,7 @@ function editGroupUsers(id) {
         success: function (data) {
             $('[name="id_group_users"]').val(data.id_group_users).attr('disabled', false);
             $('[name="group_id"]').val(data.group_id).attr('disabled', false);
-            $('[name="user_id"]').val(data.user_id).attr('disabled', true);
+            $('[name="user_id"]').val(data.user_id).attr('readonly', true);
 
             $('.modal-footer').attr('hidden', false);
             $('#modalGroupUsers').modal('show');
@@ -141,6 +141,8 @@ function editGroupUsers(id) {
     })
 }
 
+
+// DELETE
 function deleteUser(id) {
     Swal.fire({
         title: 'Hapus Data?',
@@ -154,6 +156,39 @@ function deleteUser(id) {
         if (result.isConfirmed) {
             $.ajax({
                 url: '/user/delete/' + id,
+                type: "DELETE",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        );
+                        reloadUser();
+                        reloadGroupUsers();
+                    };
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error');
+                }
+            });
+        };
+    });
+}
+function deleteGroupUsers(id){
+    Swal.fire({
+        title: 'Hapus Data?',
+        text: "Anda yakin ingin menghapus Data ini",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/groupUsers/delete/' + id,
                 type: "DELETE",
                 dataType: "json",
                 success: function (data) {
@@ -225,7 +260,6 @@ function saveUser() {
         }
     });
 }
-
 function saveGroupUsers() {
     if (method == 'save') {
         url = '/groupUsers/save';

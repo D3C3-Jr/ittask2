@@ -71,10 +71,6 @@
                                                         </div>
                                                     <?php endif; ?>
 
-                                                    <div class="col-lg-6">
-                                                        <a href="#" class="text-white float-right">Forgot
-                                                            Password?</a>
-                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-white">Sign In</button>
                                                 <?php if ($config->allowRegistration) : ?>

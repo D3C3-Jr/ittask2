@@ -129,6 +129,7 @@ class UserController extends BaseController
             $aksi = '
             <div class="text-center">
                     <a href="javascript:void(0)" onclick="editGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteGroupUsers(' . $temp['id_group_users'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
 
@@ -212,6 +213,14 @@ class UserController extends BaseController
         } else {
             echo json_encode(['status' => false]);
         }
+    }
+    public function deleteGroupUsers($id)
+    {
+        if ($this->dbGroupUsers->delete($id)) {
+            echo json_encode(['status' => true]);
+        } else {
+            echo json_encode(['status' => false]);
+        }  
     }
 
     public function saveUser()

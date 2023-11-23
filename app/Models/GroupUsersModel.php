@@ -69,9 +69,9 @@ class GroupUsersModel extends Model
     public function getRulesValidation($method = null)
     {
         // if ($method == 'save') {
-        //     $email = 'required|is_unique[users.email]';
+        //     $user_id = 'required|is_unique[users.user_id]';
         // } else {
-        //     $email = 'required';
+        //     $user_id = 'required';
         // }
 
         $rulesValidation = [
