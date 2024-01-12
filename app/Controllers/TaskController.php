@@ -20,8 +20,12 @@ class TaskController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Task',
-            'departemen' => $this->dbDepartemen->findAll(),
+            'title'         => 'Task',
+            'departemen'    => $this->dbDepartemen->findAll(),
+            'taskClose'     => $this->dbTask->getDepartemenHome(),
+            'taskProses'    => $this->dbTask->getDepartemenHomeProses(),
+
+
         ];
         return view('task', $data);
     }
@@ -106,6 +110,163 @@ class TaskController extends BaseController
         echo json_encode($output);
         exit();
     }
+
+    public function readTicketOpen()
+    {
+        $draw = $_REQUEST['draw'];
+        $length = $_REQUEST['length'];
+        $start = $_REQUEST['start'];
+        $search = $_REQUEST['search']['value'];
+
+        $total = $this->dbTask->ajaxGetTotalTicketOpen();
+        $output = [
+            'length' => $length,
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+        ];
+
+        if ($search !== "") {
+            $list = $this->dbTask->ajaxGetDataSearchTicketOpen($search, $start, $length);
+        } else {
+            $list = $this->dbTask->ajaxGetDataTicketOpen($start, $length);
+        }
+
+        if ($search !== "") {
+            $total_search = $this->dbTask->ajaxGetTotalTicketOpen($search);
+            $output = [
+                'recordsTotal' => $total_search,
+                'recordsFiltered' => $total_search
+            ];
+        }
+
+        $data = [];
+        $no = $start + 1;
+
+        foreach ($list as $temp) {
+            $aksi = '
+            <div class="text-center">
+                    <a href="javascript:void(0)" onclick="detailTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+            </div>
+                    ';
+            $status = $temp['status'];
+            if ($status == 0) {
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                } else {
+                    $status = '<badge class="badge badge-danger"> Open </badge>';
+                }
+            } else if ($status == 1) {
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                } else {
+                    $status = '<badge class="badge badge-warning"> Proses </badge>';
+                }
+            } else {
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                } else {
+                    $status = '<badge class="badge badge-success"> Close </badge>';
+                }
+            }
+
+            $tanggal = date('l, d-M-y', strtotime($temp['tanggal']));
+
+            $row = [];
+            $row[] = $temp['nama_departemen'];
+            $row[] = $temp['masalah'];
+            $row[] = $status;
+
+            $data[] = $row;
+            $no++;
+        }
+
+        $output['data'] = $data;
+
+        echo json_encode($output);
+        exit();
+    }
+
+    public function readTicketProses()
+    {
+        $draw = $_REQUEST['draw'];
+        $length = $_REQUEST['length'];
+        $start = $_REQUEST['start'];
+        $search = $_REQUEST['search']['value'];
+
+        $total = $this->dbTask->ajaxGetTotalTicketProses();
+        $output = [
+            'length' => $length,
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+        ];
+
+        if ($search !== "") {
+            $list = $this->dbTask->ajaxGetDataSearchTicketProses($search, $start, $length);
+        } else {
+            $list = $this->dbTask->ajaxGetDataTicketProses($start, $length);
+        }
+
+        if ($search !== "") {
+            $total_search = $this->dbTask->ajaxGetTotalTicketProses($search);
+            $output = [
+                'recordsTotal' => $total_search,
+                'recordsFiltered' => $total_search
+            ];
+        }
+
+        $data = [];
+        $no = $start + 1;
+
+        foreach ($list as $temp) {
+            $aksi = '
+            <div class="text-center">
+                    <a href="javascript:void(0)" onclick="detailTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+            </div>
+                    ';
+            $status = $temp['status'];
+            if ($status == 0) {
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                } else {
+                    $status = '<badge class="badge badge-danger"> Open </badge>';
+                }
+            } else if ($status == 1) {
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                } else {
+                    $status = '<badge class="badge badge-warning"> Proses </badge>';
+                }
+            } else {
+                if (in_groups('Administrator')) {
+                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                } else {
+                    $status = '<badge class="badge badge-success"> Close </badge>';
+                }
+            }
+
+            $tanggal = date('l, d-M-y', strtotime($temp['tanggal']));
+
+            $row = [];
+            $row[] = $temp['nama_departemen'];
+            $row[] = $temp['masalah'];
+            $row[] = $status;
+
+            $data[] = $row;
+            $no++;
+        }
+
+        $output['data'] = $data;
+
+        echo json_encode($output);
+        exit();
+    }
+
 
     public function detailTask($id_task)
     {

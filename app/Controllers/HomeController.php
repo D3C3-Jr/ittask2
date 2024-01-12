@@ -7,6 +7,7 @@ use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
 use App\Models\TaskModel;
 use App\Models\StokModel;
+use App\Models\LisensiModel;
 
 class HomeController extends BaseController
 {
@@ -15,6 +16,7 @@ class HomeController extends BaseController
     protected $dbProyektor;
     protected $dbTask;
     protected $dbStok;
+    protected $dbLisensi;
     public function __construct()
     {
         $this->dbComputer = new ComputerModel();
@@ -22,6 +24,7 @@ class HomeController extends BaseController
         $this->dbProyektor = new ProyektorModel();
         $this->dbTask = new TaskModel();
         $this->dbStok = new StokModel();
+        $this->dbLisensi = new LisensiModel();
     }
     public function index(): string
     {
@@ -32,18 +35,34 @@ class HomeController extends BaseController
         $jumlahBagianComputerSpare = $this->dbComputer->like('status', '0')->countAllResults();
         $jumlahTotalComputer = $this->dbComputer->countAllResults();
         $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
+
+        $jumlahBagianLisensiValid = $this->dbLisensi->countAllResults();
+        $jumlahTotalLisensi = $this->dbLisensi->countAllResults();
+        $persentaseLisensiValid = $jumlahBagianLisensiValid / $jumlahTotalLisensi * 100;
+
+        $jumlahBagianComputerSpare = $this->dbComputer->like('status', '0')->countAllResults();
+        $jumlahTotalComputer = $this->dbComputer->countAllResults();
+        $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
+
+        // foreach ($this->dbLisensi as $lisensi) {
+        //     $date = $lisensi['valid_until'] < strtotime('now');
+        // }
+        $sql = "SELECT * FROM lisensi WHERE valid_until < NOW";
+
         $data = [
-            'title' => 'Home',
-            'computerPersentaseAktif' => ceil($persentaseComputerAktif),
-            'computerAktif' => $this->dbComputer->like('status', '1')->countAllResults(),
-            'computerPersentaseSpare' => floor($persentaseComputerSpare),
-            'computerSpare' => $this->dbComputer->like('status', '0')->countAllResults(),
-            'computerTotal' => $this->dbComputer->countAllResults(),
-            'printer' => $this->dbPrinter->countAllResults(),
-            'proyektor' => $this->dbProyektor->countAllResults(),
-            'taskClose' => $this->dbTask->getDepartemenHome(),
-            'taskProses' => $this->dbTask->getDepartemenHomeProses(),
-            'stockMinim' => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang','Cair')->where('stok <', 3)->find(),
+            'title'                     => 'Home',
+            'computerPersentaseAktif'   => ceil($persentaseComputerAktif),
+            'computerAktif'             => $this->dbComputer->like('status', '1')->countAllResults(),
+            'computerPersentaseSpare'   => floor($persentaseComputerSpare),
+            'computerSpare'             => $this->dbComputer->like('status', '0')->countAllResults(),
+            'computerTotal'             => $this->dbComputer->countAllResults(),
+            'printer'                   => $this->dbPrinter->countAllResults(),
+            'proyektor'                 => $this->dbProyektor->countAllResults(),
+            'taskClose'                 => $this->dbTask->getDepartemenHome(),
+            'taskProses'                => $this->dbTask->getDepartemenHomeProses(),
+            'stockMinim'                => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
+            'lisensi'                   => $this->dbLisensi->countAllResults(),
+            'lisensiValid'              => $this->dbLisensi->getDataKurangDariTanggalSekarang(),
         ];
         return view('home', $data);
     }

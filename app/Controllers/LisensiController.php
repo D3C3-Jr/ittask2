@@ -106,6 +106,7 @@ class LisensiController extends BaseController
             'nama_produk' => $this->request->getVar('nama_produk'),
             'product_key' => $this->request->getVar('product_key'),
             'jenis' => $this->request->getVar('jenis'),
+            'valid_until' => $this->request->getVar('valid_until'),
             'status' => $this->request->getVar('status'),
         ];
 
@@ -133,6 +134,7 @@ class LisensiController extends BaseController
             'nama_produk' => $this->request->getVar('nama_produk'),
             'product_key' => $this->request->getVar('product_key'),
             'jenis' => $this->request->getVar('jenis'),
+            'valid_until' => $this->request->getVar('valid_until'),
             'status' => $this->request->getVar('status'),
         ];
 

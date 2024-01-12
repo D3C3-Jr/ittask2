@@ -63,6 +63,49 @@ class TaskModel extends Model
         return $result;
     }
 
+    // TICKET OPEN
+    public function ajaxGetDataTicketOpen($start, $length)
+    {
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '0')->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        return $result;
+    }
+    public function ajaxGetDataSearchTicketOpen($search, $start, $length)
+    {
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '0')->findAll($start, $length);
+        return $result;
+    }
+    public function ajaxGetTotalTicketOpen()
+    {
+        $result = $this->where('status', '0')->countAllResults();
+        if (isset($result)) {
+            return $result;
+        }
+        return 0;
+    }
+
+
+    // TICKET PROSES
+    public function ajaxGetDataTicketProses($start, $length)
+    {
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '1')->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        return $result;
+    }
+    public function ajaxGetDataSearchTicketProses($search, $start, $length)
+    {
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '1')->findAll($start, $length);
+        return $result;
+    }
+    public function ajaxGetTotalTicketProses()
+    {
+        $result = $this->where('status', '1')->countAllResults();
+        if (isset($result)) {
+            return $result;
+        }
+        return 0;
+    }
+
+
+
     public function ajaxGetData($start, $length)
     {
         if (in_groups('Administrator')) {

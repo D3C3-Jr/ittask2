@@ -73,6 +73,13 @@
                         </div>
                     </div>
                     <div class="row mb-1">
+                        <label for="valid_until" class="col-sm-4 col-form-label">Valid Until</label>
+                        <div class="col-sm-8">
+                            <input type="date" name="valid_until" class="form-control form-control-sm" id="valid_until">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
                         <label for="status" class="col-sm-4 col-form-label">Status</label>
                         <div class="col-sm-8">
                             <select class="form-control form-control-sm" name="status" id="status">

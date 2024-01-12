@@ -47,6 +47,7 @@ function detailLisensi(id_lisensi) {
             $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', true);
             $('[name="product_key"]').val(data.product_key).attr('disabled', true);
             $('[name="jenis"]').val(data.jenis).attr('disabled', true);
+            $('[name="valid_until"]').val(data.valid_until).attr('disabled', true);
             $('[name="status"]').val(data.status).attr('disabled', true);
             $('.help-block').text('');
 
@@ -72,6 +73,7 @@ function editLisensi(id_lisensi) {
             $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', false);
             $('[name="product_key"]').val(data.product_key).attr('disabled', false);
             $('[name="jenis"]').val(data.jenis).attr('disabled', false);
+            $('[name="valid_until"]').val(data.valid_until).attr('disabled', false);
             $('[name="status"]').val(data.status).attr('disabled', false);
 
             $('.modal-footer').attr('hidden', false);

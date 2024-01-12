@@ -49,6 +49,10 @@ $routes->post('/task/update', 'TaskController::updateTask', ['filter' => 'role:A
 $routes->delete('/task/delete/(:num)', 'TaskController::deleteTask/$1', ['filter' => 'role:Administrator, Guest']);
 $routes->post('/exportExcelTask', 'TaskController::exportExcelTask', ['filter' => 'role:Administrator, Guest']);
 
+$routes->get('/task/readTicketOpen', 'TaskController::readTicketOpen', ['filter' => 'role:Administrator, Guest']);
+$routes->get('/task/readTicketProses', 'TaskController::readTicketProses', ['filter' => 'role:Administrator, Guest']);
+
+
 $routes->get('/departemen', 'DepartemenController::index', ['filter' => 'role:Administrator']);
 $routes->get('/departemen/read', 'DepartemenController::readDepartemen', ['filter' => 'role:Administrator']);
 $routes->post('/departemen/save', 'DepartemenController::saveDepartemen', ['filter' => 'role:Administrator']);

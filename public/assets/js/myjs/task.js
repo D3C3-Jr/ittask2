@@ -1,4 +1,6 @@
 var tableTask;
+var tableTicketOpen;
+var tableTicketProses;
 $(document).ready(function () {
     tableTask = $('#tableTask').DataTable({
         "ajax": {
@@ -18,11 +20,35 @@ $(document).ready(function () {
         //     'print',
         // ]
     });
+    tableTicketOpen = $('#tableTicketOpen').DataTable({
+        "ajax": {
+            "url": '/task/readTicketOpen',
+            "type": 'GET'
+        },
+        "deferRender": true,
+        "serverSide": true,
+        "processing": true,
+        "bDestroy": true,
+        "searching": false,
+    });
+    tableTicketProses = $('#tableTicketProses').DataTable({
+        "ajax": {
+            "url": '/task/readTicketProses',
+            "type": 'GET'
+        },
+        "deferRender": true,
+        "serverSide": true,
+        "processing": true,
+        "bDestroy": true,
+        "searching": false,
+    });
 
 });
 
 function reloadTask() {
     tableTask.ajax.reload();
+    tableTicketOpen.ajax.reload();
+    tableTicketProses.ajax.reload();
 }
 
 function addTask() {

@@ -13,7 +13,7 @@ class LisensiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kode_lisensi', 'nama_produk', 'product_key', 'jenis', 'status'];
+    protected $allowedFields    = ['kode_lisensi', 'nama_produk', 'product_key', 'jenis', 'valid_until', 'status'];
 
     // Dates
     protected $useTimestamps = true;
@@ -38,6 +38,20 @@ class LisensiModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getDataKurangDariTanggalSekarang()
+    {
+        // Mendapatkan tanggal sekarang
+        $tanggalSekarang = date('Y-m-d');
+
+        // Membuat kueri menggunakan Query Builder
+        $query = $this->db->table('lisensi')
+            ->where('valid_until <', $tanggalSekarang)
+            ->get();
+
+        // Mengembalikan hasil kueri
+        return $query->getResult();
+    }
 
     public function ajaxGetData($start, $length)
     {
