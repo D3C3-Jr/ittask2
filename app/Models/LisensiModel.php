@@ -52,6 +52,19 @@ class LisensiModel extends Model
         // Mengembalikan hasil kueri
         return $query->getResult();
     }
+    public function getTotalDataKurangDariTanggalSekarang()
+    {
+        // Mendapatkan tanggal sekarang
+        $tanggalSekarang = date('Y-m-d');
+
+        // Membuat kueri menggunakan Query Builder
+        $query = $this->db->table('lisensi')
+            ->where('valid_until <', $tanggalSekarang)
+            ->countAllResults();
+
+        // Mengembalikan hasil kueri
+        return $query;
+    }
 
     public function ajaxGetData($start, $length)
     {

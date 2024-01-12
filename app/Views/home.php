@@ -5,7 +5,7 @@
     <?php if (in_groups('Administrator')) : ?>
         <div class="col-md-4 col-lg-3">
             <div class="card card-block card-stretch card-height">
-                <div class="card-body" id="computer" data-toggle="modal" data-target="#exampleModalCenter">
+                <div class="card-body" id="computer" data-toggle="modal" data-target="#modalComputer">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Computer</h5>
                         <i class="fas fa-laptop fa-2xl text-primary"></i>
@@ -62,123 +62,37 @@
                 </div>
             </div>
         </div>
-
-
-    <?php endif; ?>
-
-    <!-- <div class="col-md-6 col-lg-6">
-        <div class="card  card-height">
-            <div class="card-body">
-                <div class="top-block d-flex align-items-center justify-content-between">
-                    <h4 class="mb-2">Ticket Open</h4>
-                </div>
-                <table class="table table-striped">
-                    <thead>
-                        <th>Departemen</th>
-                        <th>Masalah</th>
-                        <th>Status</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($taskClose as $task) : ?>
-                            <tr>
-                                <td><?= $task['nama_departemen'] ?></td>
-                                <td><?= $task['masalah'] ?></td>
-                                <?php if ($task['status'] == '0') : ?>
-                                    <td><span class="badge badge-danger">Open</span></td>
-                                <?php endif; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6 col-lg-6">
-        <div class="card  card-height">
-            <div class="card-body">
-                <div class="top-block d-flex align-items-center justify-content-between">
-                    <h4 class="mb-2">Process</h4>
-                </div>
-                <table class="table table-striped ">
-                    <thead>
-                        <th>Departemen</th>
-                        <th>Masalah</th>
-                        <th>Status</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($taskProses as $task) : ?>
-                            <tr>
-                                <td><?= $task['nama_departemen'] ?></td>
-                                <td><?= $task['masalah'] ?></td>
-                                <?php if ($task['status'] == '1') : ?>
-                                    <td><span class="badge badge-warning">Process</span></td>
-                                <?php endif; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> -->
-
-    <?php if (in_groups('Administrator')) : ?>
-        <div class="col-md-6 col-lg-6">
-            <div class="card  card-height">
-                <div class="card-body">
+        <div class="col-md-4 col-lg-3">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body" data-toggle="modal" data-target="#modalStock">
                     <div class="top-block d-flex align-items-center justify-content-between">
-                        <h4 class="mb-2">Stok Minim</h4>
+                        <h5>Stok Minim</h5>
+                        <i class="fas fa-cart-arrow-down fa-2xl text-info"></i>
                     </div>
-                    <table class="table table-striped " style="width: 100%;">
-                        <thead>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Stok</th>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($stockMinim as $stok) : ?>
-                                <tr>
-                                    <td><?= $stok['kode_barang'] ?></td>
-                                    <td><?= $stok['nama_barang'] ?></td>
-                                    <td><span class="badge badge-danger counter"><?= $stok['stok'] ?></span></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <h3><span class="counter"><?= $stockMinimAngka ?></span></h3>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6 col-lg-6">
-            <div class="card  card-height">
-                <div class="card-body">
+        <div class="col-md-4 col-lg-3">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body" data-toggle="modal" data-target="#modalLisensi">
                     <div class="top-block d-flex align-items-center justify-content-between">
-                        <h4 class="mb-2">Lisensi Expired</h4>
+                        <h5>License Expired</h5>
+                        <i class="fas fa-certificate fa-2xl text-info"></i>
                     </div>
-                    <table class="table table-striped " style="width: 100%;">
-                        <thead>
-                            <th class="col-sm-6">Nama Produk</th>
-                            <th class="col-sm-6">Expired Date</th>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($lisensiValid as $lisensi) : ?>
-                                <tr>
-                                    <td><?= $lisensi->nama_produk ?></td>
-                                    <td><?= $lisensi->valid_until ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <h3><span class="counter"><?= $totalLisensiExpired ?></span></h3>
                 </div>
             </div>
         </div>
     <?php endif; ?>
 </div>
 
+</div>
+
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="modalComputer" tabindex="-1" role="dialog" aria-labelledby="modalComputerTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -227,6 +141,60 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalStock" tabindex="-1" role="dialog" aria-labelledby="modalStockTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Details</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Stok</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($stockMinimData as $stok) : ?>
+                            <tr>
+                                <td><?= $stok['kode_barang'] ?></td>
+                                <td><?= $stok['nama_barang'] ?></td>
+                                <td><span class="badge badge-danger counter"><?= $stok['stok'] ?></span></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalLisensi" tabindex="-1" role="dialog" aria-labelledby="modalLisensiTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Details</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <th>Nama Produk</th>
+                        <th>Expired Date</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($lisensiValid as $lisensi) : ?>
+                            <tr>
+                                <td><?= $lisensi->nama_produk ?></td>
+                                <td><badge class="badge badge-danger"><?= $lisensi->valid_until ?></badge></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -30,6 +30,8 @@ $(document).ready(function () {
         "processing": true,
         "bDestroy": true,
         "searching": false,
+        "lengthChange": false,
+        "pageLength": 2,
     });
     tableTicketProses = $('#tableTicketProses').DataTable({
         "ajax": {
@@ -41,6 +43,8 @@ $(document).ready(function () {
         "processing": true,
         "bDestroy": true,
         "searching": false,
+        "lengthChange": false,
+        "pageLength": 2,
     });
 
 });

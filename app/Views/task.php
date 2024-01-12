@@ -1,47 +1,50 @@
 <?= $this->extend('layout/main'); ?>
 
 <?= $this->section('content'); ?>
-<div class="row">
-    <div class="col-md-6 col-lg-6">
-        <div class="card  card-height">
-            <div class="card-body">
-                <div class="top-block d-flex align-items-center justify-content-between">
-                    <h4 class="mb-2">Ticket Open</h4>
-                </div>
-                <table class="table table-striped" id="tableTicketOpen" width="100%">
-                    <thead>
-                        <th>Departemen</th>
-                        <th>Masalah</th>
-                        <th>Status</th>
-                    </thead>
-                    <tbody>
 
-                    </tbody>
-                </table>
+<?php if (in_groups('Administrator')) : ?>
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            <div class="card  card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h4 class="mb-2">Ticket Open</h4>
+                    </div>
+                    <table class="table table-striped" id="tableTicketOpen" width="100%">
+                        <thead>
+                            <th>Departemen</th>
+                            <th>Masalah</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+            <div class="card  card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h4 class="mb-2">Ticket Proccess</h4>
+                    </div>
+                    <table class="table table-striped" id="tableTicketProses" width="100%">
+                        <thead>
+                            <th>Departemen</th>
+                            <th>Masalah</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-6 col-lg-6">
-        <div class="card  card-height">
-            <div class="card-body">
-                <div class="top-block d-flex align-items-center justify-content-between">
-                    <h4 class="mb-2">Ticket Open</h4>
-                </div>
-                <table class="table table-striped" id="tableTicketProses" width="100%">
-                    <thead>
-                        <th>Departemen</th>
-                        <th>Masalah</th>
-                        <th>Status</th>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+<?php endif; ?>
 
 <div class="row">
     <div class="col-sm-12">

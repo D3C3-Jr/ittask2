@@ -44,10 +44,6 @@ class HomeController extends BaseController
         $jumlahTotalComputer = $this->dbComputer->countAllResults();
         $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
 
-        // foreach ($this->dbLisensi as $lisensi) {
-        //     $date = $lisensi['valid_until'] < strtotime('now');
-        // }
-        $sql = "SELECT * FROM lisensi WHERE valid_until < NOW";
 
         $data = [
             'title'                     => 'Home',
@@ -60,9 +56,11 @@ class HomeController extends BaseController
             'proyektor'                 => $this->dbProyektor->countAllResults(),
             'taskClose'                 => $this->dbTask->getDepartemenHome(),
             'taskProses'                => $this->dbTask->getDepartemenHomeProses(),
-            'stockMinim'                => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'stockMinimData'            => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
             'lisensi'                   => $this->dbLisensi->countAllResults(),
             'lisensiValid'              => $this->dbLisensi->getDataKurangDariTanggalSekarang(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
         ];
         return view('home', $data);
     }

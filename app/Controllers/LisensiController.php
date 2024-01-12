@@ -65,10 +65,18 @@ class LisensiController extends BaseController
             } else {
                 $temp['status'] = '<badge class="badge badge-danger"> Not Ready </badge>';
             };
+
+            if ($temp['valid_until'] == '') {
+                $valid_until = 'Lifetime';
+            } else {
+                $valid_until = $temp['valid_until'];
+            }
+
             $row = [];
             $row[] = $no;
             $row[] = $temp['kode_lisensi'];
             $row[] = $temp['nama_produk'];
+            $row[] = $valid_until;
             $row[] = $temp['status'];
             $row[] = $aksi;
 

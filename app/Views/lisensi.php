@@ -19,6 +19,7 @@
                             <th>No</th>
                             <th>Kode Lisensi</th>
                             <th>Nama Produk</th>
+                            <th>Expired</th>
                             <th>Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
