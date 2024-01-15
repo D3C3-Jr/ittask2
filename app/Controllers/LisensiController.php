@@ -4,18 +4,22 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\LisensiModel;
+use App\Models\TaskModel;
 
 class LisensiController extends BaseController
 {
     protected $dbLisensi;
+    protected $dbTask;
     public function __construct()
     {
         $this->dbLisensi = new LisensiModel();
+        $this->dbTask = new TaskModel();
     }
     public function index()
     {
         $data = [
-            'title' => 'Lisensi'
+            'title' => 'Lisensi',
+            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
         ];
         return view('lisensi', $data);
     }

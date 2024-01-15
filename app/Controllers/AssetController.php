@@ -7,6 +7,7 @@ use App\Models\ComputerModel;
 use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
 use App\Models\OtherModel;
+use App\Models\TaskModel;
 use Dompdf\Dompdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -17,18 +18,21 @@ class AssetController extends BaseController
     protected $dbPrinter;
     protected $dbProyektor;
     protected $dbOther;
+    protected $dbTask;
     public function __construct()
     {
         $this->dbComputer = new ComputerModel();
         $this->dbPrinter = new PrinterModel();
         $this->dbProyektor = new ProyektorModel();
         $this->dbOther = new OtherModel();
+        $this->dbTask = new TaskModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'Data Asset',
+            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
         ];
         return view('asset/index', $data);
     }

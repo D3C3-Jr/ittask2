@@ -24,7 +24,7 @@ class TaskController extends BaseController
             'departemen'    => $this->dbDepartemen->findAll(),
             'taskClose'     => $this->dbTask->getDepartemenHome(),
             'taskProses'    => $this->dbTask->getDepartemenHomeProses(),
-
+            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
 
         ];
         return view('task', $data);

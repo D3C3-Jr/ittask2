@@ -61,6 +61,7 @@ class HomeController extends BaseController
             'lisensi'                   => $this->dbLisensi->countAllResults(),
             'lisensiValid'              => $this->dbLisensi->getDataKurangDariTanggalSekarang(),
             'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+            'countClose'                => $this->dbTask->where('status', '0')->countAllResults(),
         ];
         return view('home', $data);
     }

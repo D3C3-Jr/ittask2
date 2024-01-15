@@ -4,7 +4,7 @@
 <div class="row">
     <?php if (in_groups('Administrator')) : ?>
         <div class="col-md-4 col-lg-3">
-            <div class="card card-block card-stretch card-height">
+            <div class="card card-block card-stretch card-height card-">
                 <div class="card-body" id="computer" data-toggle="modal" data-target="#modalComputer">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Computer</h5>
@@ -78,7 +78,7 @@
                 <div class="card-body" data-toggle="modal" data-target="#modalLisensi">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>License Expired</h5>
-                        <i class="fas fa-certificate fa-2xl text-info"></i>
+                        <i class="fas fa-certificate fa-2xl text-danger"></i>
                     </div>
                     <h3><span class="counter"><?= $totalLisensiExpired ?></span></h3>
                 </div>

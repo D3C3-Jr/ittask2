@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\StokModel;
+use App\Models\TaskModel;
 use FontLib\Table\Type\head;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -11,14 +12,17 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class StokController extends BaseController
 {
     protected $dbStok;
+    protected $dbTask;
     public function __construct()
     {
         $this->dbStok = new StokModel();
+        $this->dbTask = new TaskModel();
     }
     public function index()
     {
         $data = [
             'title' => 'Stok',
+            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
         ];
         return view('stok', $data);
     }

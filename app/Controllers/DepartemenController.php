@@ -4,18 +4,22 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\DepartemenModel;
+use App\Models\TaskModel;
 
 class DepartemenController extends BaseController
 {
     protected $dbDepartemen;
+    protected $dbTask;
     public function __construct()
     {
+        $this->dbTask = new TaskModel();
         $this->dbDepartemen = new DepartemenModel();
     }
     public function index()
     {
         $data = [
-            'title' => 'Departemen'
+            'title' => 'Departemen',
+            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
         ];
         return view('master/departemen', $data);
     }

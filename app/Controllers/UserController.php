@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\GroupUsersModel;
+use App\Models\TaskModel;
 
 use App\Controllers\BaseController;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -14,16 +15,19 @@ class UserController extends BaseController
 {
     protected $dbUser;
     protected $dbGroupUsers;
+    protected $dbTask;
     public function __construct()
     {
         $this->dbUser = new UserModel();
         $this->dbGroupUsers = new GroupUsersModel();
+        $this->dbTask = new TaskModel();
     }
     public function index()
     {
         $data = [
             'title' => 'User',
             'users' => $this->dbUser->findAll(),
+            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
         ];
         return view('master/user', $data);
     }
@@ -220,7 +224,7 @@ class UserController extends BaseController
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
-        }  
+        }
     }
 
     public function saveUser()

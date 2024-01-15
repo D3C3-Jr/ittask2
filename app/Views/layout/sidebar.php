@@ -18,7 +18,7 @@
                 </li>
                 <li class="<?= ($title == 'Task') ? 'active' : '' ?>">
                     <a href="/task" class="svg-icon">
-                        <i class="fas fa-edit ml-1 mr-3"></i> <?= (in_groups('Administrator')) ? 'Task' : 'Ticket' ?>
+                        <i class="fas fa-edit ml-1 mr-3"></i> Ticket <?php if ($countClose) : ?><badge class="badge badge-danger badge-sm"><?= ($countClose) ?></badge> <?php else : '' ?> <?php endif; ?>
                     </a>
                 </li>
                 <?php if (in_groups('Administrator')) : ?>
