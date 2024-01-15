@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 <div class="row">
     <?php if (in_groups('Administrator')) : ?>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height card-">
                 <div class="card-body" id="computer" data-toggle="modal" data-target="#modalComputer">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body" data-toggle="modal" data-target="#modalStock">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body" data-toggle="modal" data-target="#modalLisensi">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -156,7 +156,7 @@
                 <table class="table table-striped">
                     <thead>
                         <th>Kode Barang</th>
-                        <th>Nama Barang</th>
+                        <th class="col-sm-12">Nama Barang</th>
                         <th>Stok</th>
                     </thead>
                     <tbody>
@@ -181,9 +181,9 @@
                 <h5 class="modal-title" id="exampleModalCenterTitle">Details</h5>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-striped ">
                     <thead>
-                        <th>Nama Produk</th>
+                        <th class="col-sm-12">Nama Produk</th>
                         <th>Expired Date</th>
                     </thead>
                     <tbody>
