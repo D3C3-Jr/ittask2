@@ -13,7 +13,7 @@ class ProyektorModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['device_id', 'jenis', 'nama_produk', 'serial_number', 'plant', 'lokasi'];
+    protected $allowedFields    = ['device_id', 'jenis', 'nama_produk', 'serial_number', 'plant', 'lokasi', 'status'];
 
     // Dates
     protected $useTimestamps = true;
@@ -119,6 +119,13 @@ class ProyektorModel extends Model
             'lokasi' => [
                 'rules' => 'required',
                 'label' => 'Lokasi',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'status' => [
+                'rules' => 'required',
+                'label' => 'Status',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],

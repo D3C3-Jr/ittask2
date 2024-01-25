@@ -60,6 +60,7 @@ function detailProyektor(id_proyektor) {
             $('[name="serial_number"]').val(data.serial_number).attr('disabled', true);
             $('[name="plant"]').val(data.plant).attr('disabled', true);
             $('[name="lokasi"]').val(data.lokasi).attr('disabled', true);
+            $('[name="status"]').val(data.status).attr('disabled', true);
 
             $('#modalProyektor').modal('show');
             $('.modal-title').text('Detail Data Proyektor');
@@ -86,6 +87,7 @@ function editProyektor(id_proyektor) {
             $('[name="serial_number"]').val(data.serial_number).attr('disabled', false);
             $('[name="plant"]').val(data.plant).attr('disabled', false);
             $('[name="lokasi"]').val(data.lokasi).attr('disabled', false);
+            $('[name="status"]').val(data.status).attr('disabled', false);
 
             $('.modal-footer').attr('hidden', false);
             $('#modalProyektor').modal('show');

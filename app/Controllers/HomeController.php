@@ -28,45 +28,13 @@ class HomeController extends BaseController
     }
     public function index(): string
     {
-        $jumlahBagianComputerAktif = $this->dbComputer->like('status', '1')->countAllResults();
-        $jumlahTotalComputer = $this->dbComputer->countAllResults();
-        $persentaseComputerAktif = $jumlahBagianComputerAktif / $jumlahTotalComputer * 100;
-
-        $jumlahBagianComputerSpare = $this->dbComputer->like('status', '0')->countAllResults();
-        $jumlahTotalComputer = $this->dbComputer->countAllResults();
-        $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
-
         $jumlahBagianLisensiValid = $this->dbLisensi->countAllResults();
         $jumlahTotalLisensi = $this->dbLisensi->countAllResults();
         $persentaseLisensiValid = $jumlahBagianLisensiValid / $jumlahTotalLisensi * 100;
 
-        $jumlahBagianPrinterAktif = $this->dbPrinter->like('status', '1')->countAllResults();
-        $jumlahTotalPrinter = $this->dbPrinter->countAllResults();
-        $persentasePrinterAktif = $jumlahBagianPrinterAktif / $jumlahTotalPrinter * 100;
-
-        $jumlahBagianPrinterSpare = $this->dbPrinter->like('status', '0')->countAllResults();
-        $jumlahTotalPrinter = $this->dbPrinter->countAllResults();
-        $persentasePrinterSpare = $jumlahBagianPrinterSpare / $jumlahTotalPrinter * 100;
-
 
         $data = [
             'title'                     => 'Home',
-            'computerPersentaseAktif'   => ceil($persentaseComputerAktif),
-            'computerAktif'             => $this->dbComputer->like('status', '1')->countAllResults(),
-            'computerPersentaseSpare'   => floor($persentaseComputerSpare),
-            'computerSpare'             => $this->dbComputer->like('status', '0')->countAllResults(),
-            'computerTotal'             => $this->dbComputer->countAllResults(),
-
-            'printerPersentaseAktif'   => ceil($persentasePrinterAktif),
-            'printerAktif'             => $this->dbPrinter->like('status', '1')->countAllResults(),
-            'printerPersentaseSpare'   => floor($persentasePrinterSpare),
-            'printerSpare'             => $this->dbPrinter->like('status', '0')->countAllResults(),
-            'printerTotal'             => $this->dbPrinter->countAllResults(),
-
-            'printer'                   => $this->dbPrinter->countAllResults(),
-            'proyektor'                 => $this->dbProyektor->countAllResults(),
-            'taskClose'                 => $this->dbTask->getDepartemenHome(),
-            'taskProses'                => $this->dbTask->getDepartemenHomeProses(),
             'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
             'stockMinimData'            => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
             'lisensi'                   => $this->dbLisensi->countAllResults(),

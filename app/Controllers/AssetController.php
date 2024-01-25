@@ -30,9 +30,52 @@ class AssetController extends BaseController
 
     public function index()
     {
+        $jumlahBagianComputerAktif = $this->dbComputer->like('status', '1')->countAllResults();
+        $jumlahTotalComputer = $this->dbComputer->countAllResults();
+        $persentaseComputerAktif = $jumlahBagianComputerAktif / $jumlahTotalComputer * 100;
+
+        $jumlahBagianComputerSpare = $this->dbComputer->like('status', '0')->countAllResults();
+        $jumlahTotalComputer = $this->dbComputer->countAllResults();
+        $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
+
+        $jumlahBagianPrinterAktif = $this->dbPrinter->like('status', '1')->countAllResults();
+        $jumlahTotalPrinter = $this->dbPrinter->countAllResults();
+        $persentasePrinterAktif = $jumlahBagianPrinterAktif / $jumlahTotalPrinter * 100;
+
+        $jumlahBagianPrinterSpare = $this->dbPrinter->like('status', '0')->countAllResults();
+        $jumlahTotalPrinter = $this->dbPrinter->countAllResults();
+        $persentasePrinterSpare = $jumlahBagianPrinterSpare / $jumlahTotalPrinter * 100;
+
+        $jumlahBagianProyektorAktif = $this->dbProyektor->like('status', '1')->countAllResults();
+        $jumlahTotalProyektor = $this->dbProyektor->countAllResults();
+        $persentaseProyektorAktif = $jumlahBagianProyektorAktif / $jumlahTotalProyektor * 100;
+
+        $jumlahBagianProyektorSpare = $this->dbProyektor->like('status', '0')->countAllResults();
+        $jumlahTotalProyektor = $this->dbProyektor->countAllResults();
+        $persentaseProyektorSpare = $jumlahBagianProyektorSpare / $jumlahTotalProyektor * 100;
         $data = [
             'title' => 'Data Asset',
             'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'computerPersentaseAktif'   => ceil($persentaseComputerAktif),
+            'computerAktif'             => $this->dbComputer->like('status', '1')->countAllResults(),
+            'computerPersentaseSpare'   => floor($persentaseComputerSpare),
+            'computerSpare'             => $this->dbComputer->like('status', '0')->countAllResults(),
+            'computerTotal'             => $this->dbComputer->countAllResults(),
+
+            'printerPersentaseAktif'   => ceil($persentasePrinterAktif),
+            'printerAktif'             => $this->dbPrinter->like('status', '1')->countAllResults(),
+            'printerPersentaseSpare'   => floor($persentasePrinterSpare),
+            'printerSpare'             => $this->dbPrinter->like('status', '0')->countAllResults(),
+            'printerTotal'             => $this->dbPrinter->countAllResults(),
+
+            'proyektorPersentaseAktif'   => ceil($persentaseProyektorAktif),
+            'proyektorAktif'             => $this->dbProyektor->like('status', '1')->countAllResults(),
+            'proyektorPersentaseSpare'   => floor($persentaseProyektorSpare),
+            'proyektorSpare'             => $this->dbProyektor->like('status', '0')->countAllResults(),
+            'proyektorTotal'             => $this->dbProyektor->countAllResults(),
+
+            'printer'                   => $this->dbPrinter->countAllResults(),
+            'proyektor'                 => $this->dbProyektor->countAllResults(),
         ];
         return view('asset/index', $data);
     }
@@ -210,6 +253,12 @@ class AssetController extends BaseController
                     <a href="javascript:void(0)" onclick="deleteProyektor(' . $temp['id_proyektor'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
+            $status = $temp['status'];
+            if ($status == 0) {
+                $status = '<badge class="badge badge-danger"> Rusak </badge>';
+            } else {
+                $status = '<badge class="badge badge-info"> Aktif </badge>';
+            }
             $row = [];
             $row[] = $no;
             $row[] = $temp['device_id'];
@@ -218,6 +267,7 @@ class AssetController extends BaseController
             $row[] = $temp['serial_number'];
             // $row[] = $temp['plant'];
             // $row[] = $temp['lokasi'];
+            $row[] = $status;
             $row[] = $aksi;
 
             $data[] = $row;
@@ -349,6 +399,7 @@ class AssetController extends BaseController
             'serial_number' => $this->request->getVar('serial_number'),
             'plant' => $this->request->getVar('plant'),
             'lokasi' => $this->request->getVar('lokasi'),
+            'status' => $this->request->getVar('status'),
         ];
 
         if ($this->dbProyektor->save($data)) {
@@ -501,6 +552,7 @@ class AssetController extends BaseController
             'serial_number' => $this->request->getVar('serial_number'),
             'plant' => $this->request->getVar('plant'),
             'lokasi' => $this->request->getVar('lokasi'),
+            'status' => $this->request->getVar('status'),
         ];
 
         if ($this->dbProyektor->save($data)) {
@@ -753,6 +805,12 @@ class AssetController extends BaseController
                 $data['error_string'][] = $validation->getError('lokasi');
                 $data['status'] = false;
             }
+            if ($validation->hasError('status')) {
+                $data['inputerror'][] = 'status';
+                $data['error_string'][] = $validation->getError('status');
+                $data['status'] = false;
+            }
+
 
             if ($data['status'] === false) {
                 echo json_encode($data);
@@ -949,6 +1007,7 @@ class AssetController extends BaseController
         $sheet->setCellValue('D1', 'Serial Number');
         $sheet->setCellValue('E1', 'Plant');
         $sheet->setCellValue('F1', 'Lokasi');
+        $sheet->setCellValue('G1', 'Status');
 
         $column = 2;
 
@@ -958,7 +1017,7 @@ class AssetController extends BaseController
             $sheet->setCellValue('C' . $column, $data['nama_produk']);
             $sheet->setCellValue('D' . $column, $data['serial_number']);
             $sheet->setCellValue('E' . $column, $data['plant']);
-            $sheet->setCellValue('F' . $column, $data['lokasi']);
+            $sheet->setCellValue('G' . $column, $data['status']);
             $column++;
         }
         $writer = new Xlsx($spreadsheet);
