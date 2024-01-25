@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="card card-block card-stretch card-height">
-                <div class="card-body">
+                <div class="card-body" id="printer" data-toggle="modal" data-target="#modalPrinter">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Printer</h5>
                         <i class="fas fa-print fa-2xl text-success"></i>
@@ -146,6 +146,60 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalPrinter" tabindex="-1" role="dialog" aria-labelledby="modalPrinterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Details</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3">
+                                            <div id="circle-progress-20" class="circle-progress-01 circle-progress circle-progress-primary" data-min-value="0" data-max-value="100" data-value="<?= $printerPersentaseAktif ?>" data-type="percent"></div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="mt-3 mt-md-0">
+                                                <h5 class="mb-1">Printer Active</h5>
+                                                <p class="mb-0"><?= $printerAktif ?> Pcs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3">
+                                            <div id="circle-progress-22" class="circle-progress-01 circle-progress circle-progress-warning" data-min-value="0" data-max-value="100" data-value="<?= $printerPersentaseSpare ?>" data-type="percent"></div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="mt-3 mt-md-0">
+                                                <h5 class="mb-1">Printer Rusak</h5>
+                                                <p class="mb-0"><?= $printerSpare ?> Pcs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalStock" tabindex="-1" role="dialog" aria-labelledby="modalStockTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -190,7 +244,9 @@
                         <?php foreach ($lisensiValid as $lisensi) : ?>
                             <tr>
                                 <td><?= $lisensi->nama_produk ?></td>
-                                <td><badge class="badge badge-danger"><?= $lisensi->valid_until ?></badge></td>
+                                <td>
+                                    <badge class="badge badge-danger"><?= $lisensi->valid_until ?></badge>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

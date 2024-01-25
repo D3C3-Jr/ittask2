@@ -144,6 +144,12 @@ class AssetController extends BaseController
                     <a href="javascript:void(0)" onclick="deletePrinter(' . $temp['id_printer'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
+            $status = $temp['status'];
+            if ($status == 0) {
+                $status = '<badge class="badge badge-danger"> Rusak </badge>';
+            } else {
+                $status = '<badge class="badge badge-info"> Aktif </badge>';
+            }
             $row = [];
             $row[] = $no;
             $row[] = $temp['device_id'];
@@ -151,6 +157,7 @@ class AssetController extends BaseController
             $row[] = $temp['merk'];
             $row[] = $temp['model'];
             $row[] = $temp['mac_sn'];
+            $row[] = $status;
             $row[] = $aksi;
 
             $data[] = $row;
@@ -322,6 +329,7 @@ class AssetController extends BaseController
             'plant' => $this->request->getVar('plant'),
             'lokasi' => $this->request->getVar('lokasi'),
             'ip_address' => $this->request->getVar('ip_address'),
+            'status' => $this->request->getVar('status'),
         ];
 
         if ($this->dbPrinter->save($data)) {
@@ -469,6 +477,7 @@ class AssetController extends BaseController
             'mac_sn' => $this->request->getVar('mac_sn'),
             'plant' => $this->request->getVar('plant'),
             'lokasi' => $this->request->getVar('lokasi'),
+            'status' => $this->request->getVar('status'),
         ];
 
         if ($this->dbPrinter->save($data)) {
@@ -692,6 +701,11 @@ class AssetController extends BaseController
                 $data['error_string'][] = $validation->getError('ip_address');
                 $data['status'] = false;
             }
+            if ($validation->hasError('status')) {
+                $data['inputerror'][] = 'status';
+                $data['error_string'][] = $validation->getError('status');
+                $data['status'] = false;
+            }
 
             if ($data['status'] === false) {
                 echo json_encode($data);
@@ -889,6 +903,7 @@ class AssetController extends BaseController
         $sheet->setCellValue('F1', 'Plant');
         $sheet->setCellValue('G1', 'Lokasi');
         $sheet->setCellValue('H1', 'IP Address');
+        $sheet->setCellValue('I1', 'Status');
 
         $column = 2;
 
@@ -901,6 +916,7 @@ class AssetController extends BaseController
             $sheet->setCellValue('F' . $column, $data['plant']);
             $sheet->setCellValue('G' . $column, $data['lokasi']);
             $sheet->setCellValue('H' . $column, $data['ip_address']);
+            $sheet->setCellValue('I' . $column, $data['status']);
             $column++;
         }
         $writer = new Xlsx($spreadsheet);

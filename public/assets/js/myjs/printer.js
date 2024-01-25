@@ -57,6 +57,7 @@ function detailPrinter(id_printer) {
             $('[name="plant"]').val(data.plant).attr('disabled', true);
             $('[name="lokasi"]').val(data.lokasi).attr('disabled', true);
             $('[name="ip_address"]').val(data.ip_address).attr('disabled', true);
+            $('[name="status"]').val(data.status).attr('disabled', true);
 
             $('#modalPrinter').modal('show');
             $('.modal-title').text('Detail Data Printer');
@@ -84,6 +85,7 @@ function editPrinter(id_printer) {
             $('[name="plant"]').val(data.plant).attr('disabled', false);
             $('[name="lokasi"]').val(data.lokasi).attr('disabled', false);
             $('[name="ip_address"]').val(data.ip_address).attr('disabled', false);
+            $('[name="status"]').val(data.status).attr('disabled', false);
 
             $('.modal-footer').attr('hidden', false);
             $('#modalPrinter').modal('show');

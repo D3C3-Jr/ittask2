@@ -40,9 +40,13 @@ class HomeController extends BaseController
         $jumlahTotalLisensi = $this->dbLisensi->countAllResults();
         $persentaseLisensiValid = $jumlahBagianLisensiValid / $jumlahTotalLisensi * 100;
 
-        $jumlahBagianComputerSpare = $this->dbComputer->like('status', '0')->countAllResults();
-        $jumlahTotalComputer = $this->dbComputer->countAllResults();
-        $persentaseComputerSpare = $jumlahBagianComputerSpare / $jumlahTotalComputer * 100;
+        $jumlahBagianPrinterAktif = $this->dbPrinter->like('status', '1')->countAllResults();
+        $jumlahTotalPrinter = $this->dbPrinter->countAllResults();
+        $persentasePrinterAktif = $jumlahBagianPrinterAktif / $jumlahTotalPrinter * 100;
+
+        $jumlahBagianPrinterSpare = $this->dbPrinter->like('status', '0')->countAllResults();
+        $jumlahTotalPrinter = $this->dbPrinter->countAllResults();
+        $persentasePrinterSpare = $jumlahBagianPrinterSpare / $jumlahTotalPrinter * 100;
 
 
         $data = [
@@ -52,6 +56,13 @@ class HomeController extends BaseController
             'computerPersentaseSpare'   => floor($persentaseComputerSpare),
             'computerSpare'             => $this->dbComputer->like('status', '0')->countAllResults(),
             'computerTotal'             => $this->dbComputer->countAllResults(),
+
+            'printerPersentaseAktif'   => ceil($persentasePrinterAktif),
+            'printerAktif'             => $this->dbPrinter->like('status', '1')->countAllResults(),
+            'printerPersentaseSpare'   => floor($persentasePrinterSpare),
+            'printerSpare'             => $this->dbPrinter->like('status', '0')->countAllResults(),
+            'printerTotal'             => $this->dbPrinter->countAllResults(),
+
             'printer'                   => $this->dbPrinter->countAllResults(),
             'proyektor'                 => $this->dbProyektor->countAllResults(),
             'taskClose'                 => $this->dbTask->getDepartemenHome(),

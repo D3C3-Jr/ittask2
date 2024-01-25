@@ -13,6 +13,7 @@
                 <th>Merk</th>
                 <th>Model</th>
                 <th>MAC / SN</th>
+                <th>Status</th>
                 <th class="text-center">Aksi</th>
             </tr>
         </thead>
@@ -92,6 +93,17 @@
                         <label for="ip_address" class="col-sm-4 col-form-label">IP Address</label>
                         <div class="col-sm-8">
                             <input type="text" name="ip_address" class="form-control form-control-sm" id="ip_address">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <label for="status" class="col-sm-4 col-form-label">Plant</label>
+                        <div class="col-sm-8">
+                            <select name="status" id="status" class="form-control form-control-sm">
+                                <option disabled selected hidden>Pilih Staus</option>
+                                <option value="0">Rusak</option>
+                                <option value="1">Aktif</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>
