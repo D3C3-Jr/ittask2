@@ -10,7 +10,7 @@
                 <th>No</th>
                 <th>Device ID</th>
                 <th>User ID</th>
-                <th>Serial Number</th>
+                <th>Departement</th>
                 <th>User</th>
                 <th>Status</th>
                 <th class="text-center">Aksi</th>
@@ -113,6 +113,18 @@
                         <label for="user" class="col-sm-4 col-form-label">User</label>
                         <div class="col-sm-8">
                             <input type="text" name="user" class="form-control form-control-sm" id="user">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <label for="id_departemen" class="col-sm-4 col-form-label">Departemen</label>
+                        <div class="col-sm-8">
+                            <select name="id_departemen" id="id_departemen" class="form-control form-control-sm">
+                                <option selected hidden disabled>Pilih Departemen</option>
+                                <?php foreach ($departemens as $departemen) : ?>
+                                    <option value="<?= $departemen['id_departemen'] ?>"><?= $departemen['nama_departemen']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>

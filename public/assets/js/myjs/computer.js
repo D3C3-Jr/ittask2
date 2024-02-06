@@ -67,6 +67,7 @@ function detailComputer(id_computer) {
             $('[name="ram"]').val(data.ram).attr('disabled', true);
             $('[name="rom"]').val(data.rom).attr('disabled', true);
             $('[name="user"]').val(data.user).attr('disabled', true);
+            $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', true);
             $('[name="status"]').val(data.status).attr('disabled', true);
 
             $('#modalComputer').modal('show');
@@ -98,6 +99,7 @@ function editComputer(id_computer) {
             $('[name="ram"]').val(data.ram).attr('disabled', false);
             $('[name="rom"]').val(data.rom).attr('disabled', false);
             $('[name="user"]').val(data.user).attr('disabled', false);
+            $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', false);
             $('[name="status"]').val(data.status).attr('disabled', false);
 
             $('.modal-footer').attr('hidden', false);

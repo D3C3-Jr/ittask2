@@ -13,7 +13,7 @@ class ComputerModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['asset_number', 'device_id', 'login_user', 'serial_number', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'status'];
+    protected $allowedFields    = ['asset_number', 'device_id', 'login_user', 'serial_number', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'id_departemen', 'status'];
 
     // Dates
     protected $useTimestamps = true;
@@ -41,7 +41,7 @@ class ComputerModel extends Model
 
     public function ajaxGetData($start, $length)
     {
-        $result = $this->orderBy('device_id', 'ASC')->findAll($length, $start);
+        $result = $this->join('departemen', 'departemen.id_departemen = computer.id_departemen', 'left')->orderBy('device_id', 'ASC')->findAll($length, $start);
         return $result;
     }
 
@@ -159,6 +159,13 @@ class ComputerModel extends Model
             'user' => [
                 'rules' => 'required',
                 'label' => 'User',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'id_departemen' => [
+                'rules' => 'required',
+                'label' => 'Departemen',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],

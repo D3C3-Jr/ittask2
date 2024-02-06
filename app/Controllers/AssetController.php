@@ -8,6 +8,7 @@ use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
 use App\Models\OtherModel;
 use App\Models\TaskModel;
+use App\Models\DepartemenModel;
 use Dompdf\Dompdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -19,6 +20,7 @@ class AssetController extends BaseController
     protected $dbProyektor;
     protected $dbOther;
     protected $dbTask;
+    protected $dbDepartemen;
     public function __construct()
     {
         $this->dbComputer = new ComputerModel();
@@ -26,6 +28,7 @@ class AssetController extends BaseController
         $this->dbProyektor = new ProyektorModel();
         $this->dbOther = new OtherModel();
         $this->dbTask = new TaskModel();
+        $this->dbDepartemen = new DepartemenModel();
     }
 
     public function index()
@@ -76,6 +79,8 @@ class AssetController extends BaseController
 
             'printer'                   => $this->dbPrinter->countAllResults(),
             'proyektor'                 => $this->dbProyektor->countAllResults(),
+
+            'departemens'               => $this->dbDepartemen->findAll(),
         ];
         return view('asset/index', $data);
     }
@@ -132,7 +137,7 @@ class AssetController extends BaseController
             $row[] = $no;
             $row[] = $temp['device_id'];
             $row[] = $temp['login_user'];
-            $row[] = $temp['serial_number'];
+            $row[] = $temp['nama_departemen'];
             $row[] = $temp['user'];
             $row[] = $status;
             $row[] = $aksi;
@@ -357,6 +362,7 @@ class AssetController extends BaseController
             'ram' => $this->request->getVar('ram'),
             'rom' => $this->request->getVar('rom'),
             'user' => $this->request->getVar('user'),
+            'id_departemen' => $this->request->getVar('id_departemen'),
             'status' => $this->request->getVar('status'),
         ];
 
@@ -503,6 +509,7 @@ class AssetController extends BaseController
             'ram' => $this->request->getVar('ram'),
             'rom' => $this->request->getVar('rom'),
             'user' => $this->request->getVar('user'),
+            'id_departemen' => $this->request->getVar('id_departemen'),
             'status' => $this->request->getVar('status'),
         ];
 
@@ -689,6 +696,11 @@ class AssetController extends BaseController
             if ($validation->hasError('user')) {
                 $data['inputerror'][] = 'user';
                 $data['error_string'][] = $validation->getError('user');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('id_departemen')) {
+                $data['inputerror'][] = 'id_departemen';
+                $data['error_string'][] = $validation->getError('id_departemen');
                 $data['status'] = false;
             }
             if ($validation->hasError('status')) {
@@ -890,7 +902,7 @@ class AssetController extends BaseController
 
     public function exportExcelComputer()
     {
-        $dataComputer = $this->dbComputer->findAll();
+        $dataComputer = $this->dbComputer->join('departemen', 'departemen.id_departemen = computer.id_departemen')->findAll();
         $filename = 'DataComputer' . date('ymd') . '.xlsx';
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -905,7 +917,8 @@ class AssetController extends BaseController
         $sheet->setCellValue('I1', 'RAM');
         $sheet->setCellValue('J1', 'ROM');
         $sheet->setCellValue('K1', 'User');
-        $sheet->setCellValue('L1', 'Status');
+        $sheet->setCellValue('L1', 'Departemen');
+        $sheet->setCellValue('M1', 'Status');
 
         $column = 2;
 
@@ -926,7 +939,8 @@ class AssetController extends BaseController
             $sheet->setCellValue('I' . $column, $data['ram']);
             $sheet->setCellValue('J' . $column, $data['rom']);
             $sheet->setCellValue('K' . $column, $data['user']);
-            $sheet->setCellValue('L' . $column, $status);
+            $sheet->setCellValue('L' . $column, $data['nama_departemen']);
+            $sheet->setCellValue('M' . $column, $status);
             $column++;
         }
         $writer = new Xlsx($spreadsheet);
