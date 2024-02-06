@@ -2,7 +2,7 @@
     <div class="iq-sidebar-logo d-flex align-items-center">
         <a href="<?= base_url() ?>" class="header-logo">
             <img src="<?= base_url() ?>/assets/images/logo-it.svg" alt="logo">
-            <h3 class="logo-title light-logo">ittask</h3>
+            <h3 class="logo-title light-logo">sil(it)</h3>
         </a>
         <div class="iq-menu-bt-sidebar ml-0">
             <i class="las la-bars wrapper-menu"></i>
