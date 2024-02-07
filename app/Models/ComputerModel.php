@@ -47,7 +47,7 @@ class ComputerModel extends Model
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->like('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->findAll($start, $length);
+        $result = $this->join('departemen','departemen.id_departemen = computer.id_departemen','left')->like('nama_departemen',$search)->orLike('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->findAll($start, $length);
         return $result;
     }
 
@@ -62,7 +62,7 @@ class ComputerModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->like('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->countAllResults();
+        $result = $this->join('departemen','departemen.id_departemen = computer.id_departemen','left')->like('nama_departemen',$search)->orLike('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->countAllResults();
         return $result;
     }
 
