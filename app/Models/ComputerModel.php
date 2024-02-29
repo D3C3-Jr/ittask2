@@ -13,7 +13,7 @@ class ComputerModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['asset_number', 'device_id', 'login_user', 'serial_number', 'jenis', 'nama_produk', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'id_departemen', 'status'];
+    protected $allowedFields    = ['asset_number', 'device_id', 'login_user', 'serial_number', 'jenis', 'nama_produk', 'os', 'mac_address', 'prosesor', 'ram', 'rom', 'user', 'plant', 'id_departemen', 'status'];
 
     // Dates
     protected $useTimestamps = true;
@@ -47,7 +47,7 @@ class ComputerModel extends Model
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->join('departemen','departemen.id_departemen = computer.id_departemen','left')->like('nama_departemen',$search)->orLike('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->findAll($start, $length);
+        $result = $this->join('departemen', 'departemen.id_departemen = computer.id_departemen', 'left')->like('nama_departemen', $search)->orLike('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->findAll($start, $length);
         return $result;
     }
 
@@ -62,7 +62,7 @@ class ComputerModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->join('departemen','departemen.id_departemen = computer.id_departemen','left')->like('nama_departemen',$search)->orLike('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->countAllResults();
+        $result = $this->join('departemen', 'departemen.id_departemen = computer.id_departemen', 'left')->like('nama_departemen', $search)->orLike('device_id', $search)->orLike('login_user', $search)->orLike('user', $search)->orLike('jenis', $search)->countAllResults();
         return $result;
     }
 
@@ -121,6 +121,13 @@ class ComputerModel extends Model
                     'required' => '{field} Harus di isi',
                 ],
             ],
+            'os' => [
+                'rules' => 'required',
+                'label' => 'OS',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
             'serial_number' => [
                 'rules' => $serial_number,
                 'label' => 'Serial Number',
@@ -159,6 +166,13 @@ class ComputerModel extends Model
             'user' => [
                 'rules' => 'required',
                 'label' => 'User',
+                'errors' => [
+                    'required' => '{field} Harus di isi',
+                ],
+            ],
+            'plant' => [
+                'rules' => 'required',
+                'label' => 'Plant',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],

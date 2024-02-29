@@ -68,6 +68,17 @@
                         </div>
                     </div>
                     <div class="row mb-1">
+                        <label for="os" class="col-sm-4 col-form-label">OS</label>
+                        <div class="col-sm-8">
+                            <select name="os" id="os" class="form-control form-control-sm">
+                                <option selected hidden disabled>Pilih OS</option>
+                                <option value="Windows 10">Windows 10</option>
+                                <option value="Windows 11">Windows 11</option>
+                            </select>
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
                         <label for="nama_produk" class="col-sm-4 col-form-label">Nama Produk</label>
                         <div class="col-sm-8">
                             <input type="text" name="nama_produk" class="form-control form-control-sm" id="nama_produk">
@@ -106,6 +117,17 @@
                         <label for="rom" class="col-sm-4 col-form-label">ROM</label>
                         <div class="col-sm-8">
                             <input type="text" name="rom" class="form-control form-control-sm" id="rom">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <label for="plant" class="col-sm-4 col-form-label">Plant</label>
+                        <div class="col-sm-8">
+                            <select name="plant" id="plant" class="form-control form-control-sm">
+                                <option selected hidden disabled>Pilih Plant</option>
+                                <option value="Plant 1">Plant 1</option>
+                                <option value="Plant 2">Plant 2</option>
+                            </select>
                             <small class="help-block text-danger"></small>
                         </div>
                     </div>

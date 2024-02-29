@@ -356,12 +356,14 @@ class AssetController extends BaseController
             'login_user' => $this->request->getVar('login_user'),
             'jenis' => $this->request->getVar('jenis'),
             'nama_produk' => $this->request->getVar('nama_produk'),
+            'os' => $this->request->getVar('os'),
             'serial_number' => $this->request->getVar('serial_number'),
             'mac_address' => $this->request->getVar('mac_address'),
             'prosesor' => $this->request->getVar('prosesor'),
             'ram' => $this->request->getVar('ram'),
             'rom' => $this->request->getVar('rom'),
             'user' => $this->request->getVar('user'),
+            'plant' => $this->request->getVar('plant'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'status' => $this->request->getVar('status'),
         ];
@@ -503,12 +505,14 @@ class AssetController extends BaseController
             'login_user' => $this->request->getVar('login_user'),
             'jenis' => $this->request->getVar('jenis'),
             'nama_produk' => $this->request->getVar('nama_produk'),
+            'os' => $this->request->getVar('os'),
             'serial_number' => $this->request->getVar('serial_number'),
             'mac_address' => $this->request->getVar('mac_address'),
             'prosesor' => $this->request->getVar('prosesor'),
             'ram' => $this->request->getVar('ram'),
             'rom' => $this->request->getVar('rom'),
             'user' => $this->request->getVar('user'),
+            'plant' => $this->request->getVar('plant'),
             'id_departemen' => $this->request->getVar('id_departemen'),
             'status' => $this->request->getVar('status'),
         ];
@@ -668,6 +672,11 @@ class AssetController extends BaseController
                 $data['error_string'][] = $validation->getError('nama_produk');
                 $data['status'] = false;
             }
+            if ($validation->hasError('os')) {
+                $data['inputerror'][] = 'os';
+                $data['error_string'][] = $validation->getError('os');
+                $data['status'] = false;
+            }
             if ($validation->hasError('serial_number')) {
                 $data['inputerror'][] = 'serial_number';
                 $data['error_string'][] = $validation->getError('serial_number');
@@ -696,6 +705,11 @@ class AssetController extends BaseController
             if ($validation->hasError('user')) {
                 $data['inputerror'][] = 'user';
                 $data['error_string'][] = $validation->getError('user');
+                $data['status'] = false;
+            }
+            if ($validation->hasError('plant')) {
+                $data['inputerror'][] = 'plant';
+                $data['error_string'][] = $validation->getError('plant');
                 $data['status'] = false;
             }
             if ($validation->hasError('id_departemen')) {

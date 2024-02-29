@@ -61,12 +61,14 @@ function detailComputer(id_computer) {
             $('[name="login_user"]').val(data.login_user).attr('disabled', true);
             $('[name="jenis"]').val(data.jenis).attr('disabled', true);
             $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', true);
+            $('[name="os"]').val(data.os).attr('disabled', true);
             $('[name="serial_number"]').val(data.serial_number).attr('disabled', true);
             $('[name="mac_address"]').val(data.mac_address).attr('disabled', true);
             $('[name="prosesor"]').val(data.prosesor).attr('disabled', true);
             $('[name="ram"]').val(data.ram).attr('disabled', true);
             $('[name="rom"]').val(data.rom).attr('disabled', true);
             $('[name="user"]').val(data.user).attr('disabled', true);
+            $('[name="plant"]').val(data.plant).attr('disabled', true);
             $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', true);
             $('[name="status"]').val(data.status).attr('disabled', true);
 
@@ -93,12 +95,14 @@ function editComputer(id_computer) {
             $('[name="login_user"]').val(data.login_user).attr('disabled', false);
             $('[name="jenis"]').val(data.jenis).attr('disabled', false);
             $('[name="nama_produk"]').val(data.nama_produk).attr('disabled', false);
+            $('[name="os"]').val(data.os).attr('disabled', false);
             $('[name="serial_number"]').val(data.serial_number).attr('disabled', false);
             $('[name="mac_address"]').val(data.mac_address).attr('disabled', false);
             $('[name="prosesor"]').val(data.prosesor).attr('disabled', false);
             $('[name="ram"]').val(data.ram).attr('disabled', false);
             $('[name="rom"]').val(data.rom).attr('disabled', false);
             $('[name="user"]').val(data.user).attr('disabled', false);
+            $('[name="plant"]').val(data.plant).attr('disabled', false);
             $('[name="id_departemen"]').val(data.id_departemen).attr('disabled', false);
             $('[name="status"]').val(data.status).attr('disabled', false);
 
