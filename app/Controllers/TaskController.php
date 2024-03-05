@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\TaskModel;
 use App\Models\DepartemenModel;
+use App\Models\StokModel;
+use App\Models\LisensiModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -12,10 +14,14 @@ class TaskController extends BaseController
 {
     protected $dbTask;
     protected $dbDepartemen;
+    protected $dbStok;
+    protected $dbLisensi;
     public function __construct()
     {
         $this->dbTask = new TaskModel();
         $this->dbDepartemen = new DepartemenModel();
+        $this->dbStok = new StokModel();
+        $this->dbLisensi = new LisensiModel();
     }
     public function index()
     {
@@ -25,6 +31,9 @@ class TaskController extends BaseController
             'taskClose'     => $this->dbTask->getDepartemenHome(),
             'taskProses'    => $this->dbTask->getDepartemenHomeProses(),
             'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+
 
         ];
         return view('task', $data);

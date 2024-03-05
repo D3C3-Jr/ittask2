@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\StokModel;
 use App\Models\TaskModel;
+use App\Models\LisensiModel;
 use FontLib\Table\Type\head;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -13,16 +14,22 @@ class StokController extends BaseController
 {
     protected $dbStok;
     protected $dbTask;
+    protected $dbLisensi;
     public function __construct()
     {
         $this->dbStok = new StokModel();
         $this->dbTask = new TaskModel();
+        $this->dbLisensi = new LisensiModel();
     }
     public function index()
     {
         $data = [
             'title' => 'Stok',
             'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'stockMinimData'            => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+
         ];
         return view('stok', $data);
     }

@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\GroupUsersModel;
 use App\Models\TaskModel;
+use App\Models\StokModel;
+use App\Models\LisensiModel;
 
 use App\Controllers\BaseController;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -16,11 +18,15 @@ class UserController extends BaseController
     protected $dbUser;
     protected $dbGroupUsers;
     protected $dbTask;
+    protected $dbStok;
+    protected $dbLisensi;
     public function __construct()
     {
         $this->dbUser = new UserModel();
         $this->dbGroupUsers = new GroupUsersModel();
         $this->dbTask = new TaskModel();
+        $this->dbStok = new StokModel();
+        $this->dbLisensi = new LisensiModel();
     }
     public function index()
     {
@@ -28,6 +34,9 @@ class UserController extends BaseController
             'title' => 'User',
             'users' => $this->dbUser->findAll(),
             'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+
         ];
         return view('master/user', $data);
     }

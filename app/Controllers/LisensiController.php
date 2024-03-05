@@ -5,21 +5,28 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\LisensiModel;
 use App\Models\TaskModel;
+use App\Models\StokModel;
 
 class LisensiController extends BaseController
 {
     protected $dbLisensi;
     protected $dbTask;
+    protected $dbStok;
     public function __construct()
     {
         $this->dbLisensi = new LisensiModel();
         $this->dbTask = new TaskModel();
+        $this->dbStok = new StokModel();
     }
     public function index()
     {
         $data = [
             'title' => 'Lisensi',
             'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+            'lisensiValid'              => $this->dbLisensi->getDataKurangDariTanggalSekarang(),
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+
         ];
         return view('lisensi', $data);
     }

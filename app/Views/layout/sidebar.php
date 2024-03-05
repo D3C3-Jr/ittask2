@@ -29,12 +29,12 @@
                     </li>
                     <li class="<?= ($title == 'Stok') ? 'active' : '' ?>">
                         <a href="/stok" class="svg-icon">
-                            <i class="fas fa-cart-shopping ml-1 mr-3"></i> Stok
+                            <i class="fas fa-cart-shopping ml-1 mr-3"></i> Stok <?php if (in_groups('Administrator')) : ?> <?php if ($stockMinimAngka) : ?><badge class="badge badge-danger badge-sm"><?= ($stockMinimAngka) ?></badge> <?php else : '' ?> <?php endif; ?> <?php endif; ?>
                         </a>
                     </li>
                     <li class="<?= ($title == 'Lisensi') ? 'active' : '' ?>">
                         <a href="/lisensi" class="svg-icon">
-                            <i class="fas fa-key ml-1 mr-3"></i> Lisensi
+                            <i class="fas fa-key ml-1 mr-3"></i> Stok <?php if (in_groups('Administrator')) : ?> <?php if ($totalLisensiExpired) : ?><badge class="badge badge-danger badge-sm"><?= ($totalLisensiExpired) ?></badge> <?php else : '' ?> <?php endif; ?> <?php endif; ?>
                         </a>
                     </li>
                     <li class="<?= ($title == 'Departemen' || $title == 'User') ? 'active' : '' ?>">

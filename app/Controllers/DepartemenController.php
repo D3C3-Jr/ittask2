@@ -5,21 +5,30 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\DepartemenModel;
 use App\Models\TaskModel;
+use App\Models\StokModel;
+use App\Models\LisensiModel;
 
 class DepartemenController extends BaseController
 {
     protected $dbDepartemen;
     protected $dbTask;
+    protected $dbStok;
+    protected $dbLisensi;
     public function __construct()
     {
         $this->dbTask = new TaskModel();
         $this->dbDepartemen = new DepartemenModel();
+        $this->dbStok = new StokModel();
+        $this->dbLisensi = new LisensiModel();
     }
     public function index()
     {
         $data = [
             'title' => 'Departemen',
             'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+
         ];
         return view('master/departemen', $data);
     }

@@ -8,7 +8,9 @@ use App\Models\PrinterModel;
 use App\Models\ProyektorModel;
 use App\Models\OtherModel;
 use App\Models\TaskModel;
+use App\Models\StokModel;
 use App\Models\DepartemenModel;
+use App\Models\LisensiModel;
 use Dompdf\Dompdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -21,6 +23,8 @@ class AssetController extends BaseController
     protected $dbOther;
     protected $dbTask;
     protected $dbDepartemen;
+    protected $dbStok;
+    protected $dbLisensi;
     public function __construct()
     {
         $this->dbComputer = new ComputerModel();
@@ -29,6 +33,8 @@ class AssetController extends BaseController
         $this->dbOther = new OtherModel();
         $this->dbTask = new TaskModel();
         $this->dbDepartemen = new DepartemenModel();
+        $this->dbStok = new StokModel();
+        $this->dbLisensi = new LisensiModel();
     }
 
     public function index()
@@ -81,6 +87,10 @@ class AssetController extends BaseController
             'proyektor'                 => $this->dbProyektor->countAllResults(),
 
             'departemens'               => $this->dbDepartemen->findAll(),
+
+            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+
         ];
         return view('asset/index', $data);
     }

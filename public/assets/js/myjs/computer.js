@@ -47,6 +47,7 @@ function addComputer() {
     $('select').attr('disabled', false);
     $('.modal-title').text('Form Tambah Data Computer');
     $('#submit').text('Simpan');
+
 }
 
 function detailComputer(id_computer) {

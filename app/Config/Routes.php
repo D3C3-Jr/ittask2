@@ -16,6 +16,7 @@ $routes->post('/asset/computer/update', 'AssetController::updateComputer', ['fil
 $routes->delete('/asset/computer/delete/(:num)', 'AssetController::deleteComputer/$1', ['filter' => 'role:Administrator']);
 $routes->post('/exportExcelComputer', 'AssetController::exportExcelComputer', ['filter' => 'role:Administrator']);
 
+
 $routes->get('/asset/printer/read', 'AssetController::readPrinter', ['filter' => 'role:Administrator']);
 $routes->post('/asset/printer/save', 'AssetController::savePrinter', ['filter' => 'role:Administrator']);
 $routes->get('/asset/printer/edit/(:num)', 'AssetController::editPrinter/$1', ['filter' => 'role:Administrator']);

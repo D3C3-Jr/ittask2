@@ -38,9 +38,9 @@ class HomeController extends BaseController
             'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
             'stockMinimData'            => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
             'lisensi'                   => $this->dbLisensi->countAllResults(),
-            'lisensiValid'              => $this->dbLisensi->getDataKurangDariTanggalSekarang(),
             'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
             'countClose'                => $this->dbTask->where('status', '0')->countAllResults(),
+            'countStok'                => $this->dbStok->where('stok', '0')->countAllResults(),
         ];
         return view('home', $data);
     }
