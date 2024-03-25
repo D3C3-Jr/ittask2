@@ -26,13 +26,13 @@ class TaskController extends BaseController
     public function index()
     {
         $data = [
-            'title'         => 'Task',
-            'departemen'    => $this->dbDepartemen->findAll(),
-            'taskClose'     => $this->dbTask->getDepartemenHome(),
-            'taskProses'    => $this->dbTask->getDepartemenHomeProses(),
-            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
-            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
-            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+            'title'                 => 'Task',
+            'departemen'            => $this->dbDepartemen->findAll(),
+            'taskClose'             => $this->dbTask->getDepartemenHome(),
+            'taskProses'            => $this->dbTask->getDepartemenHomeProses(),
+            'countClose'            => $this->dbTask->where('task_status', '0')->countAllResults(),
+            'stockMinimAngka'       => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'totalLisensiExpired'   => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
 
 
         ];
@@ -79,24 +79,24 @@ class TaskController extends BaseController
                     <a href="javascript:void(0)" onclick="deleteTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
-            $status = $temp['status'];
-            if ($status == 0) {
+            $task_status = $temp['task_status'];
+            if ($task_status == 0) {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                    $task_status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
                 } else {
-                    $status = '<badge class="badge badge-danger"> Open </badge>';
+                    $task_status = '<badge class="badge badge-danger"> Open </badge>';
                 }
-            } else if ($status == 1) {
+            } else if ($task_status == 1) {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                    $task_status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
                 } else {
-                    $status = '<badge class="badge badge-warning"> Proses </badge>';
+                    $task_status = '<badge class="badge badge-warning"> Proses </badge>';
                 }
             } else {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                    $task_status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
                 } else {
-                    $status = '<badge class="badge badge-success"> Close </badge>';
+                    $task_status = '<badge class="badge badge-success"> Close </badge>';
                 }
             }
 
@@ -107,7 +107,7 @@ class TaskController extends BaseController
             $row[] = $tanggal;
             $row[] = $temp['nama_departemen'];
             $row[] = $temp['masalah'];
-            $row[] = $status;
+            $row[] = $task_status;
             $row[] = $aksi;
 
             $data[] = $row;
@@ -160,24 +160,24 @@ class TaskController extends BaseController
                     <a href="javascript:void(0)" onclick="deleteTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
-            $status = $temp['status'];
-            if ($status == 0) {
+            $task_status = $temp['task_status'];
+            if ($task_status == 0) {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                    $task_status = '<badge onclick="editTaskStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
                 } else {
-                    $status = '<badge class="badge badge-danger"> Open </badge>';
+                    $task_status = '<badge class="badge badge-danger"> Open </badge>';
                 }
-            } else if ($status == 1) {
+            } else if ($task_status == 1) {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                    $task_status = '<badge onclick="editTaskStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
                 } else {
-                    $status = '<badge class="badge badge-warning"> Proses </badge>';
+                    $task_status = '<badge class="badge badge-warning"> Proses </badge>';
                 }
             } else {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                    $task_status = '<badge onclick="editTaskStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
                 } else {
-                    $status = '<badge class="badge badge-success"> Close </badge>';
+                    $task_status = '<badge class="badge badge-success"> Close </badge>';
                 }
             }
 
@@ -186,7 +186,7 @@ class TaskController extends BaseController
             $row = [];
             $row[] = $temp['nama_departemen'];
             $row[] = $temp['masalah'];
-            $row[] = $status;
+            $row[] = $task_status;
 
             $data[] = $row;
             $no++;
@@ -238,24 +238,24 @@ class TaskController extends BaseController
                     <a href="javascript:void(0)" onclick="deleteTask(' . $temp['id_task'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
-            $status = $temp['status'];
-            if ($status == 0) {
+            $task_status = $temp['task_status'];
+            if ($task_status == 0) {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
+                    $task_status = '<badge onclick="editTaskStatus(' . $temp['id_task'] . ')" class="badge badge-danger"> Open </badge>';
                 } else {
-                    $status = '<badge class="badge badge-danger"> Open </badge>';
+                    $task_status = '<badge class="badge badge-danger"> Open </badge>';
                 }
-            } else if ($status == 1) {
+            } else if ($task_status == 1) {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
+                    $task_status = '<badge onclick="editTaskStatus(' . $temp['id_task'] . ')" class="badge badge-warning"> Proses </badge>';
                 } else {
-                    $status = '<badge class="badge badge-warning"> Proses </badge>';
+                    $task_status = '<badge class="badge badge-warning"> Proses </badge>';
                 }
             } else {
                 if (in_groups('Administrator')) {
-                    $status = '<badge onclick="editStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
+                    $task_status = '<badge onclick="editTaskStatus(' . $temp['id_task'] . ')" class="badge badge-success"> Close </badge>';
                 } else {
-                    $status = '<badge class="badge badge-success"> Close </badge>';
+                    $task_status = '<badge class="badge badge-success"> Close </badge>';
                 }
             }
 
@@ -264,7 +264,7 @@ class TaskController extends BaseController
             $row = [];
             $row[] = $temp['nama_departemen'];
             $row[] = $temp['masalah'];
-            $row[] = $status;
+            $row[] = $task_status;
 
             $data[] = $row;
             $no++;
@@ -304,7 +304,7 @@ class TaskController extends BaseController
             'plant' => $this->request->getVar('plant'),
             'masalah' => $this->request->getVar('masalah'),
             'penyelesaian' => $this->request->getVar('penyelesaian'),
-            'status' => $this->request->getVar('status'),
+            'task_status' => $this->request->getVar('task_status'),
             'frekuensi' => $this->request->getVar('frekuensi'),
         ];
 
@@ -328,10 +328,10 @@ class TaskController extends BaseController
     {
         $this->_validateTask('save');
         if (in_groups('Administrator')) {
-            $status = $this->request->getVar('status');
+            $task_status = $this->request->getVar('task_status');
             $frekuensi = $this->request->getVar('frekuensi');
         } else {
-            $status = 0;
+            $task_status = 0;
             $frekuensi = "Event";
         };
 
@@ -343,7 +343,7 @@ class TaskController extends BaseController
             'masalah' => htmlspecialchars($this->request->getVar('masalah')),
             'penyelesaian' => htmlspecialchars($this->request->getVar('penyelesaian')),
             'frekuensi' => $frekuensi,
-            'status' => $status,
+            'task_status' => $task_status,
         ];
 
         if ($this->dbTask->save($data)) {

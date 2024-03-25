@@ -159,7 +159,7 @@
                         <div class="row mb-1">
                             <label class="col-sm-4 col-form-label">Status</label>
                             <div class="col-sm-8">
-                                <select name="status" id="status" class="form-control form-control-sm">
+                                <select name="task_status" id="task_status" class="form-control form-control-sm">
                                     <option selected hidden disabled>Pilih Status</option>
                                     <option value="0">Open</option>
                                     <option value="1">On Proccess</option>

@@ -24,8 +24,8 @@ class StokController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Stok',
-            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'title'                     => 'Stok',
+            'countClose'                => $this->dbTask->where('task_status', '0')->countAllResults(),
             'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
             'stockMinimData'            => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
             'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),

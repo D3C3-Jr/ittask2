@@ -3,44 +3,44 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\DepartemenModel;
+use App\Models\KategoriItrsModel;
 use App\Models\TaskModel;
 use App\Models\StokModel;
 use App\Models\LisensiModel;
 
-class DepartemenController extends BaseController
+class KategoriItrsController extends BaseController
 {
-    protected $dbDepartemen;
+    protected $dbKategoriItrs;
     protected $dbTask;
     protected $dbStok;
     protected $dbLisensi;
     public function __construct()
     {
         $this->dbTask = new TaskModel();
-        $this->dbDepartemen = new DepartemenModel();
+        $this->dbKategoriItrs = new KategoriItrsModel();
         $this->dbStok = new StokModel();
         $this->dbLisensi = new LisensiModel();
     }
     public function index()
     {
         $data = [
-            'title'                     => 'Departemen',
+            'title'                     => 'Kategori ITRS',
             'countClose'                => $this->dbTask->where('task_status', '0')->countAllResults(),
             'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
             'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
 
         ];
-        return view('master/departemen', $data);
+        return view('master/kategori_itrs', $data);
     }
 
-    public function readDepartemen()
+    public function readKategoriItrs()
     {
         $draw = $_REQUEST['draw'];
         $length = $_REQUEST['length'];
         $start = $_REQUEST['start'];
         $search = $_REQUEST['search']['value'];
 
-        $total = $this->dbDepartemen->ajaxGetTotal();
+        $total = $this->dbKategoriItrs->ajaxGetTotal();
         $output = [
             'length' => $length,
             'draw' => $draw,
@@ -49,13 +49,13 @@ class DepartemenController extends BaseController
         ];
 
         if ($search !== "") {
-            $list = $this->dbDepartemen->ajaxGetDataSearch($search, $start, $length);
+            $list = $this->dbKategoriItrs->ajaxGetDataSearch($search, $start, $length);
         } else {
-            $list = $this->dbDepartemen->ajaxGetData($start, $length);
+            $list = $this->dbKategoriItrs->ajaxGetData($start, $length);
         }
 
         if ($search !== "") {
-            $total_search = $this->dbDepartemen->ajaxGetTotalSearch($search);
+            $total_search = $this->dbKategoriItrs->ajaxGetTotalSearch($search);
             $output = [
                 'recordsTotal' => $total_search,
                 'recordsFiltered' => $total_search
@@ -68,16 +68,16 @@ class DepartemenController extends BaseController
         foreach ($list as $temp) {
             $aksi = '
             <div class="text-center">
-                    <a href="javascript:void(0)" onclick="detailDepartemen(' . $temp['id_departemen'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
-                    <a href="javascript:void(0)" onclick="editDepartemen(' . $temp['id_departemen'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
-                    <a href="javascript:void(0)" onclick="deleteDepartemen(' . $temp['id_departemen'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
+                    <a href="javascript:void(0)" onclick="detailKategoriItrs(' . $temp['id_kategori_itrs'] . ')"><i class="btn btn-sm btn-primary fas fa-eye"> </i></a>
+                    <a href="javascript:void(0)" onclick="editKategoriItrs(' . $temp['id_kategori_itrs'] . ')"><i class="btn btn-sm btn-success fas fa-edit"> </i></a>
+                    <a href="javascript:void(0)" onclick="deleteKategoriItrs(' . $temp['id_kategori_itrs'] . ')"><i class="btn btn-sm btn-danger fas fa-trash"> </i></a>
             </div>
                     ';
 
             $row = [];
             $row[] = $no;
-            $row[] = $temp['kode_departemen'];
-            $row[] = $temp['nama_departemen'];
+            $row[] = $temp['kode_kategori_itrs'];
+            $row[] = $temp['nama_kategori_itrs'];
             $row[] = $aksi;
 
             $data[] = $row;
@@ -90,78 +90,78 @@ class DepartemenController extends BaseController
         exit();
     }
 
-    public function detailDepartemen($id_departemen)
+    public function detailKategoriItrs($id_kategori_itrs)
     {
-        $data = $this->dbDepartemen->find($id_departemen);
+        $data = $this->dbKategoriItrs->find($id_kategori_itrs);
         echo json_encode($data);
     }
 
-    public function editDepartemen($id_departemen)
+    public function editKategoriItrs($id_kategori_itrs)
     {
-        $data = $this->dbDepartemen->find($id_departemen);
+        $data = $this->dbKategoriItrs->find($id_kategori_itrs);
         echo json_encode($data);
     }
 
-    public function updateDepartemen()
+    public function updateKategoriItrs()
     {
-        $this->_validateDepartemen('update');
-        $id_departemen = $this->request->getVar('id_departemen');
-        $task = $this->dbDepartemen->find($id_departemen);
+        $this->_validateKategoriItrs('update');
+        $id_kategori_itrs = $this->request->getVar('id_kategori_itrs');
+        $task = $this->dbKategoriItrs->find($id_kategori_itrs);
 
         $data = [
-            'id_departemen' => $id_departemen,
+            'id_kategori_itrs' => $id_kategori_itrs,
             'kode_epartemen' => $this->request->getVar('kode_epartemen'),
-            'nama_departemen' => $this->request->getVar('nama_departemen'),
+            'nama_kategori_itrs' => $this->request->getVar('nama_kategori_itrs'),
         ];
 
-        if ($this->dbDepartemen->save($data)) {
+        if ($this->dbKategoriItrs->save($data)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
         }
     }
 
-    public function deleteDepartemen($id_departemen)
+    public function deleteKategoriItrs($id_kategori_itrs)
     {
-        if ($this->dbDepartemen->delete($id_departemen)) {
+        if ($this->dbKategoriItrs->delete($id_kategori_itrs)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
         }
     }
 
-    public function saveDepartemen()
+    public function saveKategoriItrs()
     {
-        $this->_validateDepartemen('save');
+        $this->_validateKategoriItrs('save');
         $data = [
-            'kode_departemen' => $this->request->getVar('kode_departemen'),
-            'nama_departemen' => $this->request->getVar('nama_departemen'),
+            'kode_kategori_itrs' => $this->request->getVar('kode_kategori_itrs'),
+            'nama_kategori_itrs' => $this->request->getVar('nama_kategori_itrs'),
         ];
 
-        if ($this->dbDepartemen->save($data)) {
+        if ($this->dbKategoriItrs->save($data)) {
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false]);
         }
     }
 
-    public function _validateDepartemen($method)
+    public function _validateKategoriItrs($method)
     {
-        if (!$this->validate($this->dbDepartemen->getRulesValidation($method))) {
+        if (!$this->validate($this->dbKategoriItrs->getRulesValidation($method))) {
             $validation = \Config\Services::validation();
             $data = [];
             $data['error_string'] = [];
             $data['inputerror'] = [];
             $data['status'] = true;
 
-            if ($validation->hasError('kode_departemen')) {
-                $data['inputerror'][] = 'kode_departemen';
-                $data['error_string'][] = $validation->getError('kode_departemen');
+            if ($validation->hasError('kode_kategori_itrs')) {
+                $data['inputerror'][] = 'kode_kategori_itrs';
+                $data['error_string'][] = $validation->getError('kode_kategori_itrs');
                 $data['status'] = false;
             }
-            if ($validation->hasError('nama_departemen')) {
-                $data['inputerror'][] = 'nama_departemen';
-                $data['error_string'][] = $validation->getError('nama_departemen');
+            if ($validation->hasError('nama_kategori_itrs')) {
+                $data['inputerror'][] = 'nama_kategori_itrs';
+                $data['error_string'][] = $validation->getError('nama_kategori_itrs');
                 $data['status'] = false;
             }
 

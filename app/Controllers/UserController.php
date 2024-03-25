@@ -7,6 +7,7 @@ use App\Models\GroupUsersModel;
 use App\Models\TaskModel;
 use App\Models\StokModel;
 use App\Models\LisensiModel;
+use App\Models\DepartemenModel;
 
 use App\Controllers\BaseController;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -20,6 +21,7 @@ class UserController extends BaseController
     protected $dbTask;
     protected $dbStok;
     protected $dbLisensi;
+    protected $dbDepartemen;
     public function __construct()
     {
         $this->dbUser = new UserModel();
@@ -27,16 +29,17 @@ class UserController extends BaseController
         $this->dbTask = new TaskModel();
         $this->dbStok = new StokModel();
         $this->dbLisensi = new LisensiModel();
+        $this->dbDepartemen = new DepartemenModel();
     }
     public function index()
     {
         $data = [
-            'title' => 'User',
-            'users' => $this->dbUser->findAll(),
-            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
-            'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
-            'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
-
+            'title'                 => 'User',
+            'users'                 => $this->dbUser->findAll(),
+            'countClose'            => $this->dbTask->where('task_status', '0')->countAllResults(),
+            'stockMinimAngka'       => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
+            'totalLisensiExpired'   => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
+            'departemens'           => $this->dbDepartemen->findAll(),
         ];
         return view('master/user', $data);
     }
@@ -189,6 +192,8 @@ class UserController extends BaseController
 
         $data = [
             'id' => $id,
+            'id_departemen' => $this->request->getVar('id_departemen'),
+            'nip' => $this->request->getVar('nip'),
             'email' => $this->request->getVar('email'),
             'username' => $this->request->getVar('username'),
             'password_hash' => Password::hash($this->request->getVar('password_hash')),
@@ -240,6 +245,8 @@ class UserController extends BaseController
     {
         $this->_validateUser('save');
         $data = [
+            'id_departemen' => $this->request->getVar('id_departemen'),
+            'nip' => $this->request->getVar('nip'),
             'email' => $this->request->getVar('email'),
             'username' => $this->request->getVar('username'),
             'password_hash' => Password::hash($this->request->getVar('password_hash')),

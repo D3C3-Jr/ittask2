@@ -21,6 +21,11 @@
                         <i class="fas fa-edit ml-1 mr-3"></i> Ticket <?php if (in_groups('Administrator')) : ?> <?php if ($countClose) : ?><badge class="badge badge-danger badge-sm"><?= ($countClose) ?></badge> <?php else : '' ?> <?php endif; ?> <?php endif; ?>
                     </a>
                 </li>
+                <li class="<?= ($title == 'ITRS') ? 'active' : '' ?>">
+                    <a href="/itrs" class="svg-icon">
+                        <i class="fas fa-file-lines ml-1 mr-3"></i> ITRS
+                    </a>
+                </li>
                 <?php if (in_groups('Administrator')) : ?>
                     <li class="<?= ($title == 'Data Asset') ? 'active' : '' ?>">
                         <a href="/asset" class="svg-icon">
@@ -34,17 +39,17 @@
                     </li>
                     <li class="<?= ($title == 'Lisensi') ? 'active' : '' ?>">
                         <a href="/lisensi" class="svg-icon">
-                            <i class="fas fa-key ml-1 mr-3"></i> Stok <?php if (in_groups('Administrator')) : ?> <?php if ($totalLisensiExpired) : ?><badge class="badge badge-danger badge-sm"><?= ($totalLisensiExpired) ?></badge> <?php else : '' ?> <?php endif; ?> <?php endif; ?>
+                            <i class="fas fa-key ml-1 mr-3"></i> Lisensi <?php if (in_groups('Administrator')) : ?> <?php if ($totalLisensiExpired) : ?><badge class="badge badge-danger badge-sm"><?= ($totalLisensiExpired) ?></badge> <?php else : '' ?> <?php endif; ?> <?php endif; ?>
                         </a>
                     </li>
-                    <li class="<?= ($title == 'Departemen' || $title == 'User') ? 'active' : '' ?>">
+                    <li class="<?= ($title == 'Departemen' || $title == 'User' || $title == 'Kategori ITRS') ? 'active' : '' ?>">
                         <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
                             <i class="fas fa-cogs ml-1 mr-3"></i>
                             Master
                             <i class="las la-angle-right iq-arrow-right arrow-active"></i>
                             <i class="las la-angle-down iq-arrow-right arrow-hover"></i>
                         </a>
-                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User') ? '' : 'collapse' ?> " data-parent="#iq-sidebar-toggle">
+                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User' || $title == 'Kategori ITRS') ? '' : 'collapse' ?> " data-parent="#iq-sidebar-toggle">
                             <li class="<?= ($title == 'Departemen') ? 'active' : '' ?>">
                                 <a href="/departemen" class="svg-icon">
                                     <i class="fas fa-circle fa-sm"></i>
@@ -52,7 +57,15 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User') ? '' : 'collapse' ?>" data-parent="#iq-sidebar-toggle">
+                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User' || $title == 'Kategori ITRS') ? '' : 'collapse' ?> " data-parent="#iq-sidebar-toggle">
+                            <li class="<?= ($title == 'Kategori ITRS') ? 'active' : '' ?>">
+                                <a href="/kategori_itrs" class="svg-icon">
+                                    <i class="fas fa-circle fa-sm"></i>
+                                    <span class="ml-4">Kategori ITRS</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul id="otherpage" class="iq-submenu <?= ($title == 'Departemen' || $title == 'User' || $title == 'Kategori ITRS') ? '' : 'collapse' ?>" data-parent="#iq-sidebar-toggle">
                             <li class="<?= ($title == 'User') ? 'active' : '' ?>">
                                 <a href="/user" class="svg-icon">
                                     <i class="fas fa-circle fa-sm"></i>

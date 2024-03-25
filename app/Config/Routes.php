@@ -41,18 +41,35 @@ $routes->post('/asset/other/update', 'AssetController::updateOther', ['filter' =
 $routes->delete('/asset/other/delete/(:num)', 'AssetController::deleteOther/$1', ['filter' => 'role:Administrator']);
 $routes->post('/exportExcelOther', 'AssetController::exportExcelOther', ['filter' => 'role:Administrator']);
 
-$routes->get('/task', 'TaskController::index', ['filter' => 'role:Administrator, Guest']);
-$routes->get('/task/read', 'TaskController::readTask', ['filter' => 'role:Administrator, Guest']);
-$routes->post('/task/save', 'TaskController::saveTask', ['filter' => 'role:Administrator, Guest']);
-$routes->get('/task/detail/(:num)', 'TaskController::detailTask/$1', ['filter' => 'role:Administrator, Guest']);
-$routes->get('/task/edit/(:num)', 'TaskController::editTask/$1', ['filter' => 'role:Administrator, Guest']);
-$routes->post('/task/update', 'TaskController::updateTask', ['filter' => 'role:Administrator, Guest']);
-$routes->delete('/task/delete/(:num)', 'TaskController::deleteTask/$1', ['filter' => 'role:Administrator, Guest']);
-$routes->post('/exportExcelTask', 'TaskController::exportExcelTask', ['filter' => 'role:Administrator, Guest']);
+$routes->get('/task', 'TaskController::index', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->get('/task/read', 'TaskController::readTask', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->post('/task/save', 'TaskController::saveTask', ['filter' => 'role:Administrator,Manager, Guest']);
+$routes->get('/task/detail/(:num)', 'TaskController::detailTask/$1', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->get('/task/edit/(:num)', 'TaskController::editTask/$1', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->post('/task/update', 'TaskController::updateTask', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->delete('/task/delete/(:num)', 'TaskController::deleteTask/$1', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->post('/exportExcelTask', 'TaskController::exportExcelTask', ['filter' => 'role:Administrator, Manager, Guest']);
 
-$routes->get('/task/readTicketOpen', 'TaskController::readTicketOpen', ['filter' => 'role:Administrator, Guest']);
-$routes->get('/task/readTicketProses', 'TaskController::readTicketProses', ['filter' => 'role:Administrator, Guest']);
+$routes->get('/task/readTicketOpen', 'TaskController::readTicketOpen', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->get('/task/readTicketProses', 'TaskController::readTicketProses', ['filter' => 'role:Administrator, Manager, Guest']);
 
+
+$routes->get('/itrs', 'ItrsController::index', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->get('/itrs/read', 'ItrsController::readItrs', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->post('/itrs/save', 'ItrsController::saveItrs', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->get('/itrs/detail/(:num)', 'ItrsController::detailItrs/$1', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->get('/itrs/edit/(:num)', 'ItrsController::editItrs/$1', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->post('/itrs/update', 'ItrsController::updateItrs', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->delete('/itrs/delete/(:num)', 'ItrsController::deleteItrs/$1', ['filter' => 'role:Administrator, Manager, Guest']);
+$routes->post('/exportExcelItrs', 'ItrsController::exportExcelItrs', ['filter' => 'role:Administrator, Manager, Guest']);
+
+$routes->get('/kategori_itrs', 'KategoriItrsController::index', ['filter' => 'role:Administrator']);
+$routes->get('/kategori_itrs/read', 'KategoriItrsController::readKategoriItrs', ['filter' => 'role:Administrator']);
+$routes->post('/kategori_itrs/save', 'KategoriItrsController::saveKategoriItrs', ['filter' => 'role:Administrator']);
+$routes->get('/kategori_itrs/detail/(:num)', 'KategoriItrsController::detailKategoriItrs/$1', ['filter' => 'role:Administrator']);
+$routes->get('/kategori_itrs/edit/(:num)', 'KategoriItrsController::editKategoriItrs/$1', ['filter' => 'role:Administrator']);
+$routes->post('/kategori_itrs/update', 'KategoriItrsController::updateKategoriItrs', ['filter' => 'role:Administrator']);
+$routes->delete('/kategori_itrs/delete/(:num)', 'KategoriItrsController::deleteKategoriItrs/$1', ['filter' => 'role:Administrator']);
 
 $routes->get('/departemen', 'DepartemenController::index', ['filter' => 'role:Administrator']);
 $routes->get('/departemen/read', 'DepartemenController::readDepartemen', ['filter' => 'role:Administrator']);

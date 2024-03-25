@@ -70,6 +70,25 @@
                 <input type="hidden" name="id" id="id">
                 <div class="modal-body">
                     <div class="row mb-1">
+                        <label for="id_departemen" class="col-sm-4 col-form-label">Departemen</label>
+                        <div class="col-sm-8">
+                            <select class="form-control form-control-sm" name="id_departemen" id="id_departemen">
+                                <option selected hidden disabled>Pilih Departemen</option>
+                                <?php foreach ($departemens as $departemen) : ?>
+                                    <option value="<?= $departemen['id_departemen'] ?>"><?= $departemen['nama_departemen'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <label for="nip" class="col-sm-4 col-form-label">NIP</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="nip" class="form-control form-control-sm" id="nip">
+                            <small class="help-block text-danger"></small>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
                         <label for="email" class="col-sm-4 col-form-label">Email</label>
                         <div class="col-sm-8">
                             <input type="text" name="email" class="form-control form-control-sm" id="email">
@@ -120,6 +139,7 @@
                                 <option selected hidden disabled>Pilih Hak Akses</option>
                                 <option value="1">Administator</option>
                                 <option value="2">Guest</option>
+                                <option value="3">Manager</option>
                             </select>
                             <small class="help-block text-danger"></small>
                         </div>

@@ -4,22 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class KategoriItrsModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'users';
-    protected $primaryKey       = 'id';
+    protected $table            = 'kategori_itrs';
+    protected $primaryKey       = 'id_kategori_itrs';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'email', 'username', 'id_departemen', 'nip', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
-        'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at',
-    ];
+    protected $allowedFields    = ['kode_kategori_itrs', 'nama_kategori_itrs'];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -31,26 +28,15 @@ class UserModel extends Model
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
-
     public function ajaxGetData($start, $length)
     {
-        $result = $this->orderBy('id', 'DESC')->findAll($length, $start);
+        $result = $this->orderBy('kode_kategori_itrs', 'ASC')->findAll($length, $start);
         return $result;
     }
 
     public function ajaxGetDataSearch($search, $start, $length)
     {
-        $result = $this->like('email', $search)->orLike('username', $search)->findAll($start, $length);
+        $result = $this->like('kode_kategori_itrs', $search)->orLike('nama_kategori_itrs', $search)->findAll($start, $length);
         return $result;
     }
 
@@ -65,37 +51,30 @@ class UserModel extends Model
 
     public function ajaxGetTotalSearch($search)
     {
-        $result = $this->like('email', $search)->orLike('username', $search)->countAllResults();
+        $result = $this->like('id_kategori_itrs', $search)->countAllResults();
         return $result;
     }
 
     public function getRulesValidation($method = null)
     {
         if ($method == 'save') {
-            $email = 'required|is_unique[users.email]';
+            $kode_kategori_itrs = 'required|is_unique[kategori_itrs.kode_kategori_itrs]';
         } else {
-            $email = 'required';
+            $kode_kategori_itrs = 'required';
         }
 
         $rulesValidation = [
-            'email' => [
-                'rules' => $email,
-                'label' => 'Email',
+            'kode_kategori_itrs' => [
+                'rules' => $kode_kategori_itrs,
+                'label' => 'Kode Kategori',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                     'is_unique' => '{field} Sudah ada',
                 ],
             ],
-            'username' => [
+            'nama_kategori_itrs' => [
                 'rules' => 'required',
-                'label' => 'Username',
-                'errors' => [
-                    'required' => '{field} Harus di isi',
-                ],
-            ],
-            'password_hash' => [
-                'rules' => 'required',
-                'label' => 'Username',
+                'label' => 'Nama Kategori',
                 'errors' => [
                     'required' => '{field} Harus di isi',
                 ],

@@ -63,8 +63,8 @@ class AssetController extends BaseController
         $jumlahTotalProyektor = $this->dbProyektor->countAllResults();
         $persentaseProyektorSpare = $jumlahBagianProyektorSpare / $jumlahTotalProyektor * 100;
         $data = [
-            'title' => 'Data Asset',
-            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'title'                     => 'Data Asset',
+            'countClose'                => $this->dbTask->where('task_status', '0')->countAllResults(),
             'computerPersentaseAktif'   => ceil($persentaseComputerAktif),
             'computerAktif'             => $this->dbComputer->like('status', '1')->countAllResults(),
             'computerPersentaseSpare'   => floor($persentaseComputerSpare),

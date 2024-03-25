@@ -70,6 +70,8 @@
     <script src="<?= base_url() ?>/assets/js/myjs/departemen.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/user.js"></script>
     <script src="<?= base_url() ?>/assets/js/myjs/lisensi.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/kategori_itrs.js"></script>
+    <script src="<?= base_url() ?>/assets/js/myjs/itrs.js"></script>
 
     <!-- Backend Bundle JavaScript -->
     <script src="<?= base_url() ?>/assets/js/backend-bundle.min.js"></script>

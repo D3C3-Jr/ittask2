@@ -13,7 +13,7 @@ class TaskModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_user', 'tanggal', 'id_departemen', 'plant', 'masalah', 'penyelesaian', 'status', 'frekuensi'];
+    protected $allowedFields    = ['id_user', 'tanggal', 'id_departemen', 'plant', 'masalah', 'penyelesaian', 'task_status', 'frekuensi'];
 
     // Dates
     protected $useTimestamps = true;
@@ -47,18 +47,18 @@ class TaskModel extends Model
     public function getDepartemenHome()
     {
         if (in_groups('Administrator')) {
-            $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
+            $result = $this->where('task_status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
         } else {
-            $result = $this->where('status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'ASC')->findAll();
+            $result = $this->where('task_status', '0')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'ASC')->findAll();
         }
         return $result;
     }
     public function getDepartemenHomeProses()
     {
         if (in_groups('Administrator')) {
-            $result = $this->where('status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
+            $result = $this->where('task_status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->orderBy('tanggal', 'ASC')->findAll();
         } else {
-            $result = $this->where('status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'ASC')->findAll();
+            $result = $this->where('task_status', '1')->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('id_user', user_id())->orderBy('tanggal', 'ASC')->findAll();
         }
         return $result;
     }
@@ -66,17 +66,17 @@ class TaskModel extends Model
     // TICKET OPEN
     public function ajaxGetDataTicketOpen($start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '0')->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('task_status', '0')->orderBy('tanggal', 'DESC')->findAll($length, $start);
         return $result;
     }
     public function ajaxGetDataSearchTicketOpen($search, $start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '0')->findAll($start, $length);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('task_status', '0')->findAll($start, $length);
         return $result;
     }
     public function ajaxGetTotalTicketOpen()
     {
-        $result = $this->where('status', '0')->countAllResults();
+        $result = $this->where('task_status', '0')->countAllResults();
         if (isset($result)) {
             return $result;
         }
@@ -87,17 +87,17 @@ class TaskModel extends Model
     // TICKET PROSES
     public function ajaxGetDataTicketProses($start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '1')->orderBy('tanggal', 'DESC')->findAll($length, $start);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('task_status', '1')->orderBy('tanggal', 'DESC')->findAll($length, $start);
         return $result;
     }
     public function ajaxGetDataSearchTicketProses($search, $start, $length)
     {
-        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('status', '1')->findAll($start, $length);
+        $result = $this->join('departemen', 'departemen.id_departemen = task.id_departemen', 'left')->where('task_status', '1')->findAll($start, $length);
         return $result;
     }
     public function ajaxGetTotalTicketProses()
     {
-        $result = $this->where('status', '1')->countAllResults();
+        $result = $this->where('task_status', '1')->countAllResults();
         if (isset($result)) {
             return $result;
         }

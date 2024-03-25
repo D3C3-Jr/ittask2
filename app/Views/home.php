@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <p class="container">
-                    Merupakan sistem layanan Open Ticket (Request) bagi para User, khusus nya karyawan PT. TJForge Indonesia untuk meminta berbagai permintaan kepada Departement IT perihal IT.
+                    Merupakan sistem layanan Open Ticket (Request) bagi para User, khusus nya karyawan PT. TJForge Indonesia untuk meminta berbagai permintaan kepada Departement IT perihal ITp.
                 </p>
             </div>
         </div>

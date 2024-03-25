@@ -39,7 +39,7 @@ class HomeController extends BaseController
             'stockMinimData'            => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->find(),
             'lisensi'                   => $this->dbLisensi->countAllResults(),
             'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
-            'countClose'                => $this->dbTask->where('status', '0')->countAllResults(),
+            'countClose'                => $this->dbTask->where('task_status', '0')->countAllResults(),
             'countStok'                => $this->dbStok->where('stok', '0')->countAllResults(),
         ];
         return view('home', $data);

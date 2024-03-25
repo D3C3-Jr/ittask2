@@ -21,8 +21,8 @@ class LisensiController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Lisensi',
-            'countClose'    => $this->dbTask->where('status', '0')->countAllResults(),
+            'title'                     => 'Lisensi',
+            'countClose'                => $this->dbTask->where('task_status', '0')->countAllResults(),
             'totalLisensiExpired'       => $this->dbLisensi->getTotalDataKurangDariTanggalSekarang(),
             'lisensiValid'              => $this->dbLisensi->getDataKurangDariTanggalSekarang(),
             'stockMinimAngka'           => $this->dbStok->orderBy('stok', 'ASC')->where('jenis_barang', 'Cair')->where('stok <', 3)->countAllResults(),
